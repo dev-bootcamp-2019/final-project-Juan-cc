@@ -20,6 +20,12 @@ contract BusCompany{
     address private admin;
     address[] internal tokens;
 
+    // Company specific fields
+    string name;
+    string description;
+    string country;
+    string phone;
+
     constructor() public {
         admin = msg.sender;
     }
