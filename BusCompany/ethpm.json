@@ -1,0 +1,16 @@
+{
+    "package_name": "kmBlockchain",
+    "version": "0.0.1",
+    "description": "Bus company token factory",
+    "authors": [
+      "Juan Castellon <jcc.utn@gmail.com>"
+    ],
+    "keywords": [
+      "ethereum",
+      "erc20"
+    ],
+    "dependencies": {
+      "tokens": "1.0.0"
+    },
+    "license": "MIT"
+  }
