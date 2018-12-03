@@ -1,3 +1,8 @@
 final-project-Juan-cc
 
-truffle install - to download ERC20 package.
+Installing ERC20 package
+truffle install
+
+Installing react-bootstrap style
+$ npm install --save react react-dom 
+$ npm install --save react-bootstrap
