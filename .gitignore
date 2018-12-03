@@ -3,3 +3,5 @@ build/
 workspace\.code-workspace
 
 \.vscode/
+
+BusCompany/package-lock\.json
