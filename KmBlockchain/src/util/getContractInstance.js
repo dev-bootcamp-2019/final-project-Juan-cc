@@ -14,17 +14,11 @@ const getContractInstance = async (web3, contractDefinition) => {
    " Ethereum:" +  protocol +
    " Provider:" + web3.eth.currentProvider + 
    " Network:" + networkId)
-   var instance = null;
-  try{
-    const deployedAddress = contractDefinition.networks[networkId].address
 
-    // create the instance
-    instance = new web3.eth.Contract(contractDefinition.abi, deployedAddress)  
-  } catch (error) {
-    // Catch any errors for any of the above operations.
-    alert('Failed to load contract [' + contractDefinition.contractName + '] on network id:' + networkId + ' Check console for details.')
-    console.log(error)
-  }
+  const deployedAddress = contractDefinition.networks[networkId].address
+
+  // create the instance
+  const instance = new web3.eth.Contract(contractDefinition.abi, deployedAddress)
   return instance
 }
 

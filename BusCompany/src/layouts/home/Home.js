@@ -8,9 +8,8 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 
 
 import React, { Component } from 'react'
-//import { uport, web3 } from '../../util/connectors'
-
-import getWeb3 from '../../util/getWeb3'
+//import { web3 } from '../../util/connectors'
+import getWeb3 from '../../util/getWeb3';
 
 import getContractInstance from '../../util/getContractInstance'
 import contractDefinition from '../../../build/contracts/SimpleStorage.json'
@@ -18,7 +17,7 @@ import contractDefinition from '../../../build/contracts/SimpleStorage.json'
 
 class Home extends Component {
 
-  state = { storageValue: 0, web3: null, accounts: null, contract: null }
+  state = { web3: null, storageValue: 0, accounts: null, contract: null }
 
   componentDidMount = async () => {
     try {
