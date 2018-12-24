@@ -12,11 +12,11 @@ contract TokenFactory is Owned, Storage {
     //event TokenFactoryTokenCreated(address _bcCompany, address _token, string _name, string _symbol, uint256 _initialAmount);
     //event TokenFactoryPositionAvailable(uint8 position);
 
-     constructor(address deployer) 
+    /* constructor(address deployer) 
         public
     { 
         owner = deployer;
-    }
+    }*/
     
     function createTokenForBCCompany(address _bcCompany, string memory _name, string memory _symbol, uint256 _initialAmount) 
         public

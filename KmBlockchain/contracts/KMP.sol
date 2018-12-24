@@ -19,8 +19,8 @@ contract KMP is Owned, Storage {
     event KMTokenAssigned(address _from, address _to, uint256 _amount);
 
     constructor() public {
-        bcFactory = new BCFactory(msg.sender);
-        tkFactory = new TokenFactory(msg.sender);
+        bcFactory = new BCFactory(); // Owner will be KMP contract.
+        tkFactory = new TokenFactory(); // Owner will be KMP contract.
     }
    
     

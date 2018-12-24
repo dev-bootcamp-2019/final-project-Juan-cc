@@ -13,16 +13,15 @@ contract BCFactory is Owned, Storage {
     //event BCFactoryCompanyCreated(address companyAddress, string _companyName, string _phone, string _url);
     //event BCFactoryPosition(uint8 position);
 
-    constructor(address deployer) 
+    /*constructor(address deployer) 
         public
     { 
         owner = deployer;
-    }
+    }*/
     
     
     function createBCCompany(string memory _companyName, string memory _phone, string memory _url, string memory _did, address _uPortAddress)
         public 
-       // ownerOnly(msg.sender) // I won't control WHO because I want anybody to create companies. 
         returns (BC)
     { 
         // emit BCFactoryMsgSender(msg.sender);
@@ -51,4 +50,11 @@ contract BCFactory is Owned, Storage {
        return MAX_OWNER_COMPANIES; // No empty spot available. 
     }
 
+    function nextCompanyAvailablePositionUtil()
+        public
+        view
+        returns (uint8)
+    {
+        return nextCompanyAvailablePosition();
+    }
 }
