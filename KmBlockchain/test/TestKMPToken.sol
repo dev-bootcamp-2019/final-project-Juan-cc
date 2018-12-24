@@ -5,9 +5,12 @@ import "truffle/DeployedAddresses.sol";
 import "../contracts/KMP.sol";
 import "../contracts/BC.sol";
 import "../contracts/KMToken.sol";
+import "../contracts/ThrowProxy.sol";
 
 
-contract TestKMP {
+contract TestKMPToken {
+
+    uint public initialBalance = 50 ether;
 
     // Global variables
     KMP kmp;
@@ -44,6 +47,11 @@ contract TestKMP {
         Assert.equal(userBalance, TOTAL_SUPPLY, "User token balance incorrect");
     }
 
+    function testGetUserTokenZeroBalance() public{
+        uint256 userBalance = kmp.getUserTokenBalance(address(bc), address(token), SOME_ADDRESS);
+        Assert.equal(userBalance, 0, "User token balance incorrect");
+    }
+
     function testTokenInBC() public {
         bool result = kmp.tokenInBC(address(bc), address(token));
         Assert.isTrue(result, "Token not found.");
@@ -52,4 +60,35 @@ contract TestKMP {
         Assert.isFalse(result, "Non-Existent Token was found, but shouldn't.");
     }
 
+    function testFindBCOwner() public {
+        address owner = kmp.findBCownerUtil(address(bc));
+        Assert.equal(owner, bc.owner(), "BC owner found not correct.");
+    }
+
+    function testFindBCOwnerNotPresent() public {
+        bytes memory payload = abi.encodeWithSignature("findBCownerUtil(address)", SOME_ADDRESS);
+        (bool result,) = address(kmp).call(payload);
+        Assert.isFalse(result, "Exception was expected finding BC owner.");
+    }
+
+   /* function testFindBCOwnerNotFoundProxy() public {
+        ThrowProxy proxy = new ThrowProxy(address(kmp)); 
+        kmp.modifyOwner(address(proxy));
+        KMP(address(proxy)).findBCownerUtil(address(bc));
+        bool r = proxy.execute.gas(8000000000)(); 
+        Assert.isTrue(r, "Should be true!");
+    } */
+
+    function testFindBCOwnerNotFound() public {
+        bytes memory payload = abi.encodeWithSignature("findBCownerUtil(address)", SOME_ADDRESS);
+        (bool result, ) = address(kmp).call(payload);
+        Assert.isFalse(result, "Onwer found while we shouldn't find this fake owner.");
+    } 
+
+    function testKmpOwner() public {
+        Assert.equal(address(kmp.owner()), address(0xA5997F29f13E85d34C7112ff92cC113cE62FFAD4), "Kmp owner is not Test contract, it's accounts[0].");
+    }
+
 }
+
+

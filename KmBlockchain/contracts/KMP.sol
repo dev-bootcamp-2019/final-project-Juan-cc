@@ -23,13 +23,6 @@ contract KMP is Owned, Storage {
         tkFactory = new TokenFactory(msg.sender);
     }
    
-    function factoryOwnerUtil() 
-        public
-        view
-        returns (address)
-    {
-        return bcFactory.owner();   
-    }    
     
     function testCreateBC() 
         public 
@@ -56,15 +49,14 @@ contract KMP is Owned, Storage {
         returns (uint256 aBalance)
     {
         require(msg.sender == findBCowner(_company), "Only company owner can query token balances.");
-        require(EMPTY_ADDRESS != findBCToken(_company, _token)); 
+        require(EMPTY_ADDRESS != findBCToken(_company, _token), "Token not found."); 
         bytes memory payload = abi.encodeWithSignature("balanceOf(address)", _user);
         (bool result, bytes memory returnData) = _token.staticcall(payload);
         if (result) {
             emit KMMsgSender(msg.sender);
             aBalance = abi.decode(returnData, (uint256));
-            return aBalance;
         }
-         
+        return aBalance;
     }
     
     
@@ -73,7 +65,7 @@ contract KMP is Owned, Storage {
     public 
    // ownerOnly(msg.sender) I want anybody to be able to create a new BC on my platform.
     returns(BC){
-       (bool companyCreated, bytes memory returnData) = address(bcFactory).delegatecall(
+        (bool companyCreated, bytes memory returnData) = address(bcFactory).delegatecall(
             abi.encodeWithSignature("createBCCompany(string,string,string,string,address)",
             _companyName, _phone, _url, _did, _uPortAddress));
         if (companyCreated){
@@ -89,7 +81,6 @@ contract KMP is Owned, Storage {
     function findBCownerUtil(address company) // Util methods are for development purposes only. 
         public
         view
-        //ownerOnly(msg.sender)
         returns (address)
     {
         return findBCowner(company);
@@ -110,6 +101,7 @@ contract KMP is Owned, Storage {
         revert("Company address not found.");
     }
     
+
     function tokenInBC(address aCompany, address aToken)
         public 
         view
