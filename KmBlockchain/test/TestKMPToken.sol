@@ -10,8 +10,6 @@ import "../contracts/ThrowProxy.sol";
 
 contract TestKMPToken {
 
-    uint public initialBalance = 50 ether;
-
     // Global variables
     KMP kmp;
     BC bc;
@@ -71,7 +69,7 @@ contract TestKMPToken {
         Assert.isFalse(result, "Exception was expected finding BC owner.");
     }
 
-   /* function testFindBCOwnerNotFoundProxy() public {
+    /*function testFindBCOwnerNotFoundProxy() public {
         ThrowProxy proxy = new ThrowProxy(address(kmp)); 
         kmp.modifyOwner(address(proxy));
         KMP(address(proxy)).findBCownerUtil(address(bc));

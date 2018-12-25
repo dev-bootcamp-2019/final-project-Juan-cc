@@ -9,8 +9,6 @@ import "../contracts/KMToken.sol";
 
 contract TestKMPBC {
 
-    uint public initialBalance = 50 ether;
-
     // Global variables
     KMP kmp;
     BC bc;

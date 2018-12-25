@@ -7,8 +7,6 @@ import "../contracts/BCFactory.sol";
 
 contract TestBCFactory {
 
-    uint public initialBalance = 50 ether;
-
     // Global variables
     BCFactory factory;
     BCFactory emptyFactory;
@@ -19,10 +17,9 @@ contract TestBCFactory {
  
     function beforeAll() public {
         factory = BCFactory(DeployedAddresses.BCFactory());
-
     }
     
-    function testNextCompanyAvailablePositionEmpty() public view {
+    function testNextCompanyAvailablePositionEmpty() public {
         uint256 position = factory.nextCompanyAvailablePositionUtil();
         Assert.isZero(position, "The first position available should be Zero.");
     }
@@ -32,6 +29,15 @@ contract TestBCFactory {
         string memory companyName = "Some  Name";
         BC newBc = factory.createBCCompany(companyName, "123456789", "www.google.com", "did:eth:0x2f3fcf4c3", SOME_ADDRESS);
         Assert.equal(newBc.name(), companyName, "Company name is incorrect.");
+        uint256 position = factory.nextCompanyAvailablePositionUtil();
+        Assert.equal(position, 1, "The first position available should be 1.");
+    }
+
+
+    function testNextCompanyAvailablePosition1() public {
+        uint256 position = factory.nextCompanyAvailablePositionUtil();
+        Assert.equal(position, 1, "We should be in position 1.");
+
     }
 
     function testCompleteBCArray() public {
@@ -41,14 +47,16 @@ contract TestBCFactory {
     }
 
     function testCreateBCCompanyMaxLimitException() public {
-        bytes memory payload = abi.encodeWithSignature("createBCCompany(string,string,string,string,address)", "Out of Range Name", "123456789", "www.google.com", "did:eth:0x2f3fcf4c3", SOME_ADDRESS);
+        bytes memory payload = abi.encodeWithSignature(
+            "createBCCompany(string,string,string,string,address)", 
+            "Out of Range Name", "123456789", "www.google.com", "did:eth:0x2f3fcf4c3", SOME_ADDRESS);
         (bool result, ) = address(factory).call(payload);
         Assert.isFalse(result, "Company MAX LIMIT not reached.");
     }
 
-    function testNextCompanyAvailablePositionFull() public view {
-        uint8 position = factory.nextCompanyAvailablePositionUtil();
-        require(position == factory.MAX_OWNER_COMPANIES(), "There should not be any position available.");
+    function testNextCompanyAvailablePositionMAX() public {
+        uint256 position = factory.nextCompanyAvailablePositionUtil();
+        Assert.equal(position, factory.MAX_OWNER_COMPANIES(), "We should have reached MAX LIMIT (MAX_OWNER_COMPANIES).");
     }
 
 
