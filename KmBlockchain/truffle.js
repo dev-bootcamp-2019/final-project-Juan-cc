@@ -7,7 +7,7 @@ module.exports = {
       port: 8545,
       network_id: "*", // Match any network id
       gas: 9000000,
-      gasLimit: 9000000000
+      gasLimit: 900000000
     }
   }
 };
