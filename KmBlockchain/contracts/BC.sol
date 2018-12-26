@@ -35,7 +35,7 @@ contract BC is Owned {
         public
         ownerOnly(msg.sender)
     {
-        // TOTO: before selfdestruction delegate token ownership to newCompanyContract.
+        // TODO: before selfdestruction delegate token ownership to newCompanyContract.
         selfdestruct(msg.sender);
         emit BCTerminated(address(this), name, phone, url);
     }

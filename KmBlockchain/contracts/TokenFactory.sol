@@ -31,7 +31,16 @@ contract TokenFactory is Owned, Storage {
         return newToken;
     }
     
-       function findBCowner(address aCompany)
+
+    function findBCownerUtil(address aCompany)
+        public
+        view
+        returns (address)
+    {
+        return findBCowner(aCompany);
+    }
+
+    function findBCowner(address aCompany)
         internal
         view
         returns (address)
@@ -45,7 +54,7 @@ contract TokenFactory is Owned, Storage {
         revert("Company address not found.");
     }
     
-     function nextTokenAvailablePosition(address aCompany)
+    function nextTokenAvailablePosition(address aCompany)
         internal
         view
         returns (uint8)

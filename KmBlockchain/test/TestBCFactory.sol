@@ -9,7 +9,6 @@ contract TestBCFactory {
 
     // Global variables
     BCFactory factory;
-    BCFactory emptyFactory;
 
 
   // Global constants
