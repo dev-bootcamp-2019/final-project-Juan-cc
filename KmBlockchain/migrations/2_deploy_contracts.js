@@ -6,7 +6,7 @@ var BCFactory = artifacts.require("BCFactory");
 
 module.exports = function(deployer) {
   deployer.deploy(SimpleStorage);
-  deployer.deploy(KMP);
+  deployer.deploy(KMP); 
   deployer.deploy(Owned);
   deployer.deploy(BCFactory);
 

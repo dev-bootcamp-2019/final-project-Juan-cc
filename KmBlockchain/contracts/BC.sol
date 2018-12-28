@@ -16,7 +16,7 @@ contract BC is Owned {
     event BCMsgSender(address indexed msgSender);
     event BCTerminated(address indexed companyAddress, string _companyName, string _phone, string _url);
 
-    constructor(address _owner, string memory _companyName, string memory _phone, string memory _url, string memory _did, address _uPortAddress) 
+    constructor(address _owner, string memory _companyName, string memory _phone, string memory _url, string memory _did, address _uPortAddress)
         public 
     {
         owner = _owner;   

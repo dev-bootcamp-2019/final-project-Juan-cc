@@ -8,8 +8,6 @@ import "../contracts/Owned.sol";
 
 contract TestOwned {
 
-    uint public initialBalance = 50 ether;
-
     // Global variables
     Owned newOwnedInstance;
     Owned deployedOwned;    

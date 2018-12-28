@@ -5,10 +5,10 @@ import "truffle/DeployedAddresses.sol";
 import "../contracts/KMP.sol";
 import "../contracts/BC.sol";
 import "../contracts/KMToken.sol";
-import "../contracts/ThrowProxy.sol";
+import "./ThrowProxy.sol";
 
 
-contract TestKMPToken {
+contract TestKMP {
 
     // Global variables
     KMP kmp;
@@ -69,23 +69,12 @@ contract TestKMPToken {
         Assert.isFalse(result, "Exception was expected finding BC owner.");
     }
 
-    /*function testFindBCOwnerNotFoundProxy() public {
-        ThrowProxy proxy = new ThrowProxy(address(kmp)); 
-        kmp.modifyOwner(address(proxy));
-        KMP(address(proxy)).findBCownerUtil(address(bc));
-        bool r = proxy.execute.gas(8000000000)(); 
-        Assert.isTrue(r, "Should be true!");
-    } */
-
     function testFindBCOwnerNotFound() public {
         bytes memory payload = abi.encodeWithSignature("findBCownerUtil(address)", SOME_ADDRESS);
         (bool result, ) = address(kmp).call(payload);
         Assert.isFalse(result, "Onwer found while we shouldn't find this fake owner.");
     } 
 
-    function testKmpOwner() public {
-        Assert.equal(address(kmp.owner()), address(0xA5997F29f13E85d34C7112ff92cC113cE62FFAD4), "Kmp owner is not Test contract, it's accounts[0].");
-    }
 
 }
 

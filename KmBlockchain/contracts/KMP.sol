@@ -18,31 +18,21 @@ contract KMP is Owned, Storage {
     event KMReturnedBC(BC returnBC);
     event KMTokenAssigned(address _from, address _to, uint256 _amount);
 
-    constructor() public {
+    constructor() Owned() public {
         bcFactory = new BCFactory(); // Owner will be KMP contract.
         tkFactory = new TokenFactory(); // Owner will be KMP contract.
     }
    
-    
-    function testCreateBC() 
+    /*function platformSetup() 
         public 
-        returns (BC)
-    { 
-        address anAddress = 0xdA35deE8EDDeAA556e4c26268463e26FB91ff74f;
-        return createBCCompany("Company Name", "123456789", "www.google.com", "did:eth:0x2f3fcf4c3", anAddress);
-    }
-   
+        ownerOnly(msg.sender)
+    {
+        bcFactory = new BCFactory(); // Owner will be KMP contract.
+        tkFactory = new TokenFactory(); // Owner will be KMP contract.
     
-    function testCreateCompanyAndToken() public {
-        BC newCompany = testCreateBC();
-        testCreateToken(address(newCompany));
-    }
+    }*/
     
-    function testCreateToken(address anAddress) public{
-        createTokenForBCCompany(anAddress, "Tokenzito", "TKZT", 1000);
-    }
-    
-   
+      
      
     function getUserTokenBalance(address _company, address _token, address _user)
         public
@@ -136,7 +126,7 @@ contract KMP is Owned, Storage {
         
         require (msg.sender == findBCowner(_bcCompany), "Only company owner can create tokens.");
         
-       (bool tokenCreated, bytes memory returnData) = address(tkFactory).delegatecall(
+        (bool tokenCreated, bytes memory returnData) = address(tkFactory).delegatecall(
             abi.encodeWithSignature("createTokenForBCCompany(address,string,string,uint256)",
             _bcCompany, _name, _symbol, _initialAmount));
         if (tokenCreated){
@@ -148,27 +138,4 @@ contract KMP is Owned, Storage {
         
     }
     
-    function getTotalSupply(address token)
-        public
-        view
-        returns (uint256)
-    {
-        return KMToken(token).totalSupply();
-    }
-    
-    function getUserBalance(address token, address user)
-        public
-        view
-        returns (uint256)
-    {
-        return KMToken(token).balanceOf(user);
-    }
-    
-    function kmpOwner()
-        public
-        view
-        returns (address)
-    {
-        return owner;
-    }
 }
