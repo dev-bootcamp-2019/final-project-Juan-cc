@@ -11,7 +11,8 @@ contract ThrowProxy {
     }
 
     //prime the data using the fallback function.
-    function() external payable {
+    /** IMPORTANT: only works with functions without return value. */
+    function() external {
         data = msg.data;
     }
 

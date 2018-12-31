@@ -39,16 +39,17 @@ contract TestKMToken {
         Assert.equal(token.balanceOf(owner), (INITIAL_SUPPLY - AMOUNT_TO_TRANSFER), "New FAKE_ADDRESS balance should be AMOUNT_TO_TRANSFER");
     }
 
-    function testTransferException() public {
-        KMToken token = new KMToken(COMPANY, owner, NAME, SYMBOL, INITIAL_SUPPLY);
-        ThrowProxy proxy = new ThrowProxy(address(token));
-        KMToken(address(proxy)).transfer(FAKE_ADDRESS, AMOUNT_TO_TRANSFER);
-       // bool result = proxy.execute();
-        /*Assert.equal(token.balanceOf(FAKE_ADDRESS), EMPTY_BALANCE, "Balance of FAKE_ADDRESS should be 0");
-        token.transfer(FAKE_ADDRESS, AMOUNT_TO_TRANSFER);
-        Assert.equal(token.balanceOf(FAKE_ADDRESS), AMOUNT_TO_TRANSFER, "New FAKE_ADDRESS balance should be AMOUNT_TO_TRANSFER");
-        Assert.equal(token.balanceOf(owner), (INITIAL_SUPPLY - AMOUNT_TO_TRANSFER), "New FAKE_ADDRESS balance should be AMOUNT_TO_TRANSFER");*/
+    function testTransferFromAnotherAddressException() public {
+        KMToken token = new KMToken(COMPANY, FAKE_ADDRESS, NAME, SYMBOL, INITIAL_SUPPLY);
+        bytes memory payload = abi.encodeWithSignature("transfer(address,uint256)", owner, INITIAL_SUPPLY + 1);
+        (bool result, ) = address(token).call(payload);
+        Assert.isFalse(result, "I should get an error transferring from another account.");
     }
-    // Casos: transferirr mas de lo que tengo
-    // transferir desde otro msg.sender
+
+    function testExceedTransferAmount() public {
+        KMToken token = new KMToken(COMPANY, owner, NAME, SYMBOL, INITIAL_SUPPLY);
+        bytes memory payload = abi.encodeWithSignature("transfer(address,uint256)", FAKE_ADDRESS, INITIAL_SUPPLY + 1);
+        (bool result, ) = address(token).call(payload);
+        Assert.isFalse(result, "I should get an error transferring more than my balance");
+    }
 }
