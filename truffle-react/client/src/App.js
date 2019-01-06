@@ -106,7 +106,7 @@ class App extends Component {
   };
  
 
-  handleSubmitCompany = async (event) => {
+  handleCreateCompany = async (event) => {
     event.preventDefault();
     await this.handleAccountChange();
     const { accounts, contract, companyName, phone, url, did, ethadd } = this.state;
@@ -128,7 +128,7 @@ class App extends Component {
     this.setState({ [event.target.id]: event.target.value });
   };
 
-  handdleCreateToken = async (event) =>  {
+  handleCreateToken = async (event) =>  {
     event.preventDefault();
     await this.handleAccountChange();
     const { accounts, contract, companyAddress, tokenName, symbol, totalSupply } = this.state;
@@ -235,7 +235,7 @@ class App extends Component {
         <div>
           
           <h3>Create Company</h3>
-          <form onSubmit={this.handleSubmitCompany}>
+          <form onSubmit={this.handleCreateCompany}>
             <div>
               <div>Company name: <input type="text" id='companyName' defaultValue={ this.state.companyName } onChange={this.inputChangeHandler} /></div>
               <div>Phone: <input type="text" id='phone' defaultValue={this.state.phone} onChange={this.inputChangeHandler} /></div>
@@ -247,7 +247,8 @@ class App extends Component {
           </form>
 
           <h3>Create Company Token</h3>
-          <form onSubmit={this.handdleCreateToken}>
+          <form onSubmit={this.handleCreateToken
+      }>
             <div>
             <div>Company address:
               <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
