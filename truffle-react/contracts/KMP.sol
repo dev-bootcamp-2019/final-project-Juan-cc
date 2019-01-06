@@ -63,7 +63,7 @@ contract KMP is Owned, Storage {
             emit KMPCompanyCreated(address(newCompany), newCompany.name(), newCompany.owner());
             return newCompany;
         }
-        revert("Unfortunately your company was not created correctly. Please contact KMP Support. Reverting state changes."); 
+        revert("Your company was not created. Probably you reached MAX_LIMIT?. Reverting state changes."); 
     } 
     
     function returnTrue()
