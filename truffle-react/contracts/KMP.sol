@@ -22,15 +22,6 @@ contract KMP is Owned, Storage {
         bcFactory = new BCFactory(); // Owner will be KMP contract.
         tkFactory = new TokenFactory(); // Owner will be KMP contract.
     }
-   
-    /*function platformSetup() 
-        public 
-        ownerOnly(msg.sender)
-    {
-        bcFactory = new BCFactory(); // Owner will be KMP contract.
-        tkFactory = new TokenFactory(); // Owner will be KMP contract.
-    
-    }*/
     
       
      
@@ -66,12 +57,6 @@ contract KMP is Owned, Storage {
         revert("Your company was not created. Probably you reached MAX_LIMIT?. Reverting state changes."); 
     } 
     
-    function returnTrue()
-        external
-        returns (bool)
-    {
-        return true;
-    }
     
     function findBCownerUtil(address company) // Util methods are for development purposes only. 
         public
