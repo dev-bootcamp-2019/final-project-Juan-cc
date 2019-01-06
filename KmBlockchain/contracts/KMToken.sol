@@ -24,13 +24,14 @@ contract KMToken is Owned, ERC20, ERC20Detailed {
     constructor (address _company, address _owner, string memory tokenName, string memory tokenSymbol, uint256 initialSupply) 
         ERC20Detailed(tokenName, tokenSymbol, NO_DECIMALS)
         ERC20()
+        Owned()
         public 
     {
-        owner = _owner;  // TODO: refactor create from factory but transfer ownership
+        owner = _owner;  // TODO: refactor create from factory, but then transfer ownership
         tokenFactory = msg.sender;
         company = _company;
         _mint(_owner, initialSupply);
     }
-   
+    
 }
 
