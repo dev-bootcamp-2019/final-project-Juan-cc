@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import KMP from "./contracts/KMP.json";
+import KMToken from "./contracts/KMToken.json";
 import getWeb3 from "./utils/getWeb3";
 import truffleContract from "truffle-contract";
 
@@ -7,11 +8,11 @@ import "./App.css";
 
 class App extends Component {
 
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
-
   constructor(props) {
     super(props);
     this.state = {
+      storageValue: 0, web3: null, accounts: null, contract: null,
+      activeAccount: '',
       companyCounter: 1,
       tokenCounter: 1,
       companyName: 'some name-1',
@@ -25,13 +26,21 @@ class App extends Component {
       totalSupply: '1000'
     };
 
-    //this.handleChange = this.handleChange.bind(this);
-
-    //this.handleSubmitCompany = this.handleSubmitCompany.bind(this);
-    //this.handleSubmitToken = this.handleSubmitToken.bind(this);
 
   }
   
+  handleAccountChange = async () => {
+    const { web3, activeAccount } = this.state;
+    const refreshedAccounts = await web3.eth.getAccounts();
+    if (refreshedAccounts[0] !== activeAccount){
+      this.setState({
+        accounts: refreshedAccounts,
+        activeAccount: refreshedAccounts[0]
+      });
+      alert("Account[0] changed -> Refresh page");
+    }
+  }
+
   componentDidMount = async () => {
     
     try {
@@ -48,7 +57,12 @@ class App extends Component {
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }/*, this.runExample*/);
+      this.setState({ 
+        web3, 
+        accounts, 
+        contract: instance,
+        activeAccount: accounts[0]
+      }/*, this.runExample*/);
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -94,6 +108,7 @@ class App extends Component {
 
   handleSubmitCompany = async (event) => {
     event.preventDefault();
+    await this.handleAccountChange();
     const { accounts, contract, companyName, phone, url, did, ethadd } = this.state;
     var result;
     try {
@@ -113,8 +128,9 @@ class App extends Component {
     this.setState({ [event.target.id]: event.target.value });
   };
 
-  handleSubmitToken = async (event) =>  {
+  handdleCreateToken = async (event) =>  {
     event.preventDefault();
+    await this.handleAccountChange();
     const { accounts, contract, companyAddress, tokenName, symbol, totalSupply } = this.state;
     var result;
     try {
@@ -130,38 +146,176 @@ class App extends Component {
     
   };
 
+  handleUserTokenBalance = async (event) =>  {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const { accounts, contract, companyAddress, tokenAddress, userAddress } = this.state;
+    var result;
+    try {
+      result = await contract.getUserTokenBalance.call(companyAddress, tokenAddress, userAddress, { from: accounts[0]});
+      console.log(result);
+      this.setState({
+        userTokenBalance: result.toString()
+      });
+    } catch (err) {
+      //console.log(err);
+    }
+  };
+
+
+  handleFindBCOwner = async (event) =>  {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const { accounts, contract, companyAddress } = this.state;
+    var result;
+    try {
+      result = await contract.findBCownerUtil.call(companyAddress, { from: accounts[0]});
+      console.log(result);
+      this.setState({
+        companyOwner: result.toString()
+      });
+    } catch (err) {
+      //console.log(err);
+    }
+  };
+
+
+  handleFindCompanyToken = async (event) =>  {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const { accounts, contract, companyAddress, tokenAddress} = this.state;
+    var result;
+    try {
+      result = await contract.findBCToken.call(companyAddress, tokenAddress, { from: accounts[0]});
+      console.log(result);
+      this.setState({
+        tokenFound: result.toString()
+      })
+    } catch (err) {
+      //console.log(err);
+    }
+  };
+
+  handleTransferToken = async (event) =>  {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const { accounts, web3, tokenAddress, destUser, amountToTransfer} = this.state;
+    const Contract = await truffleContract(KMToken);
+    Contract.setProvider(web3.currentProvider);
+    const tokenContract = await Contract.at(tokenAddress);
+
+    var result;
+    try {
+      result = await tokenContract.transfer( destUser, amountToTransfer, { from: accounts[0]});
+      console.log(result);
+      this.setState({
+        transferResult: result.toString()
+      })
+    } catch (err) {
+      //console.log(err);
+    }
+  };
+
+  handleCurrentAddress = async (event) => {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const {accounts} = this.state;
+    this.setState({
+      userAddress: accounts[0]
+    });
+  }
+
+
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
       <div className="App"> 
-        <h2>Create Company</h2>
-         <form onSubmit={this.handleSubmitCompany}>
-          <div>
-            <div>Company name: <input type="text" id='companyName' defaultValue={ this.state.companyName } onChange={this.inputChangeHandler} /></div>
-            <div>Phone: <input type="text" id='phone' defaultValue={this.state.phone} onChange={this.inputChangeHandler} /></div>
-            <div>URL: <input type="text" id='url' defaultValue={this.state.url} onChange={this.inputChangeHandler} /></div>
-            <div>DID: <input type="text" id='did' defaultValue={this.state.did} onChange={this.inputChangeHandler} /></div>
-            <div>Eth add: <input type="text" id='ethadd' defaultValue={this.state.ethadd} onChange={this.inputChangeHandler}  /></div>
-          </div>
-          <input type="submit" value="Create company" />
-        </form>
-        <h2>Create Token</h2>
-         <form onSubmit={this.handleSubmitToken}>
-          <div>
-          <div>Company address:
-            <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
-          <div>Token name:
-            <input type="text" id='tokenName' defaultValue={this.state.tokenName} onChange={this.inputChangeHandler} /></div>
-            <div>Symbol:
-            <input type="text" id='symbol' defaultValue={this.state.symbol} onChange={this.inputChangeHandler} /></div>
-            <div>Total supply:
-            <input type="text" id='totalSupply' defaultValue={this.state.totalSupply} onChange={this.inputChangeHandler} /></div>
-          </div>
-          <input type="submit" value="Create Token" />
-        </form>
+        <div>
+          
+          <h3>Create Company</h3>
+          <form onSubmit={this.handleSubmitCompany}>
+            <div>
+              <div>Company name: <input type="text" id='companyName' defaultValue={ this.state.companyName } onChange={this.inputChangeHandler} /></div>
+              <div>Phone: <input type="text" id='phone' defaultValue={this.state.phone} onChange={this.inputChangeHandler} /></div>
+              <div>URL: <input type="text" id='url' defaultValue={this.state.url} onChange={this.inputChangeHandler} /></div>
+              <div>DID: <input type="text" id='did' defaultValue={this.state.did} onChange={this.inputChangeHandler} /></div>
+              <div>Eth add: <input type="text" id='ethadd' defaultValue={this.state.ethadd} onChange={this.inputChangeHandler}  /></div>
+            </div>
+            <input type="submit" value="Create company" />
+          </form>
 
+          <h3>Create Company Token</h3>
+          <form onSubmit={this.handdleCreateToken}>
+            <div>
+            <div>Company address:
+              <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
+            <div>Token name:
+              <input type="text" id='tokenName' defaultValue={this.state.tokenName} onChange={this.inputChangeHandler} /></div>
+              <div>Symbol:
+              <input type="text" id='symbol' defaultValue={this.state.symbol} onChange={this.inputChangeHandler} /></div>
+              <div>Total supply:
+              <input type="text" id='totalSupply' defaultValue={this.state.totalSupply} onChange={this.inputChangeHandler} /></div>
+            </div>
+            <input type="submit" value="Create Token" />
+          </form>
+
+        </div>
+
+        <div>
+
+          <h3>Get User Token Balance</h3>
+          <form onSubmit={this.handleUserTokenBalance}>
+            <div>
+            <div>Company address:
+              <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
+            <div>Token address:
+              <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
+              <div>User Address:
+              <input type="text" id='userAddress' defaultValue={this.state.userAddress} onChange={this.inputChangeHandler} /> <button onClick={this.handleCurrentAddress}>My address</button></div>
+            </div>
+            <div><input type="submit" value="Get Balance" /></div>
+            Result:{this.state.userTokenBalance}
+          </form>
+
+          <h3>Find Company Owner</h3>
+          <form onSubmit={this.handleFindBCOwner}>
+            <div>
+            <div>Company address:
+              <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
+            </div>
+            <div><input type="submit" value="Get Owner" /></div>
+            Result: {this.state.companyOwner}
+          </form>
+
+          <h3>Find Company Token</h3>
+          <form onSubmit={this.handleFindCompanyToken}>
+            <div>
+            <div>Company address:
+              <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
+            <div>Token address:
+              <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
+            
+            </div>
+            <div><input type="submit" value="Get Company Token" /></div>
+            Result: {this.state.tokenFound}
+          </form>
+
+          <h3>Transfer Token</h3>
+          <form onSubmit={this.handleTransferToken}>
+            <div>
+            <div>Token address:
+              <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
+              <div>To:
+              <input type="text" id='destUser' defaultValue={this.state.destUser} onChange={this.inputChangeHandler} /></div>
+              <div>Amount:
+              <input type="text" id='amountToTransfer' defaultValue={this.state.amountToTransfer} onChange={this.inputChangeHandler} /></div>
+            </div>
+            <div><input type="submit" value="Transfer Token" /></div>
+            Result: {this.state.transferResult}
+          </form>
+        </div>
       </div>
     );
   }
