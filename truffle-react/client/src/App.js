@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       storageValue: 0, web3: null, accounts: null, contract: null,
+      companiesList: [],
       activeAccount: '',
       companyCounter: 1,
       tokenCounter: 1,
@@ -109,17 +110,21 @@ class App extends Component {
   handleCreateCompany = async (event) => {
     event.preventDefault();
     await this.handleAccountChange();
-    const { accounts, contract, companyName, phone, url, did, ethadd } = this.state;
+    const { accounts, contract, companyName, phone, url, did, ethadd, companiesList} = this.state;
     var result;
+    var newCompany;
     try {
+      //contract.once('KMPCompanyCreated', { fromBlock: 0}, function(error, event){ console.log(event); });
       result = await contract.createBCCompany(companyName, phone, url, did, ethadd, { from: accounts[0]});
+      newCompany = result.logs[0].args[0];
       console.log(result);
     } catch (err) {
-      //console.log(err);
+      console.log(err);
     }
     this.setState({ 
       companyCounter: this.state.companyCounter + 1,
-      companyName: `some name-${this.state.companyCounter}`
+      companyName: `some name-${this.state.companyCounter}`,
+      companiesList: this.state.companiesList.concat(newCompany)
     });
     
   };
@@ -225,6 +230,15 @@ class App extends Component {
     });
   }
 
+  handleUseCompany = async (event) => {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const {accounts} = this.state;
+    alert(event.target.key);
+    this.setState({
+      //userAddress: accounts[0]
+    });
+  }
 
   render() {
     if (!this.state.web3) {
@@ -232,8 +246,16 @@ class App extends Component {
     }
     return (
       <div className="App"> 
-        <div>
+        <h5>Companies</h5>
+          <div>
+            <ul>
+              {this.state.companiesList.map(item => (
+                <div><li onClick={this.handleUseCompany} key={item}>{item}</li><button onClick={this.handleUseCompany}>Use it</button></div>
+              ))}
+            </ul>
+          </div>
           
+        <div>
           <h3>Create Company</h3>
           <form onSubmit={this.handleCreateCompany}>
             <div>
@@ -247,8 +269,7 @@ class App extends Component {
           </form>
 
           <h3>Create Company Token</h3>
-          <form onSubmit={this.handleCreateToken
-      }>
+          <form onSubmit={this.handleCreateToken}>
             <div>
             <div>Company address:
               <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
@@ -316,6 +337,8 @@ class App extends Component {
             <div><input type="submit" value="Transfer Token" /></div>
             Result: {this.state.transferResult}
           </form>
+
+          
         </div>
       </div>
     );

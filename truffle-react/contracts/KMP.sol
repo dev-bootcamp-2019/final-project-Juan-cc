@@ -94,7 +94,7 @@ contract KMP is Owned, Storage {
                 return true; // Token found.
             }
         }
-       return false; // Token not found. 
+        return false; // Token not found. 
     }
     
     function findBCToken(address aCompany, address aToken)
