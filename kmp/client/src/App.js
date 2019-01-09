@@ -14,6 +14,18 @@ class App extends Component {
       storageValue: 0, web3: null, accounts: null, contract: null,
       companiesList: [],
       activeAccount: '',
+      accountNumber: 0,
+      accountsCustomList: ['0xA5997F29f13E85d34C7112ff92cC113cE62FFAD4',
+                            '0xcfdE7c549bB247889B55262102870b2eEc1aFAD9',
+                            '0xF0bC3c6D4A07803dC801651D5486BECc261f3E92',
+                            '0x634283b413FF924899Fd7A78385834a6C09194ED',
+                            '0xdD886e112825053aa65F41b35e7BFf7DA6E519E7',
+                            '0x3F2207e6Fdd838cE08b29aCF5C5766283F041c55',
+                            '0x456E83Df3d13483EF096f72356A6D3a4894Bb487',
+                            '0xc9a22b776F2F9E9a269d4DAC4DA7D1Ef0b09fd06',
+                            '0x42698dF6eAE1F13b52423BDFbbBF670Ea32729A8',
+                            '0x65DC4b39c3c372B20497c9676FeD8D1cba663995'
+                          ],
       companyCounter: 1,
       tokenCounter: 1,
       companyName: 'some name-1',
@@ -55,7 +67,6 @@ class App extends Component {
       const Contract = truffleContract(KMP);
       Contract.setProvider(web3.currentProvider);
       const instance = await Contract.deployed();
-
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ 
@@ -63,6 +74,7 @@ class App extends Component {
         accounts, 
         contract: instance,
         activeAccount: accounts[0]
+        //destUser: this.state.accountsCustomList[this.state.accountNumber]
       }/*, this.runExample*/);
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -111,22 +123,20 @@ class App extends Component {
     event.preventDefault();
     await this.handleAccountChange();
     const { accounts, contract, companyName, phone, url, did, ethadd, companiesList} = this.state;
-    var result;
-    var newCompany;
     try {
       //contract.once('KMPCompanyCreated', { fromBlock: 0}, function(error, event){ console.log(event); });
-      result = await contract.createBCCompany(companyName, phone, url, did, ethadd, { from: accounts[0]});
-      newCompany = result.logs[0].args[0];
+      const result = await contract.createBCCompany(companyName, phone, url, did, ethadd, { from: accounts[0]});
+      const newCompany = result.logs[0].args[0];
       console.log(result);
+      this.setState({ 
+        companyCounter: this.state.companyCounter + 1,
+        companyName: `some name-${this.state.companyCounter}`,
+        companiesList: this.state.companiesList.concat(newCompany),
+        companyAddress: newCompany
+      });
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
-    this.setState({ 
-      companyCounter: this.state.companyCounter + 1,
-      companyName: `some name-${this.state.companyCounter}`,
-      companiesList: this.state.companiesList.concat(newCompany)
-    });
-    
   };
 
   inputChangeHandler = (event) => {
@@ -137,17 +147,21 @@ class App extends Component {
     event.preventDefault();
     await this.handleAccountChange();
     const { accounts, contract, companyAddress, tokenName, symbol, totalSupply } = this.state;
-    var result;
     try {
-      result = await contract.createTokenForBCCompany(companyAddress, tokenName, symbol, totalSupply, { from: accounts[0]});
+      var result = await contract.createTokenForBCCompany(companyAddress, tokenName, symbol, totalSupply, { from: accounts[0]});
       console.log(result);
+      const newToken = result.logs[0].args[1];
+
+      this.setState({ 
+        tokenCounter: this.state.tokenCounter + 1,
+        tokenName: `Tokenzito-${this.state.tokenCounter}`,
+        tokenAddress: newToken
+         
+      });
     } catch (err) {
       //console.log(err);
     }
-    this.setState({ 
-      tokenCounter: this.state.tokenCounter + 1,
-      tokenName: `Tokenzito-${this.state.tokenCounter}`
-    });
+   
     
   };
 
@@ -163,7 +177,7 @@ class App extends Component {
         userTokenBalance: result.toString()
       });
     } catch (err) {
-      //console.log(err);
+      console.log(err);
     }
   };
 
@@ -214,10 +228,13 @@ class App extends Component {
       result = await tokenContract.transfer( destUser, amountToTransfer, { from: accounts[0]});
       console.log(result);
       this.setState({
-        transferResult: result.toString()
+        transferResult: result.logs[0].args[2].toString()
       })
     } catch (err) {
       //console.log(err);
+      this.setState({
+        transferResult: "Ooops!"
+      })
     }
   };
 
@@ -230,14 +247,43 @@ class App extends Component {
     });
   }
 
-  handleUseCompany = async (event) => {
-    event.preventDefault();
+  handleUseCompany = async (company) => {
     await this.handleAccountChange();
-    const {accounts} = this.state;
-    alert(event.target.key);
     this.setState({
-      //userAddress: accounts[0]
+      companyAddress: company.toString()
     });
+  }
+
+  handleUseToken = async (token) => {
+    await this.handleAccountChange();
+    this.setState({
+      tokenAddress: token.toString()
+    });
+  }
+
+
+  handlePreviousAccount = (event) => {
+    event.preventDefault();
+    if (this.state.accountNumber > 1) {
+      const newAccountNum = this.state.accountNumber - 1;
+      const newDestAddress = this.state.accountsCustomList[newAccountNum];
+      this.setState({
+        accountNumber: newAccountNum,
+        destUser: newDestAddress
+      });
+    }
+  }
+
+  handleNextAccount = (event) => {
+    event.preventDefault();
+    if (this.state.accountNumber < (this.state.accountsCustomList.length - 1)) {
+      const newAccountNum = this.state.accountNumber + 1;
+      const newDestAddress = this.state.accountsCustomList[newAccountNum];
+      this.setState({
+        accountNumber: newAccountNum,
+        destUser: newDestAddress
+      });
+    }
   }
 
   render() {
@@ -246,11 +292,13 @@ class App extends Component {
     }
     return (
       <div className="App"> 
+        <h4>User: {this.state.activeAccount}</h4>
+
         <h5>Companies</h5>
           <div>
             <ul>
-              {this.state.companiesList.map(item => (
-                <div><li onClick={this.handleUseCompany} key={item}>{item}</li><button onClick={this.handleUseCompany}>Use it</button></div>
+              {this.state.companiesList.map(aCompany => (
+                <li onClick={ () => this.handleUseCompany(aCompany)} key={aCompany}>{aCompany}</li>
               ))}
             </ul>
           </div>
@@ -330,7 +378,7 @@ class App extends Component {
             <div>Token address:
               <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
               <div>To:
-              <input type="text" id='destUser' defaultValue={this.state.destUser} onChange={this.inputChangeHandler} /></div>
+              <input type="text" id='destUser' defaultValue={this.state.destUser} onChange={this.inputChangeHandler} /><button onClick={this.handlePreviousAccount}>&laquo;Prev</button> [{this.state.accountNumber}] <button onClick={this.handleNextAccount}>Next&raquo;</button></div>
               <div>Amount:
               <input type="text" id='amountToTransfer' defaultValue={this.state.amountToTransfer} onChange={this.inputChangeHandler} /></div>
             </div>
