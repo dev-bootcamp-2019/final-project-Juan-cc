@@ -13,6 +13,7 @@ class App extends Component {
     this.state = {
       storageValue: 0, web3: null, accounts: null, contract: null,
       companiesList: [],
+      tokensList: [[]],
       activeAccount: '',
       accountNumber: 0,
       accountsCustomList: ['0xA5997F29f13E85d34C7112ff92cC113cE62FFAD4',
@@ -122,17 +123,20 @@ class App extends Component {
   handleCreateCompany = async (event) => {
     event.preventDefault();
     await this.handleAccountChange();
-    const { accounts, contract, companyName, phone, url, did, ethadd, companiesList} = this.state;
+    const { accounts, contract, companyName, phone, url, did, ethadd, companiesList, companyCounter, tokensList} = this.state;
     try {
       //contract.once('KMPCompanyCreated', { fromBlock: 0}, function(error, event){ console.log(event); });
       const result = await contract.createBCCompany(companyName, phone, url, did, ethadd, { from: accounts[0]});
       const newCompany = result.logs[0].args[0];
       console.log(result);
+      var newTokenList = tokensList;
+      newTokenList[companyCounter]=[];
       this.setState({ 
-        companyCounter: this.state.companyCounter + 1,
-        companyName: `some name-${this.state.companyCounter}`,
-        companiesList: this.state.companiesList.concat(newCompany),
-        companyAddress: newCompany
+        companyCounter: companyCounter + 1,
+        companyName: `some name-${companyCounter}`,
+        companiesList: companiesList.concat(newCompany),
+        companyAddress: newCompany,
+        tokensList: newTokenList
       });
     } catch (err) {
       //console.log(err);
@@ -146,17 +150,19 @@ class App extends Component {
   handleCreateToken = async (event) =>  {
     event.preventDefault();
     await this.handleAccountChange();
-    const { accounts, contract, companyAddress, tokenName, symbol, totalSupply } = this.state;
+    const { accounts, contract, companyAddress, tokenName, symbol, totalSupply, tokenCounter, tokensList, companyCounter } = this.state;
     try {
       var result = await contract.createTokenForBCCompany(companyAddress, tokenName, symbol, totalSupply, { from: accounts[0]});
       console.log(result);
       const newToken = result.logs[0].args[1];
-
+      var newTokenList = tokensList;
+      newTokenList[companyCounter-2][tokensList[companyCounter-2].length] = newToken;
       this.setState({ 
-        tokenCounter: this.state.tokenCounter + 1,
-        tokenName: `Tokenzito-${this.state.tokenCounter}`,
-        tokenAddress: newToken
-         
+        tokenCounter: tokenCounter + 1,
+        tokenName: `Tokenzito-${tokenCounter}`,
+        tokenAddress: newToken,
+        tokensList: newTokenList
+        
       });
     } catch (err) {
       //console.log(err);
@@ -294,11 +300,19 @@ class App extends Component {
       <div className="App"> 
         <h4>User: {this.state.activeAccount}</h4>
 
-        <h5>Companies</h5>
+        <h3>Companies -> Tokens created</h3>
           <div>
             <ul>
-              {this.state.companiesList.map(aCompany => (
-                <li onClick={ () => this.handleUseCompany(aCompany)} key={aCompany}>{aCompany}</li>
+              {this.state.companiesList.map((aCompany, i) => (
+                <li onClick={ () => this.handleUseCompany(aCompany)} key={aCompany}>{aCompany}
+                  <ul>
+                    {this.state.tokensList[i].map(aToken => (
+                      <li onClick={ () => this.handleUseToken(aToken)} key={aToken}>{aToken}
+                      
+                      </li>
+                    ))}
+                  </ul>
+                </li>
               ))}
             </ul>
           </div>
