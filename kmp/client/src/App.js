@@ -56,7 +56,7 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    
+    const {tokensList, companiesList} = this.state;
     try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
@@ -68,10 +68,33 @@ class App extends Component {
       const Contract = truffleContract(KMP);
       Contract.setProvider(web3.currentProvider);
       const instance = await Contract.deployed();
-      const filter = {fromBlock: 0, toBlock: 'latest'};
-      const contractEvent = instance.KMPCompanyCreated(filter);
+      
+      // Getting Company events
+      const companyEventFilter = { filter:{owner: accounts[0]}, fromBlock: 0, toBlock: 'latest'};
+      const companyEventsList = await instance.getPastEvents('KMPCompanyCreated', companyEventFilter);
+      console.log(companyEventsList);
+      var allCompaniesCreatedByUser = companiesList;
+      var newTokenList = tokensList;
+      var i = 0;
+      for (i = 0; i < companyEventsList.length; i++){
+        const aCompanyAddress = companyEventsList[i].returnValues['company'];
+        const tokenEventFilter = { filter:{_company: aCompanyAddress}, fromBlock: 0, toBlock: 'latest'};
+        const tokenEventsList = await instance.getPastEvents('KMPTokenCreated', tokenEventFilter);
+        newTokenList[i]=[];
+        for (var j = 0; j < tokenEventsList.length; j++){
+          newTokenList[i][j] = tokenEventsList[j].returnValues['_token'];
+    
+        }
+        allCompaniesCreatedByUser[i] = aCompanyAddress;
+      }
+      /*const contractEvent = Contract.getPastEvents('KMPCompanyCreated');
+      const contractEvents = Contract.events;
+      console.log(contractEvent);
+      console.log(contractEvents);
 
-     /* contractEvent.watch((err, result) => {
+      
+
+      contractEvent.watch((err, result) => {
         console.log(result);
         console.log(err);
         // Don't forget to close handler when you're done.
@@ -87,7 +110,10 @@ class App extends Component {
         web3, 
         accounts, 
         contract: instance,
-        activeAccount: accounts[0]
+        activeAccount: accounts[0],
+        companiesList: allCompaniesCreatedByUser,
+        tokensList : newTokenList,
+        companyCounter : i
         //destUser: this.state.accountsCustomList[this.state.accountNumber]
       }/*, this.runExample*/);
     } catch (error) {
@@ -138,19 +164,21 @@ class App extends Component {
     await this.handleAccountChange();
     const { accounts, contract, companyName, phone, url, did, ethadd, companiesList, companyCounter, tokensList} = this.state;
     try {
-      //contract.once('KMPCompanyCreated', { fromBlock: 0}, function(error, event){ console.log(event); });
       const result = await contract.createBCCompany(companyName, phone, url, did, ethadd, { from: accounts[0]});
-      const newCompany = result.logs[0].args[0];
-      console.log(result);
-      var newTokenList = tokensList;
-      newTokenList[companyCounter]=[];
-      this.setState({ 
-        companyCounter: companyCounter + 1,
-        companyName: `some name-${companyCounter}`,
-        companiesList: companiesList.concat(newCompany),
-        companyAddress: newCompany,
-        tokensList: newTokenList
-      });
+      if (result.code !== -32603){
+        const newCompany = result.logs[0].args[0];
+        console.log(result);
+        var newTokenList = tokensList;
+        newTokenList[companyCounter]=[];
+        this.setState({ 
+          companyCounter: companyCounter + 1,
+          companyName: `some name-${companyCounter}`,
+          companiesList: companiesList.concat(newCompany),
+          companyAddress: newCompany,
+          tokensList: newTokenList
+        });
+      }
+      
     } catch (err) {
       //console.log(err);
     }
@@ -167,16 +195,19 @@ class App extends Component {
     try {
       var result = await contract.createTokenForBCCompany(companyAddress, tokenName, symbol, totalSupply, { from: accounts[0]});
       console.log(result);
-      const newToken = result.logs[0].args[1];
-      var newTokenList = tokensList;
-      newTokenList[companyCounter-2][tokensList[companyCounter-2].length] = newToken;
-      this.setState({ 
-        tokenCounter: tokenCounter + 1,
-        tokenName: `Tokenzito-${tokenCounter}`,
-        tokenAddress: newToken,
-        tokensList: newTokenList
-        
-      });
+      if (result.code !== -32603){
+        const newToken = result.logs[0].args[1];
+        var newTokenList = tokensList;
+        newTokenList[companyCounter][tokensList[companyCounter].length] = newToken;
+        this.setState({ 
+          tokenCounter: tokenCounter + 1,
+          tokenName: `Tokenzito-${tokenCounter}`,
+          tokenAddress: newToken,
+          tokensList: newTokenList
+          
+        });
+      }
+      
     } catch (err) {
       //console.log(err);
     }
@@ -266,10 +297,11 @@ class App extends Component {
     });
   }
 
-  handleUseCompany = async (company) => {
+  handleUseCompany = async (company, companyIndex) => {
     await this.handleAccountChange();
     this.setState({
-      companyAddress: company.toString()
+      companyAddress: company.toString(),
+      companyCounter: companyIndex
     });
   }
 
@@ -311,13 +343,15 @@ class App extends Component {
     }
     return (
       <div className="App"> 
-        <h4>User: {this.state.activeAccount}</h4>
+
+        <h4>Current User: {this.state.activeAccount}</h4>
+
         <div style={{backgroundColor: '#b3d9ff'}}>
           <h3>Companies -> Tokens created</h3>
             <div>
               <ul>
                 {this.state.companiesList.map((aCompany, i) => (
-                  <li onClick={ () => this.handleUseCompany(aCompany)} key={aCompany}>{aCompany}
+                  <li onClick={ () => this.handleUseCompany(aCompany, i)} key={aCompany}>{aCompany}
                     <ul>
                       {this.state.tokensList[i].map(aToken => (
                         <li onClick={ () => this.handleUseToken(aToken)} key={aToken}>{aToken}
