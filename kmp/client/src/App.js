@@ -68,8 +68,21 @@ class App extends Component {
       const Contract = truffleContract(KMP);
       Contract.setProvider(web3.currentProvider);
       const instance = await Contract.deployed();
+      const filter = {fromBlock: 0, toBlock: 'latest'};
+      const contractEvent = instance.KMPCompanyCreated(filter);
+
+     /* contractEvent.watch((err, result) => {
+        console.log(result);
+        console.log(err);
+        // Don't forget to close handler when you're done.
+        //if ( heardEverythingImportant ){
+          contractEvent.stopWatching();
+       // }
+      });*/
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
+
+
       this.setState({ 
         web3, 
         accounts, 
@@ -299,25 +312,26 @@ class App extends Component {
     return (
       <div className="App"> 
         <h4>User: {this.state.activeAccount}</h4>
+        <div style={{backgroundColor: '#b3d9ff'}}>
+          <h3>Companies -> Tokens created</h3>
+            <div>
+              <ul>
+                {this.state.companiesList.map((aCompany, i) => (
+                  <li onClick={ () => this.handleUseCompany(aCompany)} key={aCompany}>{aCompany}
+                    <ul>
+                      {this.state.tokensList[i].map(aToken => (
+                        <li onClick={ () => this.handleUseToken(aToken)} key={aToken}>{aToken}
+                        
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
+        </div>
 
-        <h3>Companies -> Tokens created</h3>
-          <div>
-            <ul>
-              {this.state.companiesList.map((aCompany, i) => (
-                <li onClick={ () => this.handleUseCompany(aCompany)} key={aCompany}>{aCompany}
-                  <ul>
-                    {this.state.tokensList[i].map(aToken => (
-                      <li onClick={ () => this.handleUseToken(aToken)} key={aToken}>{aToken}
-                      
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-        <div>
+        <div style={{backgroundColor: '#ccffcc'}}>
           <h3>Create Company</h3>
           <form onSubmit={this.handleCreateCompany}>
             <div>
@@ -345,9 +359,22 @@ class App extends Component {
             <input type="submit" value="Create Token" />
           </form>
 
+          <h3>Transfer Token</h3>
+          <form onSubmit={this.handleTransferToken}>
+            <div>
+            <div>Token address:
+              <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
+              <div>To:
+              <input type="text" id='destUser' defaultValue={this.state.destUser} onChange={this.inputChangeHandler} /><button onClick={this.handlePreviousAccount}>&laquo;Prev</button> [{this.state.accountNumber}] <button onClick={this.handleNextAccount}>Next&raquo;</button></div>
+              <div>Amount:
+              <input type="text" id='amountToTransfer' defaultValue={this.state.amountToTransfer} onChange={this.inputChangeHandler} /></div>
+            </div>
+            <div><input type="submit" value="Transfer Token" /></div>
+            Result: {this.state.transferResult}
+          </form>
         </div>
 
-        <div>
+        <div style={{backgroundColor: '#ffd1b3'}}>
 
           <h3>Get User Token Balance</h3>
           <form onSubmit={this.handleUserTokenBalance}>
@@ -385,22 +412,14 @@ class App extends Component {
             <div><input type="submit" value="Get Company Token" /></div>
             Result: {this.state.tokenFound}
           </form>
-
-          <h3>Transfer Token</h3>
-          <form onSubmit={this.handleTransferToken}>
-            <div>
-            <div>Token address:
-              <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
-              <div>To:
-              <input type="text" id='destUser' defaultValue={this.state.destUser} onChange={this.inputChangeHandler} /><button onClick={this.handlePreviousAccount}>&laquo;Prev</button> [{this.state.accountNumber}] <button onClick={this.handleNextAccount}>Next&raquo;</button></div>
-              <div>Amount:
-              <input type="text" id='amountToTransfer' defaultValue={this.state.amountToTransfer} onChange={this.inputChangeHandler} /></div>
-            </div>
-            <div><input type="submit" value="Transfer Token" /></div>
-            Result: {this.state.transferResult}
-          </form>
-
-          
+        </div>
+        
+        <div>
+          <h3>IPFS Image example</h3>
+          <img alt='Loading...'   src='https://ipfs.infura.io:5001/api/v0/cat?arg=QmQbSJhdokBuazR7LXFpGcVQVEMmUGdxeCq2GNbLjN88yV'/>        
+          {/* <img alt='Loading...' src='https://gateway.ipfs.io/ipfs/QmQbSJhdokBuazR7LXFpGcVQVEMmUGdxeCq2GNbLjN88yV/' />
+            <img alt='Loading...'   src='https://gateway.ipfs.io/ipfs/QmTDfwTbTkq8k36wPcpAaJWKgUkdmfUFWotWEmKJscHFxE'/>
+          */}
         </div>
       </div>
     );
