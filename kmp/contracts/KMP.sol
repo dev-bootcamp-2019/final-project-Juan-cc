@@ -10,7 +10,7 @@ import "./Storage.sol";
 contract KMP is Owned, Storage {
 
     // Events
-    event KMPCompanyCreated(address company, string name, address owner);
+    event KMPCompanyCreated(address company, string name, address indexed owner);
     event KMPTokenCreated(address _company, address _token, string _name, string _symbol, uint256 _initialAmount);
     event KMMsgSender(address indexed msgSender);
     event KMUserTokenBalance(address indexed user, uint256 balance);
