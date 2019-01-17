@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import KMP from "./contracts/KMP.json";
 import KMToken from "./contracts/KMToken.json";
 import getWeb3 from "./utils/getWeb3";
-import truffleContract from "truffle-contract";
+//import getContractInstance from "./utils/getContractInstance";
+//import truffleContract from "truffle-contract";
 
 import "./App.css";
 
@@ -11,7 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      storageValue: 0, web3: null, accounts: null, contract: null,
+      storageValue: 0, web3: null, accounts: null, 
       companiesList: [],
       tokensList: [[]],
       activeAccount: '',
@@ -27,9 +28,10 @@ class App extends Component {
                             '0x42698dF6eAE1F13b52423BDFbbBF670Ea32729A8',
                             '0x65DC4b39c3c372B20497c9676FeD8D1cba663995'
                           ],
-      companyCounter: 1,
-      tokenCounter: 1,
-      companyName: 'some name-1',
+      companyCounter: 0,
+      companySelected: -1,
+      tokenCounter: 0,
+      companyName: 'Company name',
       phone: '123456789',
       url: 'www.wearoft.com',
       did: 'did:0xC123DAB13...',
@@ -60,61 +62,49 @@ class App extends Component {
     try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
-
+      
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
-
+/*
       // Get the contract instance.
       const Contract = truffleContract(KMP);
       Contract.setProvider(web3.currentProvider);
-      const instance = await Contract.deployed();
-      
+      const companyInstance = await Contract.deployed();
+*/
+      // Get the contract companyInstance.
+      const networkId = await web3.eth.net.getId();
+      const deployedNetwork = KMP.networks[networkId];
+      const kmpContractInstance = new web3.eth.Contract(
+        KMP.abi,
+        deployedNetwork && deployedNetwork.address,
+      );
+
       // Getting Company events
       const companyEventFilter = { filter:{owner: accounts[0]}, fromBlock: 0, toBlock: 'latest'};
-      const companyEventsList = await instance.getPastEvents('KMPCompanyCreated', companyEventFilter);
-      console.log(companyEventsList);
+      const companyEventsList = await kmpContractInstance.getPastEvents('KMPCompanyCreated', companyEventFilter);
       var allCompaniesCreatedByUser = companiesList;
       var newTokenList = tokensList;
-      var i = 0;
-      for (i = 0; i < companyEventsList.length; i++){
+      var companiesCount = 0;
+      for (var i = 0; i < companyEventsList.length; i++){
         const aCompanyAddress = companyEventsList[i].returnValues['company'];
         const tokenEventFilter = { filter:{_company: aCompanyAddress}, fromBlock: 0, toBlock: 'latest'};
-        const tokenEventsList = await instance.getPastEvents('KMPTokenCreated', tokenEventFilter);
+        const tokenEventsList = await kmpContractInstance.getPastEvents('KMPTokenCreated', tokenEventFilter);
         newTokenList[i]=[];
         for (var j = 0; j < tokenEventsList.length; j++){
           newTokenList[i][j] = tokenEventsList[j].returnValues['_token'];
     
         }
         allCompaniesCreatedByUser[i] = aCompanyAddress;
+        companiesCount++;
       }
-      /*const contractEvent = Contract.getPastEvents('KMPCompanyCreated');
-      const contractEvents = Contract.events;
-      console.log(contractEvent);
-      console.log(contractEvents);
-
-      
-
-      contractEvent.watch((err, result) => {
-        console.log(result);
-        console.log(err);
-        // Don't forget to close handler when you're done.
-        //if ( heardEverythingImportant ){
-          contractEvent.stopWatching();
-       // }
-      });*/
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-
-
       this.setState({ 
         web3, 
         accounts, 
-        contract: instance,
+        kmpContract: kmpContractInstance,
         activeAccount: accounts[0],
         companiesList: allCompaniesCreatedByUser,
         tokensList : newTokenList,
-        companyCounter : i
-        //destUser: this.state.accountsCustomList[this.state.accountNumber]
+        companyCounter : companiesCount
       }/*, this.runExample*/);
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -125,168 +115,136 @@ class App extends Component {
     }
   };
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
-
-    // Stores a given value, 5 by default.
-    var result;
-    result = await contract.createBCCompany("Company Name 1", "44446666", "www.wearoft.com", "did:eth:0xC123D...", "0xD6aE8250b8348C94847280928c79fb3b63cA453e", { from: accounts[0]});
-    console.log(result);
-
-    
-    result = await contract.createBCCompany.call("Company Name 2", "44446666", "www.wearoft.com", "did:eth:0xC123D...", "0xD6aE8250b8348C94847280928c79fb3b63cA453e", { from: accounts[0]});
-    console.log(result);
-
-    try {
-        result = await contract.findBCownerUtil.call(result, { from: accounts[0]});
-        console.log(result);
-    } catch (err){
-        //console.log(err);
-    }
-   
-
-    result = await contract.returnTrue.call({ from: accounts[0], gas:2000000});
-    console.log(result);
-
-    // console.log(resultado);
-    //function createBCCompany(string memory _companyName, string memory _phone, string memory _url, string memory _did, address _uPortAddress)
-
-    // Get the value from the contract to prove it worked.
-    //const response = await contract.get();
-
-    // Update state with the result.
-    //this.setState({ storageValue: response.toNumber() });
-  };
- 
-
   handleCreateCompany = async (event) => {
     event.preventDefault();
     await this.handleAccountChange();
-    const { accounts, contract, companyName, phone, url, did, ethadd, companiesList, companyCounter, tokensList} = this.state;
-    try {
-      const result = await contract.createBCCompany(companyName, phone, url, did, ethadd, { from: accounts[0]});
-      if (result.code !== -32603){
-        const newCompany = result.logs[0].args[0];
-        console.log(result);
-        var newTokenList = tokensList;
-        newTokenList[companyCounter]=[];
-        this.setState({ 
-          companyCounter: companyCounter + 1,
-          companyName: `some name-${companyCounter}`,
-          companiesList: companiesList.concat(newCompany),
-          companyAddress: newCompany,
-          tokensList: newTokenList
-        });
-      }
-      
-    } catch (err) {
-      //console.log(err);
-    }
-  };
-
-  inputChangeHandler = (event) => {
-    this.setState({ [event.target.id]: event.target.value });
+    const { accounts, kmpContract, companyName, phone, url, did, ethadd, companiesList, companyCounter, tokensList} = this.state;
+    const sendMethod = kmpContract.methods.createBCCompany(companyName, phone, url, did, ethadd);
+    await sendMethod.send({from: accounts[0]})
+    .once('receipt', (receipt) => {
+      // receipt example
+      //console.log(receipt);
+    })
+    .on('error', /*console.error*/)
+    .then((receipt) => {
+      const newCompany = receipt.events.KMPCompanyCreated.returnValues['company'];
+      var newTokenList = tokensList;
+      newTokenList[companyCounter]=[];
+      this.setState({ 
+        companyCounter: companyCounter + 1,
+        companyName: 'Company name',
+        companiesList: companiesList.concat(newCompany),
+        companyAddress: newCompany,
+        tokensList: newTokenList,
+        companySelected: companyCounter
+      });
+    });
+  
   };
 
   handleCreateToken = async (event) =>  {
     event.preventDefault();
     await this.handleAccountChange();
-    const { accounts, contract, companyAddress, tokenName, symbol, totalSupply, tokenCounter, tokensList, companyCounter } = this.state;
-    try {
-      var result = await contract.createTokenForBCCompany(companyAddress, tokenName, symbol, totalSupply, { from: accounts[0]});
-      console.log(result);
-      if (result.code !== -32603){
-        const newToken = result.logs[0].args[1];
-        var newTokenList = tokensList;
-        newTokenList[companyCounter][tokensList[companyCounter].length] = newToken;
-        this.setState({ 
-          tokenCounter: tokenCounter + 1,
-          tokenName: `Tokenzito-${tokenCounter}`,
-          tokenAddress: newToken,
-          tokensList: newTokenList
+    const { accounts, kmpContract, companyAddress, tokenName, symbol, totalSupply, tokenCounter, tokensList, companySelected} = this.state;
+    const sendMethod = kmpContract.methods.createTokenForBCCompany(companyAddress, tokenName, symbol, totalSupply);
+    await sendMethod.send({from: accounts[0]})
+    .once('receipt', (receipt) => {
+      // receipt example
+      //console.log(receipt);
+    })
+    .on('error', /*console.error*/)
+    .then((receipt) => {
+      const newToken = receipt.events.KMPTokenCreated.returnValues['_token'];
+      var newTokenList = tokensList;
+      newTokenList[companySelected][tokensList[companySelected].length] = newToken;
+      this.setState({ 
+        tokenCounter: tokenCounter + 1,
+        tokenName: `Tokenzito-${tokenCounter}`,
+        tokenAddress: newToken,
+        tokensList: newTokenList
+        
+      });
+    });
           
-        });
-      }
-      
-    } catch (err) {
-      //console.log(err);
-    }
-   
-    
-  };
-
-  handleUserTokenBalance = async (event) =>  {
-    event.preventDefault();
-    await this.handleAccountChange();
-    const { accounts, contract, companyAddress, tokenAddress, userAddress } = this.state;
-    var result;
-    try {
-      result = await contract.getUserTokenBalance.call(companyAddress, tokenAddress, userAddress, { from: accounts[0]});
-      console.log(result);
-      this.setState({
-        userTokenBalance: result.toString()
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-
-  handleFindBCOwner = async (event) =>  {
-    event.preventDefault();
-    await this.handleAccountChange();
-    const { accounts, contract, companyAddress } = this.state;
-    var result;
-    try {
-      result = await contract.findBCownerUtil.call(companyAddress, { from: accounts[0]});
-      console.log(result);
-      this.setState({
-        companyOwner: result.toString()
-      });
-    } catch (err) {
-      //console.log(err);
-    }
-  };
-
-
-  handleFindCompanyToken = async (event) =>  {
-    event.preventDefault();
-    await this.handleAccountChange();
-    const { accounts, contract, companyAddress, tokenAddress} = this.state;
-    var result;
-    try {
-      result = await contract.findBCToken.call(companyAddress, tokenAddress, { from: accounts[0]});
-      console.log(result);
-      this.setState({
-        tokenFound: result.toString()
-      })
-    } catch (err) {
-      //console.log(err);
-    }
   };
 
   handleTransferToken = async (event) =>  {
     event.preventDefault();
     await this.handleAccountChange();
     const { accounts, web3, tokenAddress, destUser, amountToTransfer} = this.state;
-    const Contract = await truffleContract(KMToken);
-    Contract.setProvider(web3.currentProvider);
-    const tokenContract = await Contract.at(tokenAddress);
-
-    var result;
-    try {
-      result = await tokenContract.transfer( destUser, amountToTransfer, { from: accounts[0]});
-      console.log(result);
+    // Get the contract instance.
+    const tokenContract = new web3.eth.Contract(
+      KMToken.abi,
+      tokenAddress
+    );
+    const sendMethod = tokenContract.methods.transfer(destUser, amountToTransfer);
+    await sendMethod.send({from: accounts[0]})
+    .once('receipt', (receipt) => {
+      // receipt example
+      //console.log(receipt);
+    })
+    .on('error', () => {this.setState({transferResult: "Ooops!"});
+    })
+    .then((receipt) => {
+      console.log(receipt);
+      //receipt.events.KMPTokenCreated.returnValues['_token']
       this.setState({
-        transferResult: result.logs[0].args[2].toString()
+        transferResult: receipt.events.Transfer.returnValues.value
       })
-    } catch (err) {
-      //console.log(err);
-      this.setState({
-        transferResult: "Ooops!"
-      })
-    }
+    });
   };
+
+
+  inputChangeHandler = (event) => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
+
+  
+  handleUserTokenBalance = async (event) =>  {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const { accounts, kmpContract, companyAddress, tokenAddress, userAddress } = this.state;
+    const callMethod = kmpContract.methods.getUserTokenBalance(companyAddress, tokenAddress, userAddress);
+    await callMethod.call({ from: accounts[0]})
+    .then((receipt) => {
+      console.log(receipt);
+      this.setState({
+        userTokenBalance: receipt
+      });
+    });
+  };
+
+
+  handleFindBCOwner = async (event) =>  {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const { accounts, kmpContract, companyAddress } = this.state;
+    const callMethod = kmpContract.methods.findBCownerUtil(companyAddress);
+    await callMethod.call({ from: accounts[0]})
+    .then((receipt) => {
+      console.log(receipt);
+      this.setState({
+        companyOwner: receipt
+      });
+    });
+  };
+
+
+  handleFindCompanyToken = async (event) =>  {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const { accounts, kmpContract, companyAddress, tokenAddress} = this.state;
+    const callMethod = kmpContract.methods.findBCToken(companyAddress, tokenAddress);
+    await callMethod.call({ from: accounts[0]})
+    .then((receipt) => {
+      console.log(receipt);
+      this.setState({
+        tokenFound: receipt
+      });
+    });
+  };
+
+ 
 
   handleCurrentAddress = async (event) => {
     event.preventDefault();
@@ -301,7 +259,7 @@ class App extends Component {
     await this.handleAccountChange();
     this.setState({
       companyAddress: company.toString(),
-      companyCounter: companyIndex
+      companySelected: companyIndex
     });
   }
 

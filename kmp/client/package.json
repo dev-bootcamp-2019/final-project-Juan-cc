@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4",
-    "truffle-contract": "^4.0.0-next.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1",
     "web3": "^1.0.0-beta.35"
   },
   "scripts": {
@@ -20,5 +19,11 @@
   },
   "devDependencies": {
     "run-script-os": "^1.0.3"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
