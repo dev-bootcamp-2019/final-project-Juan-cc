@@ -5,3 +5,5 @@ workspace\.code-workspace
 \.vscode/
 
 BusCompany/package-lock\.json
+
+kmp/client/package-lock\.json

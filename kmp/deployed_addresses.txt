@@ -1,0 +1,44 @@
+
+The following networks are configured to match any network id ('*'):
+
+    development
+
+Closely inspect the deployed networks below, and use `truffle networks --clean` to remove any networks that don't match your configuration. You should not use the wildcard configuration ('*') for staging and production networks for which you intend to deploy your application.
+
+Network: UNKNOWN (id: 5777)
+  BCFactory: 0x7fAA6aa6224B5e26043BfEA94cfdc708aa846573
+  KMP: 0x406AD4E1Ec7E72D1003180884688c48D45edb320
+  KMToken: 0x88dD552798d9F7Ad2033015D6C885D742eD9d5A0
+  Migrations: 0x840719c4A7AaAd27149b9B3596812c5eE4f9EC0D
+  Owned: 0x8C64905Bfb567E6F987F0EABbF3a26eEcEbc2Ac1
+  SimpleStorage: 0x406AD4E1Ec7E72D1003180884688c48D45edb320
+
+Network: rinkeby (id: 4)
+  BCFactory: 0x922d59Ab7E59C021524BeD527f8A54EAb222d01C
+  KMP: 0x4bBE0120b505514C4CaAE571C9483a8D39c371e5
+  KMToken: 0x6E33d13aC68c9AE99F1fDf55e0014916e48EB41A
+  Migrations: 0xf771695DFc29fFAa4C9fdC5fC1a2B60bBC560A88
+  Owned: 0xD4E461F09740627Ee4945fE81F445FA173757A8E
+
+
+The following networks are configured to match any network id ('*'):
+
+    development
+
+Closely inspect the deployed networks below, and use `truffle networks --clean` to remove any networks that don't match your configuration. You should not use the wildcard configuration ('*') for staging and production networks for which you intend to deploy your application.
+
+Network: UNKNOWN (id: 5777)
+  BCFactory: 0x7fAA6aa6224B5e26043BfEA94cfdc708aa846573
+  KMP: 0x406AD4E1Ec7E72D1003180884688c48D45edb320
+  KMToken: 0x88dD552798d9F7Ad2033015D6C885D742eD9d5A0
+  Migrations: 0x840719c4A7AaAd27149b9B3596812c5eE4f9EC0D
+  Owned: 0x8C64905Bfb567E6F987F0EABbF3a26eEcEbc2Ac1
+  SimpleStorage: 0x406AD4E1Ec7E72D1003180884688c48D45edb320
+
+Network: rinkeby (id: 4)
+  BCFactory: 0x1F96bFE87A1C93C689e0420eF7913AD323Fb9808
+  KMP: 0xF7871eD7C9498565555d1Ae5C0E1C376AaBEbbE9
+  KMToken: 0x3Ea42bFa95233B0cDA4461EEBaA1646519f53632
+  Migrations: 0x4885370739c00892A4d33FCEF73F8c2544015E3E
+  Owned: 0x2ccF24710f6fAEE6b219Fe17d7745921A76EdD0e
+
