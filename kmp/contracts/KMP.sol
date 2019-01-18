@@ -23,13 +23,21 @@ contract KMP is Owned, Storage {
         tkFactory = new TokenFactory(); // Owner will be KMP contract.
     }
     
-      
+    // Circuit breaker modifier
+    modifier stopInEmergency() { 
+        require(!stopped); 
+        _; 
+    }
+    modifier onlyCompanyOwner(address companyOwner){
+        require(msg.sender == companyOwner, "Only company owner can execute this function");
+        _;
+    }
      
     function getUserTokenBalance(address _company, address _token, address _user)
-        public
+        external
+        onlyCompanyOwner(findBCowner(_company))
         returns (uint256 aBalance)
     {
-        require(msg.sender == findBCowner(_company), "Only company owner can query token balances.");
         require(EMPTY_ADDRESS != findBCToken(_company, _token), "Token not found."); 
         bytes memory payload = abi.encodeWithSignature("balanceOf(address)", _user);
         (bool result, bytes memory returnData) = _token.staticcall(payload);
@@ -42,10 +50,11 @@ contract KMP is Owned, Storage {
     
     
     
-    function createBCCompany(string memory _companyName, string memory _phone, string memory _url, string memory _did, address _uPortAddress) 
-    public 
-   // ownerOnly(msg.sender) I want anybody to be able to create a new BC on my platform.
-    returns(BC){
+    function createBCCompany(string calldata _companyName, string calldata _phone, string calldata _url, string calldata _did, address _uPortAddress) 
+        external 
+        stopInEmergency()
+        returns(BC)
+    {
         (bool companyCreated, bytes memory returnData) = address(bcFactory).delegatecall(
             abi.encodeWithSignature("createBCCompany(string,string,string,string,address)",
             _companyName, _phone, _url, _did, _uPortAddress));
@@ -59,7 +68,7 @@ contract KMP is Owned, Storage {
     
     
     function findBCownerUtil(address company) // Util methods are for development purposes only. 
-        public
+        external
         view
         returns (address)
     {
@@ -109,12 +118,14 @@ contract KMP is Owned, Storage {
     }
     
     
-    function createTokenForBCCompany(address _bcCompany, string memory _name, string memory _symbol, uint256 _initialAmount) 
-    public 
-    //ownerOnly(companies[bcCompany].owner()) // Only Company owner can create tokens.
-    returns(KMToken){
+    function createTokenForBCCompany(address _bcCompany, string calldata _name, string calldata _symbol, uint256 _initialAmount) 
+        external 
+        stopInEmergency()
+        onlyCompanyOwner(findBCowner(_bcCompany))
+        returns(KMToken)
+    {
         
-        require (msg.sender == findBCowner(_bcCompany), "Only company owner can create tokens.");
+        //require (msg.sender == findBCowner(_bcCompany), "Only company owner can create tokens.");
         
         (bool tokenCreated, bytes memory returnData) = address(tkFactory).delegatecall(
             abi.encodeWithSignature("createTokenForBCCompany(address,string,string,uint256)",
@@ -128,4 +139,12 @@ contract KMP is Owned, Storage {
         
     }
     
+    function activateEmergency()
+        ownerOnly(msg.sender) 
+        external
+        returns(bool)
+    {
+        stopped = true;
+        return stopped;
+    }
 }

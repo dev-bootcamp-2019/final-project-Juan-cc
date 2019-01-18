@@ -131,6 +131,7 @@ class App extends Component {
             tokensList: newTokenList
           });
         }
+        console.log(evento);
       });
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -309,7 +310,9 @@ class App extends Component {
         <h4>Current User: {this.state.activeAccount}</h4>
 
         <div style={{backgroundColor: '#b3d9ff'}}>
-          <h3>Companies -> Tokens created</h3>
+        <h1>STORAGE</h1>
+
+          <h3>Companies -> Tokens</h3>
             <div>
               <ul>
                 {this.state.companiesList.map((aCompany, i) => (
@@ -328,6 +331,7 @@ class App extends Component {
         </div>
 
         <div style={{backgroundColor: '#ccffcc'}}>
+        <h1>UPDATE</h1>
           <h3>Create Company</h3>
           <form onSubmit={this.handleCreateCompany}>
             <div>
@@ -371,7 +375,7 @@ class App extends Component {
         </div>
 
         <div style={{backgroundColor: '#ffd1b3'}}>
-
+        <h1>QUERIES</h1>
           <h3>Get User Token Balance</h3>
           <form onSubmit={this.handleUserTokenBalance}>
             <div>

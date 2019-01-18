@@ -12,4 +12,5 @@ contract Storage {
     mapping (address => address[MAX_COMPANY_TOKENS]) internal tokens; // (company => token[]))
     BCFactory internal bcFactory;
     TokenFactory internal tkFactory;
+    bool internal stopped = false;  // Circuit breaker
 }
