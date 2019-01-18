@@ -8,32 +8,21 @@ import "./Storage.sol";
 
 contract TokenFactory is Owned, Storage {
    
-    //event TokenFactoryMsgSender(address msgSender);
-    //event TokenFactoryTokenCreated(address _bcCompany, address _token, string _name, string _symbol, uint256 _initialAmount);
-    //event TokenFactoryPositionAvailable(uint8 position);
-
-    /* constructor(address deployer) 
-        public
-    { 
-        owner = deployer;
-    }*/
     
-    function createTokenForBCCompany(address _bcCompany, string memory _name, string memory _symbol, uint256 _initialAmount) 
-        public
+    function createTokenForBCCompany(address _bcCompany, string calldata _name, string calldata _symbol, uint256 _initialAmount) 
+        external
         returns (KMToken)
     {
-       // emit TokenFactoryMsgSender(msg.sender);
         require(msg.sender == findBCowner(_bcCompany)); // 2nd time checking correct ownership.
         KMToken newToken = new KMToken(_bcCompany, msg.sender, _name, _symbol, _initialAmount);
         uint8 nextPosition = nextTokenAvailablePosition(address(_bcCompany));
         tokens[_bcCompany][nextPosition] = address(newToken);
-        //emit TokenFactoryTokenCreated(_bcCompany, address(newToken), _name, _symbol, _initialAmount);
         return newToken;
     }
     
 
     function findBCownerUtil(address aCompany)
-        public
+        external
         view
         returns (address)
     {
@@ -63,8 +52,7 @@ contract TokenFactory is Owned, Storage {
         address[MAX_COMPANY_TOKENS] memory companyTokens = tokens[aCompany];
         for (uint8 i = 0; i < MAX_COMPANY_TOKENS; i++) {
             if (companyTokens[i] == EMPTY_ADDRESS){
-                //emit TokenFactoryPositionAvailable(i);
-                return i; // This is the first available position.
+                return i; // first position available.
             }
         }
        return MAX_COMPANY_TOKENS; // No empty spot available. 

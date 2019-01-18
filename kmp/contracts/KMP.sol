@@ -33,23 +33,6 @@ contract KMP is Owned, Storage {
         _;
     }
      
-    function getUserTokenBalance(address _company, address _token, address _user)
-        external
-        onlyCompanyOwner(findBCowner(_company))
-        returns (uint256 aBalance)
-    {
-        require(EMPTY_ADDRESS != findBCToken(_company, _token), "Token not found."); 
-        bytes memory payload = abi.encodeWithSignature("balanceOf(address)", _user);
-        (bool result, bytes memory returnData) = _token.staticcall(payload);
-        if (result) {
-            emit KMMsgSender(msg.sender);
-            aBalance = abi.decode(returnData, (uint256));
-        }
-        return aBalance;
-    }
-    
-    
-    
     function createBCCompany(string calldata _companyName, string calldata _phone, string calldata _url, string calldata _did, address _uPortAddress) 
         external 
         stopInEmergency()
@@ -66,7 +49,41 @@ contract KMP is Owned, Storage {
         revert("Your company was not created. Probably you reached MAX_LIMIT?. Reverting state changes."); 
     } 
     
-    
+    function createTokenForBCCompany(address _bcCompany, string calldata _name, string calldata _symbol, uint256 _initialAmount) 
+        external 
+        stopInEmergency()
+        onlyCompanyOwner(findBCowner(_bcCompany))
+        returns(KMToken)
+    {
+           
+        (bool tokenCreated, bytes memory returnData) = address(tkFactory).delegatecall(
+            abi.encodeWithSignature("createTokenForBCCompany(address,string,string,uint256)",
+            _bcCompany, _name, _symbol, _initialAmount));
+        if (tokenCreated){
+            (KMToken newToken) = abi.decode(returnData, (KMToken));
+            emit KMPTokenCreated(_bcCompany, address(newToken), _name, _symbol, _initialAmount);
+            return newToken;
+        }
+        revert("Unfortunately your token was not created correctly. Please contact KMP Support. Reverting state changes."); 
+        
+    }
+ 
+    function getUserTokenBalance(address _company, address _token, address _user)
+        external
+        onlyCompanyOwner(findBCowner(_company))
+        returns (uint256 aBalance)
+    {
+        require(EMPTY_ADDRESS != findBCToken(_company, _token), "Token not found."); 
+        bytes memory payload = abi.encodeWithSignature("balanceOf(address)", _user);
+        (bool result, bytes memory returnData) = _token.staticcall(payload);
+        if (result) {
+            emit KMMsgSender(msg.sender);
+            aBalance = abi.decode(returnData, (uint256));
+        }
+        return aBalance;
+    }
+
+
     function findBCownerUtil(address company) // Util methods are for development purposes only. 
         external
         view
@@ -117,27 +134,6 @@ contract KMP is Owned, Storage {
         return EMPTY_ADDRESS;
     }
     
-    
-    function createTokenForBCCompany(address _bcCompany, string calldata _name, string calldata _symbol, uint256 _initialAmount) 
-        external 
-        stopInEmergency()
-        onlyCompanyOwner(findBCowner(_bcCompany))
-        returns(KMToken)
-    {
-        
-        //require (msg.sender == findBCowner(_bcCompany), "Only company owner can create tokens.");
-        
-        (bool tokenCreated, bytes memory returnData) = address(tkFactory).delegatecall(
-            abi.encodeWithSignature("createTokenForBCCompany(address,string,string,uint256)",
-            _bcCompany, _name, _symbol, _initialAmount));
-        if (tokenCreated){
-            (KMToken newToken) = abi.decode(returnData, (KMToken));
-            emit KMPTokenCreated(_bcCompany, address(newToken), _name, _symbol, _initialAmount);
-            return newToken;
-        }
-        revert("Unfortunately your token was not created correctly. Please contact KMP Support. Reverting state changes."); 
-        
-    }
     
     function activateEmergency()
         ownerOnly(msg.sender) 

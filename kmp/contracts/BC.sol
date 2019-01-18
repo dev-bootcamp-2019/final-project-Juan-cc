@@ -20,19 +20,17 @@ contract BC is Owned {
         public 
     {
         owner = _owner;   
-        //emit BCMsgSender(msg.sender);
         name = _companyName;
         phone = _phone;
         url = _url;
         did = _did;
         uPortAddress = _uPortAddress;
         admins[owner] = true;
-        //emit BCCreated(address(this), _companyName, _phone, _url);
 
     }
 
-    function terminateCompany(/*address newCompanyContract*/)
-        public
+    function terminateCompany()
+        external
         ownerOnly(msg.sender)
     {
         // TODO: before selfdestruction delegate token ownership to newCompanyContract.
