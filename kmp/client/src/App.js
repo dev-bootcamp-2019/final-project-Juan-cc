@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import KMP from "./contracts/KMP.json";
 import KMToken from "./contracts/KMToken.json";
 import getWeb3 from "./utils/getWeb3";
-//import getContractInstance from "./utils/getContractInstance";
-//import truffleContract from "truffle-contract";
 
 import "./App.css";
 
@@ -29,7 +27,7 @@ class App extends Component {
                             '0x65DC4b39c3c372B20497c9676FeD8D1cba663995'
                           ],
       companyCounter: 0,
-      companySelected: 0,
+      companySelected: -1,
       tokenCounter: 0,
       companyName: 'Company name',
       phone: '123456789',
@@ -57,7 +55,7 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    const {tokensList, companiesList, companyCounter} = this.state;
+    const {tokensList, companiesList} = this.state;
     try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
@@ -78,10 +76,7 @@ class App extends Component {
       const companyEventsList = await kmpContractInstance.getPastEvents('KMPCompanyCreated', companyEventFilter);
       var allCompaniesCreatedByUser = companiesList;
       var newTokenList = tokensList;
-      var companiesCount = 0;
-      /*if (companyEventsList.length > 0){
-        this.setState({ companySelected: 0});
-      }*/
+
       for (var i = 0; i < companyEventsList.length; i++){
         const aCompanyAddress = companyEventsList[i].returnValues['company'];
         const tokenEventFilter = { filter:{_company: aCompanyAddress}, fromBlock: 0, toBlock: 'latest'};
@@ -93,7 +88,6 @@ class App extends Component {
     
         }
         allCompaniesCreatedByUser[i] = aCompanyAddress;
-        companiesCount++;
       }
       this.setState({ 
         web3, 
@@ -102,7 +96,7 @@ class App extends Component {
         activeAccount: accounts[0],
         companiesList: allCompaniesCreatedByUser,
         tokensList : newTokenList,
-        companyCounter : companiesCount
+        companyCounter : allCompaniesCreatedByUser.length
       });
 
        /** Subscribe to all NEW events */
@@ -115,15 +109,15 @@ class App extends Component {
         }
         if (evento.event === "KMPCompanyCreated"){
           const newCompany = evento.returnValues['company'];
-          var newTokenList = tokensList;
-          newTokenList[companyCounter]=[];
+          var newEmptyTokenList = this.state.tokensList;
+          newEmptyTokenList[this.state.companyCounter]=[];
           this.setState({ 
-            companyCounter: companyCounter + 1,
-            companyName: 'Company name',
-            companiesList: companiesList.concat(newCompany),
+            companySelected: this.state.companyCounter,
+            companyCounter: this.state.companyCounter + 1,
+            companiesList: this.state.companiesList.concat(newCompany),
             companyAddress: newCompany,
-            tokensList: newTokenList,
-            companySelected: companyCounter
+            tokensList: newEmptyTokenList
+           
           });
         } else if (evento.event === "KMPTokenCreated"){
           const {companySelected, tokensList, tokenCounter} = this.state;
@@ -137,7 +131,6 @@ class App extends Component {
             tokensList: newTokenList
           });
         }
-        console.log(evento)
       });
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -154,54 +147,28 @@ class App extends Component {
   handleCreateCompany = async (event) => {
     event.preventDefault();
     await this.handleAccountChange();
-    const { accounts, kmpContract, companyName, phone, url, did, ethadd, companiesList, companyCounter, tokensList} = this.state;
+    const { accounts, kmpContract, companyName, phone, url, did, ethadd} = this.state;
     const sendMethod = kmpContract.methods.createBCCompany(companyName, phone, url, did, ethadd);
     await sendMethod.send({from: accounts[0]})
     .once('receipt', (receipt) => {
       // receipt example
       //console.log(receipt);
     })
-    .on('error', /*console.error*/)
-    .then((receipt) => {
-      /*const newCompany = receipt.events.KMPCompanyCreated.returnValues['company'];
-      var newTokenList = tokensList;
-      newTokenList[companyCounter]=[];
-      this.setState({ 
-        companyCounter: companyCounter + 1,
-        companyName: 'Company name',
-        companiesList: companiesList.concat(newCompany),
-        companyAddress: newCompany,
-        tokensList: newTokenList,
-        companySelected: companyCounter
-      });*/
-    });
+    .on('error', console.error);
   
   };
 
   handleCreateToken = async (event) =>  {
     event.preventDefault();
     await this.handleAccountChange();
-    const { accounts, kmpContract, companyAddress, tokenName, symbol, totalSupply, tokenCounter, tokensList, companySelected} = this.state;
+    const { accounts, kmpContract, companyAddress, tokenName, symbol, totalSupply} = this.state;
     const sendMethod = kmpContract.methods.createTokenForBCCompany(companyAddress, tokenName, symbol, totalSupply);
     await sendMethod.send({from: accounts[0]})
     .once('receipt', (receipt) => {
       // receipt example
       //console.log(receipt);
     })
-    .on('error', /*console.error*/)
-    .then((receipt) => {
-      /* Moved to EVENTS 
-      const newToken = receipt.events.KMPTokenCreated.returnValues['_token'];
-      var newTokenList = tokensList;
-      newTokenList[companySelected][tokensList[companySelected].length] = newToken;
-      this.setState({ 
-        tokenCounter: tokenCounter + 1,
-        tokenName: `Tokenzito-${tokenCounter}`,
-        tokenAddress: newToken,
-        tokensList: newTokenList
-        
-      });*/
-    });
+    .on('error', console.error);
           
   };
 
@@ -355,7 +322,7 @@ class App extends Component {
                       ))}
                     </ul>
                   </li>
-                ))}
+                      ))}
               </ul>
             </div>
         </div>
