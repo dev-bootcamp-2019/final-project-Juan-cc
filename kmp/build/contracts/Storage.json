@@ -1,0 +1,984 @@
+{
+  "contractName": "Storage",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "MAX_COMPANY_TOKENS",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "MAX_OWNER_COMPANIES",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x60806040526000600360146101000a81548160ff02191690831515021790555034801561002b57600080fd5b5060e08061003a6000396000f3fe6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806338abeb4314604e5780634642e0ba14607c575b600080fd5b348015605957600080fd5b50606060aa565b604051808260ff1660ff16815260200191505060405180910390f35b348015608757600080fd5b50608e60af565b604051808260ff1660ff16815260200191505060405180910390f35b600581565b60038156fea165627a7a723058203dda89d3641fd04c509b2a556e31f6ca11201e237de22addb3b068092cc5d6e30029",
+  "deployedBytecode": "0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806338abeb4314604e5780634642e0ba14607c575b600080fd5b348015605957600080fd5b50606060aa565b604051808260ff1660ff16815260200191505060405180910390f35b348015608757600080fd5b50608e60af565b604051808260ff1660ff16815260200191505060405180910390f35b600581565b60038156fea165627a7a723058203dda89d3641fd04c509b2a556e31f6ca11201e237de22addb3b068092cc5d6e30029",
+  "sourceMap": "81:616:10:-;;;669:5;645:29;;;;;;;;;;;;;;;;;;;;81:616;8:9:-1;5:2;;;30:1;27;20:12;5:2;81:616:10;;;;;;;",
+  "deployedSourceMap": "81:616:10:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;223:44;;8:9:-1;5:2;;;30:1;27;20:12;5:2;223:44:10;;;;;;;;;;;;;;;;;;;;;;;;;;;127:45;;8:9:-1;5:2;;;30:1;27;20:12;5:2;127:45:10;;;;;;;;;;;;;;;;;;;;;;;;;;;223:44;266:1;223:44;:::o;127:45::-;171:1;127:45;:::o",
+  "source": "pragma solidity ^0.5.0;\n\nimport \"./BCFactory.sol\";\nimport \"./TokenFactory.sol\";\n\ncontract Storage {\n     // Shared storage\n    uint8 constant public MAX_OWNER_COMPANIES = 3; // 1 owner could register up to 5 companies.\n    uint8 constant public MAX_COMPANY_TOKENS = 5; // 1 company could register up to 10 tokens.\n    address constant internal EMPTY_ADDRESS = address(0); \n    mapping (address => address[MAX_OWNER_COMPANIES]) internal companies; // (owner => companies[5]) \n    mapping (address => address[MAX_COMPANY_TOKENS]) internal tokens; // (company => token[]))\n    BCFactory internal bcFactory;\n    TokenFactory internal tkFactory;\n    bool internal stopped = false;  // Circuit breaker\n}\n",
+  "sourcePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
+  "ast": {
+    "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
+    "exportedSymbols": {
+      "Storage": [
+        1723
+      ]
+    },
+    "id": 1724,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1690,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:10"
+      },
+      {
+        "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/BCFactory.sol",
+        "file": "./BCFactory.sol",
+        "id": 1691,
+        "nodeType": "ImportDirective",
+        "scope": 1724,
+        "sourceUnit": 234,
+        "src": "25:25:10",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/TokenFactory.sol",
+        "file": "./TokenFactory.sol",
+        "id": 1692,
+        "nodeType": "ImportDirective",
+        "scope": 1724,
+        "sourceUnit": 1901,
+        "src": "51:28:10",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1723,
+        "linearizedBaseContracts": [
+          1723
+        ],
+        "name": "Storage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 1695,
+            "name": "MAX_OWNER_COMPANIES",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "127:45:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint8",
+              "typeString": "uint8"
+            },
+            "typeName": {
+              "id": 1693,
+              "name": "uint8",
+              "nodeType": "ElementaryTypeName",
+              "src": "127:5:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint8",
+                "typeString": "uint8"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "33",
+              "id": 1694,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "171:1:10",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_3_by_1",
+                "typeString": "int_const 3"
+              },
+              "value": "3"
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": true,
+            "id": 1698,
+            "name": "MAX_COMPANY_TOKENS",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "223:44:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint8",
+              "typeString": "uint8"
+            },
+            "typeName": {
+              "id": 1696,
+              "name": "uint8",
+              "nodeType": "ElementaryTypeName",
+              "src": "223:5:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint8",
+                "typeString": "uint8"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "35",
+              "id": 1697,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "266:1:10",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_5_by_1",
+                "typeString": "int_const 5"
+              },
+              "value": "5"
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": true,
+            "id": 1703,
+            "name": "EMPTY_ADDRESS",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "318:52:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1699,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "318:7:10",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "arguments": [
+                {
+                  "argumentTypes": null,
+                  "hexValue": "30",
+                  "id": 1701,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "number",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "368:1:10",
+                  "subdenomination": null,
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_rational_0_by_1",
+                    "typeString": "int_const 0"
+                  },
+                  "value": "0"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_rational_0_by_1",
+                    "typeString": "int_const 0"
+                  }
+                ],
+                "id": 1700,
+                "isConstant": false,
+                "isLValue": false,
+                "isPure": true,
+                "lValueRequested": false,
+                "nodeType": "ElementaryTypeNameExpression",
+                "src": "360:7:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_type$_t_address_$",
+                  "typeString": "type(address)"
+                },
+                "typeName": "address"
+              },
+              "id": 1702,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "typeConversion",
+              "lValueRequested": false,
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "360:10:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address_payable",
+                "typeString": "address payable"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1709,
+            "name": "companies",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "377:68:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
+              "typeString": "mapping(address => address[3])"
+            },
+            "typeName": {
+              "id": 1708,
+              "keyType": {
+                "id": 1704,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "386:7:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "377:49:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
+                "typeString": "mapping(address => address[3])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 1705,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "397:7:10",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "id": 1707,
+                "length": {
+                  "argumentTypes": null,
+                  "id": 1706,
+                  "name": "MAX_OWNER_COMPANIES",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 1695,
+                  "src": "405:19:10",
+                  "typeDescriptions": {
+                    "typeIdentifier": null,
+                    "typeString": null
+                  }
+                },
+                "nodeType": "ArrayTypeName",
+                "src": "397:28:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_address_$3_storage_ptr",
+                  "typeString": "address[3]"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1715,
+            "name": "tokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "479:64:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$5_storage_$",
+              "typeString": "mapping(address => address[5])"
+            },
+            "typeName": {
+              "id": 1714,
+              "keyType": {
+                "id": 1710,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "488:7:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "479:48:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$5_storage_$",
+                "typeString": "mapping(address => address[5])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 1711,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "499:7:10",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "id": 1713,
+                "length": {
+                  "argumentTypes": null,
+                  "id": 1712,
+                  "name": "MAX_COMPANY_TOKENS",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 1698,
+                  "src": "507:18:10",
+                  "typeDescriptions": {
+                    "typeIdentifier": null,
+                    "typeString": null
+                  }
+                },
+                "nodeType": "ArrayTypeName",
+                "src": "499:27:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_address_$5_storage_ptr",
+                  "typeString": "address[5]"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1717,
+            "name": "bcFactory",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "574:28:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_BCFactory_$233",
+              "typeString": "contract BCFactory"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1716,
+              "name": "BCFactory",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 233,
+              "src": "574:9:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_BCFactory_$233",
+                "typeString": "contract BCFactory"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1719,
+            "name": "tkFactory",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "608:31:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_TokenFactory_$1900",
+              "typeString": "contract TokenFactory"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1718,
+              "name": "TokenFactory",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1900,
+              "src": "608:12:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_TokenFactory_$1900",
+                "typeString": "contract TokenFactory"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1722,
+            "name": "stopped",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "645:29:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 1720,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "645:4:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "66616c7365",
+              "id": 1721,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "bool",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "669:5:10",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              },
+              "value": "false"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 1724,
+        "src": "81:616:10"
+      }
+    ],
+    "src": "0:698:10"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
+    "exportedSymbols": {
+      "Storage": [
+        1723
+      ]
+    },
+    "id": 1724,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1690,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:10"
+      },
+      {
+        "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/BCFactory.sol",
+        "file": "./BCFactory.sol",
+        "id": 1691,
+        "nodeType": "ImportDirective",
+        "scope": 1724,
+        "sourceUnit": 234,
+        "src": "25:25:10",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/TokenFactory.sol",
+        "file": "./TokenFactory.sol",
+        "id": 1692,
+        "nodeType": "ImportDirective",
+        "scope": 1724,
+        "sourceUnit": 1901,
+        "src": "51:28:10",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1723,
+        "linearizedBaseContracts": [
+          1723
+        ],
+        "name": "Storage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 1695,
+            "name": "MAX_OWNER_COMPANIES",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "127:45:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint8",
+              "typeString": "uint8"
+            },
+            "typeName": {
+              "id": 1693,
+              "name": "uint8",
+              "nodeType": "ElementaryTypeName",
+              "src": "127:5:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint8",
+                "typeString": "uint8"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "33",
+              "id": 1694,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "171:1:10",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_3_by_1",
+                "typeString": "int_const 3"
+              },
+              "value": "3"
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": true,
+            "id": 1698,
+            "name": "MAX_COMPANY_TOKENS",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "223:44:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint8",
+              "typeString": "uint8"
+            },
+            "typeName": {
+              "id": 1696,
+              "name": "uint8",
+              "nodeType": "ElementaryTypeName",
+              "src": "223:5:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint8",
+                "typeString": "uint8"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "35",
+              "id": 1697,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "266:1:10",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_5_by_1",
+                "typeString": "int_const 5"
+              },
+              "value": "5"
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": true,
+            "id": 1703,
+            "name": "EMPTY_ADDRESS",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "318:52:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1699,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "318:7:10",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "arguments": [
+                {
+                  "argumentTypes": null,
+                  "hexValue": "30",
+                  "id": 1701,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "number",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "368:1:10",
+                  "subdenomination": null,
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_rational_0_by_1",
+                    "typeString": "int_const 0"
+                  },
+                  "value": "0"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_rational_0_by_1",
+                    "typeString": "int_const 0"
+                  }
+                ],
+                "id": 1700,
+                "isConstant": false,
+                "isLValue": false,
+                "isPure": true,
+                "lValueRequested": false,
+                "nodeType": "ElementaryTypeNameExpression",
+                "src": "360:7:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_type$_t_address_$",
+                  "typeString": "type(address)"
+                },
+                "typeName": "address"
+              },
+              "id": 1702,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "typeConversion",
+              "lValueRequested": false,
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "360:10:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address_payable",
+                "typeString": "address payable"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1709,
+            "name": "companies",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "377:68:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
+              "typeString": "mapping(address => address[3])"
+            },
+            "typeName": {
+              "id": 1708,
+              "keyType": {
+                "id": 1704,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "386:7:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "377:49:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
+                "typeString": "mapping(address => address[3])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 1705,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "397:7:10",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "id": 1707,
+                "length": {
+                  "argumentTypes": null,
+                  "id": 1706,
+                  "name": "MAX_OWNER_COMPANIES",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 1695,
+                  "src": "405:19:10",
+                  "typeDescriptions": {
+                    "typeIdentifier": null,
+                    "typeString": null
+                  }
+                },
+                "nodeType": "ArrayTypeName",
+                "src": "397:28:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_address_$3_storage_ptr",
+                  "typeString": "address[3]"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1715,
+            "name": "tokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "479:64:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$5_storage_$",
+              "typeString": "mapping(address => address[5])"
+            },
+            "typeName": {
+              "id": 1714,
+              "keyType": {
+                "id": 1710,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "488:7:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "479:48:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$5_storage_$",
+                "typeString": "mapping(address => address[5])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 1711,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "499:7:10",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "id": 1713,
+                "length": {
+                  "argumentTypes": null,
+                  "id": 1712,
+                  "name": "MAX_COMPANY_TOKENS",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 1698,
+                  "src": "507:18:10",
+                  "typeDescriptions": {
+                    "typeIdentifier": null,
+                    "typeString": null
+                  }
+                },
+                "nodeType": "ArrayTypeName",
+                "src": "499:27:10",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_address_$5_storage_ptr",
+                  "typeString": "address[5]"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1717,
+            "name": "bcFactory",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "574:28:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_BCFactory_$233",
+              "typeString": "contract BCFactory"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1716,
+              "name": "BCFactory",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 233,
+              "src": "574:9:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_BCFactory_$233",
+                "typeString": "contract BCFactory"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1719,
+            "name": "tkFactory",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "608:31:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_TokenFactory_$1900",
+              "typeString": "contract TokenFactory"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1718,
+              "name": "TokenFactory",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1900,
+              "src": "608:12:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_TokenFactory_$1900",
+                "typeString": "contract TokenFactory"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1722,
+            "name": "stopped",
+            "nodeType": "VariableDeclaration",
+            "scope": 1723,
+            "src": "645:29:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 1720,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "645:4:10",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "66616c7365",
+              "id": 1721,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "bool",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "669:5:10",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              },
+              "value": "false"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 1724,
+        "src": "81:616:10"
+      }
+    ],
+    "src": "0:698:10"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.0",
+  "updatedAt": "2019-01-18T20:49:03.179Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
