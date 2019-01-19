@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
-import "./ERC20.sol";
-import "./ERC20Detailed.sol";
+import "../client/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "../client/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
 import "./Owned.sol";
 
 contract KMToken is Owned, ERC20, ERC20Detailed {
