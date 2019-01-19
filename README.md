@@ -31,6 +31,9 @@ Compile app Locally:
 - go to /final-project-Juan-cc/kmp/client and run: npm run start
 - you are all set!
 
+Libraries used:
+--------------
+- "openzeppelin-solidity": "2.1.2"
 
 In case needed:
 Installing react-bootstrap style
