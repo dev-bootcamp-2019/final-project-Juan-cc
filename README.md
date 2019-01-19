@@ -1,5 +1,7 @@
 final-project-Juan-cc
 =====================
+[![Coverage Status](https://coveralls.io/repos/github/Juan-cc/final-project-Juan-cc/badge.svg?branch=master)](https://coveralls.io/github/Juan-cc/final-project-Juan-cc?branch=master)
+
 Documentation
 -------------
 * Description: https://docs.google.com/document/d/1Q8KoQVWiCFN1jqC8iK3s12gHI_9GBJevjq5aGZrJqHI/edit?usp=sharing
