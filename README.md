@@ -15,15 +15,13 @@ Prerequisites:
 - Node v8.10.0
 - Web3 ^1.0.0-beta.35
 
-To run on Rinkeby:
----------------
-- download project source code.
-- go to /final-project-Juan-cc/kmp/client and run: npm install
-- start your browser and authenticate metamask to Rinkeby testnet
-- go to /final-project-Juan-cc/kmp/client and run: npm run start
+Try the app (Rinkeby):
+----------------
+- start your browser and authenticate metamask to Rinkeby
+- go to https://kmpblockchain.herokuapp.com/
 - you are all set!
 
-To run locally:
+Compile app Locally:
 ---------------
 - download project source code.
 - go to /final-project-Juan-cc/kmp/client and run: npm install
@@ -42,8 +40,8 @@ $ npm install --save react-bootstrap
 
 Network: rinkeby (id: 4)
 -----------------------
-*  BCFactory: 0x922d59Ab7E59C021524BeD527f8A54EAb222d01C
-*  KMP: 0x4bBE0120b505514C4CaAE571C9483a8D39c371e5
-*  KMToken: 0x6E33d13aC68c9AE99F1fDf55e0014916e48EB41A
-*  Migrations: 0xf771695DFc29fFAa4C9fdC5fC1a2B60bBC560A88
-*  Owned: 0xD4E461F09740627Ee4945fE81F445FA173757A8E
+*  BCFactory: 0x1F96bFE87A1C93C689e0420eF7913AD323Fb9808
+*  KMP: 0xF7871eD7C9498565555d1Ae5C0E1C376AaBEbbE9
+*  KMToken: 0x3Ea42bFa95233B0cDA4461EEBaA1646519f53632
+*  Migrations: 0x4885370739c00892A4d33FCEF73F8c2544015E3E
+*  Owned: 0x2ccF24710f6fAEE6b219Fe17d7745921A76EdD0e
