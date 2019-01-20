@@ -10,12 +10,20 @@ module.exports = {
     development: {
       host: '127.0.0.1',
       port: 8545,
-      network_id: '*' // Match any network id
+      network_id: '*', // Match any network id
+      gas: 6721975
     },
     rinkeby: {
       provider: new HDWalletProvider(mnemonic, infura),
       network_id: "4",
       gas: 6995427
-    }
+    },
+    coverage: {
+      host: "127.0.0.1",
+      network_id: "*",
+      port: 8545,         // <-- If you change this, also set the port option in .solcover.js.
+      gas: 6721975, // <-- Use this high gas value
+      gasPrice: 0x01      // <-- Use this low gas price
+    },
   }
 };

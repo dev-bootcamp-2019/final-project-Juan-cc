@@ -30,24 +30,24 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x60806040526000600360146101000a81548160ff02191690831515021790555034801561002b57600080fd5b5060e08061003a6000396000f3fe6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806338abeb4314604e5780634642e0ba14607c575b600080fd5b348015605957600080fd5b50606060aa565b604051808260ff1660ff16815260200191505060405180910390f35b348015608757600080fd5b50608e60af565b604051808260ff1660ff16815260200191505060405180910390f35b600581565b60038156fea165627a7a7230582030a9191f0cd55974307ad4748cc5b07f16b110efc103c5b1a1182b8ecbb3d24d0029",
-  "deployedBytecode": "0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806338abeb4314604e5780634642e0ba14607c575b600080fd5b348015605957600080fd5b50606060aa565b604051808260ff1660ff16815260200191505060405180910390f35b348015608757600080fd5b50608e60af565b604051808260ff1660ff16815260200191505060405180910390f35b600581565b60038156fea165627a7a7230582030a9191f0cd55974307ad4748cc5b07f16b110efc103c5b1a1182b8ecbb3d24d0029",
-  "sourceMap": "81:616:10:-;;;669:5;645:29;;;;;;;;;;;;;;;;;;;;81:616;8:9:-1;5:2;;;30:1;27;20:12;5:2;81:616:10;;;;;;;",
-  "deployedSourceMap": "81:616:10:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;223:44;;8:9:-1;5:2;;;30:1;27;20:12;5:2;223:44:10;;;;;;;;;;;;;;;;;;;;;;;;;;;127:45;;8:9:-1;5:2;;;30:1;27;20:12;5:2;127:45:10;;;;;;;;;;;;;;;;;;;;;;;;;;;223:44;266:1;223:44;:::o;127:45::-;171:1;127:45;:::o",
-  "source": "pragma solidity ^0.5.0;\n\nimport \"./BCFactory.sol\";\nimport \"./TokenFactory.sol\";\n\ncontract Storage {\n     // Shared storage\n    uint8 constant public MAX_OWNER_COMPANIES = 3; // 1 owner could register up to 5 companies.\n    uint8 constant public MAX_COMPANY_TOKENS = 5; // 1 company could register up to 10 tokens.\n    address constant internal EMPTY_ADDRESS = address(0); \n    mapping (address => address[MAX_OWNER_COMPANIES]) internal companies; // (owner => companies[5]) \n    mapping (address => address[MAX_COMPANY_TOKENS]) internal tokens; // (company => token[]))\n    BCFactory internal bcFactory;\n    TokenFactory internal tkFactory;\n    bool internal stopped = false;  // Circuit breaker\n}\n",
+  "bytecode": "0x60806040526000600360146101000a81548160ff02191690831515021790555034801561002b57600080fd5b5060e08061003a6000396000f3fe6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806338abeb4314604e5780634642e0ba14607c575b600080fd5b348015605957600080fd5b50606060aa565b604051808260ff1660ff16815260200191505060405180910390f35b348015608757600080fd5b50608e60af565b604051808260ff1660ff16815260200191505060405180910390f35b600581565b60038156fea165627a7a72305820364905d5e4d165a47c75199251d1148a0add65d7338b2888348e453e0e4d5aa90029",
+  "deployedBytecode": "0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806338abeb4314604e5780634642e0ba14607c575b600080fd5b348015605957600080fd5b50606060aa565b604051808260ff1660ff16815260200191505060405180910390f35b348015608757600080fd5b50608e60af565b604051808260ff1660ff16815260200191505060405180910390f35b600581565b60038156fea165627a7a72305820364905d5e4d165a47c75199251d1148a0add65d7338b2888348e453e0e4d5aa90029",
+  "sourceMap": "25:609:10:-;;;606:5;582:29;;;;;;;;;;;;;;;;;;;;25:609;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:609:10;;;;;;;",
+  "deployedSourceMap": "25:609:10:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;167:44;;8:9:-1;5:2;;;30:1;27;20:12;5:2;167:44:10;;;;;;;;;;;;;;;;;;;;;;;;;;;71:45;;8:9:-1;5:2;;;30:1;27;20:12;5:2;71:45:10;;;;;;;;;;;;;;;;;;;;;;;;;;;167:44;210:1;167:44;:::o;71:45::-;115:1;71:45;:::o",
+  "source": "pragma solidity ^0.5.0;\n\ncontract Storage {\n     // Shared storage\n    uint8 constant public MAX_OWNER_COMPANIES = 3; // 1 owner could register up to 5 companies.\n    uint8 constant public MAX_COMPANY_TOKENS = 5; // 1 company could register up to 10 tokens.\n    address constant internal EMPTY_ADDRESS = address(0); \n    mapping (address => address[MAX_OWNER_COMPANIES]) internal companies; // (owner => companies[5]) \n    mapping (address => address[MAX_COMPANY_TOKENS]) internal tokens; // (company => token[]))\n    address internal bcFactory;\n    address internal tkFactory;\n    bool internal stopped = false;  // Circuit breaker\n}\n",
   "sourcePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
   "ast": {
     "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
     "exportedSymbols": {
       "Storage": [
-        1558
+        1528
       ]
     },
-    "id": 1559,
+    "id": 1529,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1525,
+        "id": 1497,
         "literals": [
           "solidity",
           "^",
@@ -58,47 +58,25 @@
         "src": "0:23:10"
       },
       {
-        "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/BCFactory.sol",
-        "file": "./BCFactory.sol",
-        "id": 1526,
-        "nodeType": "ImportDirective",
-        "scope": 1559,
-        "sourceUnit": 921,
-        "src": "25:25:10",
-        "symbolAliases": [],
-        "unitAlias": ""
-      },
-      {
-        "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/TokenFactory.sol",
-        "file": "./TokenFactory.sol",
-        "id": 1527,
-        "nodeType": "ImportDirective",
-        "scope": 1559,
-        "sourceUnit": 1736,
-        "src": "51:28:10",
-        "symbolAliases": [],
-        "unitAlias": ""
-      },
-      {
         "baseContracts": [],
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1558,
+        "id": 1528,
         "linearizedBaseContracts": [
-          1558
+          1528
         ],
         "name": "Storage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 1530,
+            "id": 1500,
             "name": "MAX_OWNER_COMPANIES",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "127:45:10",
+            "scope": 1528,
+            "src": "71:45:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -106,10 +84,10 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 1528,
+              "id": 1498,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
-              "src": "127:5:10",
+              "src": "71:5:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint8",
                 "typeString": "uint8"
@@ -118,14 +96,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "33",
-              "id": 1529,
+              "id": 1499,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "171:1:10",
+              "src": "115:1:10",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_3_by_1",
@@ -137,11 +115,11 @@
           },
           {
             "constant": true,
-            "id": 1533,
+            "id": 1503,
             "name": "MAX_COMPANY_TOKENS",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "223:44:10",
+            "scope": 1528,
+            "src": "167:44:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -149,10 +127,10 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 1531,
+              "id": 1501,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
-              "src": "223:5:10",
+              "src": "167:5:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint8",
                 "typeString": "uint8"
@@ -161,14 +139,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "35",
-              "id": 1532,
+              "id": 1502,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "266:1:10",
+              "src": "210:1:10",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_5_by_1",
@@ -180,11 +158,11 @@
           },
           {
             "constant": true,
-            "id": 1538,
+            "id": 1508,
             "name": "EMPTY_ADDRESS",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "318:52:10",
+            "scope": 1528,
+            "src": "262:52:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -192,10 +170,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1534,
+              "id": 1504,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "318:7:10",
+              "src": "262:7:10",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -208,14 +186,14 @@
                 {
                   "argumentTypes": null,
                   "hexValue": "30",
-                  "id": 1536,
+                  "id": 1506,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "368:1:10",
+                  "src": "312:1:10",
                   "subdenomination": null,
                   "typeDescriptions": {
                     "typeIdentifier": "t_rational_0_by_1",
@@ -231,20 +209,20 @@
                     "typeString": "int_const 0"
                   }
                 ],
-                "id": 1535,
+                "id": 1505,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "lValueRequested": false,
                 "nodeType": "ElementaryTypeNameExpression",
-                "src": "360:7:10",
+                "src": "304:7:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_type$_t_address_$",
                   "typeString": "type(address)"
                 },
                 "typeName": "address"
               },
-              "id": 1537,
+              "id": 1507,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -252,7 +230,7 @@
               "lValueRequested": false,
               "names": [],
               "nodeType": "FunctionCall",
-              "src": "360:10:10",
+              "src": "304:10:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_address_payable",
                 "typeString": "address payable"
@@ -262,11 +240,11 @@
           },
           {
             "constant": false,
-            "id": 1544,
+            "id": 1514,
             "name": "companies",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "377:68:10",
+            "scope": 1528,
+            "src": "321:68:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -274,51 +252,51 @@
               "typeString": "mapping(address => address[3])"
             },
             "typeName": {
-              "id": 1543,
+              "id": 1513,
               "keyType": {
-                "id": 1539,
+                "id": 1509,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "386:7:10",
+                "src": "330:7:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "377:49:10",
+              "src": "321:49:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
                 "typeString": "mapping(address => address[3])"
               },
               "valueType": {
                 "baseType": {
-                  "id": 1540,
+                  "id": 1510,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "397:7:10",
+                  "src": "341:7:10",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
                   }
                 },
-                "id": 1542,
+                "id": 1512,
                 "length": {
                   "argumentTypes": null,
-                  "id": 1541,
+                  "id": 1511,
                   "name": "MAX_OWNER_COMPANIES",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1530,
-                  "src": "405:19:10",
+                  "referencedDeclaration": 1500,
+                  "src": "349:19:10",
                   "typeDescriptions": {
                     "typeIdentifier": null,
                     "typeString": null
                   }
                 },
                 "nodeType": "ArrayTypeName",
-                "src": "397:28:10",
+                "src": "341:28:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_array$_t_address_$3_storage_ptr",
                   "typeString": "address[3]"
@@ -330,11 +308,11 @@
           },
           {
             "constant": false,
-            "id": 1550,
+            "id": 1520,
             "name": "tokens",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "479:64:10",
+            "scope": 1528,
+            "src": "423:64:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -342,51 +320,51 @@
               "typeString": "mapping(address => address[5])"
             },
             "typeName": {
-              "id": 1549,
+              "id": 1519,
               "keyType": {
-                "id": 1545,
+                "id": 1515,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "488:7:10",
+                "src": "432:7:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "479:48:10",
+              "src": "423:48:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$5_storage_$",
                 "typeString": "mapping(address => address[5])"
               },
               "valueType": {
                 "baseType": {
-                  "id": 1546,
+                  "id": 1516,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "499:7:10",
+                  "src": "443:7:10",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
                   }
                 },
-                "id": 1548,
+                "id": 1518,
                 "length": {
                   "argumentTypes": null,
-                  "id": 1547,
+                  "id": 1517,
                   "name": "MAX_COMPANY_TOKENS",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1533,
-                  "src": "507:18:10",
+                  "referencedDeclaration": 1503,
+                  "src": "451:18:10",
                   "typeDescriptions": {
                     "typeIdentifier": null,
                     "typeString": null
                   }
                 },
                 "nodeType": "ArrayTypeName",
-                "src": "499:27:10",
+                "src": "443:27:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_array$_t_address_$5_storage_ptr",
                   "typeString": "address[5]"
@@ -398,27 +376,26 @@
           },
           {
             "constant": false,
-            "id": 1552,
+            "id": 1522,
             "name": "bcFactory",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "574:28:10",
+            "scope": 1528,
+            "src": "518:26:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_BCFactory_$920",
-              "typeString": "contract BCFactory"
+              "typeIdentifier": "t_address",
+              "typeString": "address"
             },
             "typeName": {
-              "contractScope": null,
-              "id": 1551,
-              "name": "BCFactory",
-              "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 920,
-              "src": "574:9:10",
+              "id": 1521,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "518:7:10",
+              "stateMutability": "nonpayable",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_BCFactory_$920",
-                "typeString": "contract BCFactory"
+                "typeIdentifier": "t_address",
+                "typeString": "address"
               }
             },
             "value": null,
@@ -426,27 +403,26 @@
           },
           {
             "constant": false,
-            "id": 1554,
+            "id": 1524,
             "name": "tkFactory",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "608:31:10",
+            "scope": 1528,
+            "src": "550:26:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_TokenFactory_$1735",
-              "typeString": "contract TokenFactory"
+              "typeIdentifier": "t_address",
+              "typeString": "address"
             },
             "typeName": {
-              "contractScope": null,
-              "id": 1553,
-              "name": "TokenFactory",
-              "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1735,
-              "src": "608:12:10",
+              "id": 1523,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "550:7:10",
+              "stateMutability": "nonpayable",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TokenFactory_$1735",
-                "typeString": "contract TokenFactory"
+                "typeIdentifier": "t_address",
+                "typeString": "address"
               }
             },
             "value": null,
@@ -454,11 +430,11 @@
           },
           {
             "constant": false,
-            "id": 1557,
+            "id": 1527,
             "name": "stopped",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "645:29:10",
+            "scope": 1528,
+            "src": "582:29:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -466,10 +442,10 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 1555,
+              "id": 1525,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
-              "src": "645:4:10",
+              "src": "582:4:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_bool",
                 "typeString": "bool"
@@ -478,14 +454,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "66616c7365",
-              "id": 1556,
+              "id": 1526,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "bool",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "669:5:10",
+              "src": "606:5:10",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_bool",
@@ -496,24 +472,24 @@
             "visibility": "internal"
           }
         ],
-        "scope": 1559,
-        "src": "81:616:10"
+        "scope": 1529,
+        "src": "25:609:10"
       }
     ],
-    "src": "0:698:10"
+    "src": "0:635:10"
   },
   "legacyAST": {
     "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
     "exportedSymbols": {
       "Storage": [
-        1558
+        1528
       ]
     },
-    "id": 1559,
+    "id": 1529,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1525,
+        "id": 1497,
         "literals": [
           "solidity",
           "^",
@@ -524,47 +500,25 @@
         "src": "0:23:10"
       },
       {
-        "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/BCFactory.sol",
-        "file": "./BCFactory.sol",
-        "id": 1526,
-        "nodeType": "ImportDirective",
-        "scope": 1559,
-        "sourceUnit": 921,
-        "src": "25:25:10",
-        "symbolAliases": [],
-        "unitAlias": ""
-      },
-      {
-        "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/TokenFactory.sol",
-        "file": "./TokenFactory.sol",
-        "id": 1527,
-        "nodeType": "ImportDirective",
-        "scope": 1559,
-        "sourceUnit": 1736,
-        "src": "51:28:10",
-        "symbolAliases": [],
-        "unitAlias": ""
-      },
-      {
         "baseContracts": [],
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1558,
+        "id": 1528,
         "linearizedBaseContracts": [
-          1558
+          1528
         ],
         "name": "Storage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 1530,
+            "id": 1500,
             "name": "MAX_OWNER_COMPANIES",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "127:45:10",
+            "scope": 1528,
+            "src": "71:45:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -572,10 +526,10 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 1528,
+              "id": 1498,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
-              "src": "127:5:10",
+              "src": "71:5:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint8",
                 "typeString": "uint8"
@@ -584,14 +538,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "33",
-              "id": 1529,
+              "id": 1499,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "171:1:10",
+              "src": "115:1:10",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_3_by_1",
@@ -603,11 +557,11 @@
           },
           {
             "constant": true,
-            "id": 1533,
+            "id": 1503,
             "name": "MAX_COMPANY_TOKENS",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "223:44:10",
+            "scope": 1528,
+            "src": "167:44:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -615,10 +569,10 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 1531,
+              "id": 1501,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
-              "src": "223:5:10",
+              "src": "167:5:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint8",
                 "typeString": "uint8"
@@ -627,14 +581,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "35",
-              "id": 1532,
+              "id": 1502,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "266:1:10",
+              "src": "210:1:10",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_5_by_1",
@@ -646,11 +600,11 @@
           },
           {
             "constant": true,
-            "id": 1538,
+            "id": 1508,
             "name": "EMPTY_ADDRESS",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "318:52:10",
+            "scope": 1528,
+            "src": "262:52:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -658,10 +612,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1534,
+              "id": 1504,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "318:7:10",
+              "src": "262:7:10",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -674,14 +628,14 @@
                 {
                   "argumentTypes": null,
                   "hexValue": "30",
-                  "id": 1536,
+                  "id": 1506,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "368:1:10",
+                  "src": "312:1:10",
                   "subdenomination": null,
                   "typeDescriptions": {
                     "typeIdentifier": "t_rational_0_by_1",
@@ -697,20 +651,20 @@
                     "typeString": "int_const 0"
                   }
                 ],
-                "id": 1535,
+                "id": 1505,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "lValueRequested": false,
                 "nodeType": "ElementaryTypeNameExpression",
-                "src": "360:7:10",
+                "src": "304:7:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_type$_t_address_$",
                   "typeString": "type(address)"
                 },
                 "typeName": "address"
               },
-              "id": 1537,
+              "id": 1507,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -718,7 +672,7 @@
               "lValueRequested": false,
               "names": [],
               "nodeType": "FunctionCall",
-              "src": "360:10:10",
+              "src": "304:10:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_address_payable",
                 "typeString": "address payable"
@@ -728,11 +682,11 @@
           },
           {
             "constant": false,
-            "id": 1544,
+            "id": 1514,
             "name": "companies",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "377:68:10",
+            "scope": 1528,
+            "src": "321:68:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -740,51 +694,51 @@
               "typeString": "mapping(address => address[3])"
             },
             "typeName": {
-              "id": 1543,
+              "id": 1513,
               "keyType": {
-                "id": 1539,
+                "id": 1509,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "386:7:10",
+                "src": "330:7:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "377:49:10",
+              "src": "321:49:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
                 "typeString": "mapping(address => address[3])"
               },
               "valueType": {
                 "baseType": {
-                  "id": 1540,
+                  "id": 1510,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "397:7:10",
+                  "src": "341:7:10",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
                   }
                 },
-                "id": 1542,
+                "id": 1512,
                 "length": {
                   "argumentTypes": null,
-                  "id": 1541,
+                  "id": 1511,
                   "name": "MAX_OWNER_COMPANIES",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1530,
-                  "src": "405:19:10",
+                  "referencedDeclaration": 1500,
+                  "src": "349:19:10",
                   "typeDescriptions": {
                     "typeIdentifier": null,
                     "typeString": null
                   }
                 },
                 "nodeType": "ArrayTypeName",
-                "src": "397:28:10",
+                "src": "341:28:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_array$_t_address_$3_storage_ptr",
                   "typeString": "address[3]"
@@ -796,11 +750,11 @@
           },
           {
             "constant": false,
-            "id": 1550,
+            "id": 1520,
             "name": "tokens",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "479:64:10",
+            "scope": 1528,
+            "src": "423:64:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -808,51 +762,51 @@
               "typeString": "mapping(address => address[5])"
             },
             "typeName": {
-              "id": 1549,
+              "id": 1519,
               "keyType": {
-                "id": 1545,
+                "id": 1515,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "488:7:10",
+                "src": "432:7:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "479:48:10",
+              "src": "423:48:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$5_storage_$",
                 "typeString": "mapping(address => address[5])"
               },
               "valueType": {
                 "baseType": {
-                  "id": 1546,
+                  "id": 1516,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "499:7:10",
+                  "src": "443:7:10",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
                   }
                 },
-                "id": 1548,
+                "id": 1518,
                 "length": {
                   "argumentTypes": null,
-                  "id": 1547,
+                  "id": 1517,
                   "name": "MAX_COMPANY_TOKENS",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1533,
-                  "src": "507:18:10",
+                  "referencedDeclaration": 1503,
+                  "src": "451:18:10",
                   "typeDescriptions": {
                     "typeIdentifier": null,
                     "typeString": null
                   }
                 },
                 "nodeType": "ArrayTypeName",
-                "src": "499:27:10",
+                "src": "443:27:10",
                 "typeDescriptions": {
                   "typeIdentifier": "t_array$_t_address_$5_storage_ptr",
                   "typeString": "address[5]"
@@ -864,27 +818,26 @@
           },
           {
             "constant": false,
-            "id": 1552,
+            "id": 1522,
             "name": "bcFactory",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "574:28:10",
+            "scope": 1528,
+            "src": "518:26:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_BCFactory_$920",
-              "typeString": "contract BCFactory"
+              "typeIdentifier": "t_address",
+              "typeString": "address"
             },
             "typeName": {
-              "contractScope": null,
-              "id": 1551,
-              "name": "BCFactory",
-              "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 920,
-              "src": "574:9:10",
+              "id": 1521,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "518:7:10",
+              "stateMutability": "nonpayable",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_BCFactory_$920",
-                "typeString": "contract BCFactory"
+                "typeIdentifier": "t_address",
+                "typeString": "address"
               }
             },
             "value": null,
@@ -892,27 +845,26 @@
           },
           {
             "constant": false,
-            "id": 1554,
+            "id": 1524,
             "name": "tkFactory",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "608:31:10",
+            "scope": 1528,
+            "src": "550:26:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_TokenFactory_$1735",
-              "typeString": "contract TokenFactory"
+              "typeIdentifier": "t_address",
+              "typeString": "address"
             },
             "typeName": {
-              "contractScope": null,
-              "id": 1553,
-              "name": "TokenFactory",
-              "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1735,
-              "src": "608:12:10",
+              "id": 1523,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "550:7:10",
+              "stateMutability": "nonpayable",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TokenFactory_$1735",
-                "typeString": "contract TokenFactory"
+                "typeIdentifier": "t_address",
+                "typeString": "address"
               }
             },
             "value": null,
@@ -920,11 +872,11 @@
           },
           {
             "constant": false,
-            "id": 1557,
+            "id": 1527,
             "name": "stopped",
             "nodeType": "VariableDeclaration",
-            "scope": 1558,
-            "src": "645:29:10",
+            "scope": 1528,
+            "src": "582:29:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -932,10 +884,10 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 1555,
+              "id": 1525,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
-              "src": "645:4:10",
+              "src": "582:4:10",
               "typeDescriptions": {
                 "typeIdentifier": "t_bool",
                 "typeString": "bool"
@@ -944,14 +896,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "66616c7365",
-              "id": 1556,
+              "id": 1526,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "bool",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "669:5:10",
+              "src": "606:5:10",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_bool",
@@ -962,11 +914,11 @@
             "visibility": "internal"
           }
         ],
-        "scope": 1559,
-        "src": "81:616:10"
+        "scope": 1529,
+        "src": "25:609:10"
       }
     ],
-    "src": "0:698:10"
+    "src": "0:635:10"
   },
   "compiler": {
     "name": "solc",
@@ -974,7 +926,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-19T16:54:39.098Z",
+  "updatedAt": "2019-01-20T17:46:32.982Z",
   "devdoc": {
     "methods": {}
   },

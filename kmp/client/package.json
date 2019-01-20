@@ -16,10 +16,21 @@
     "eject": "react-scripts eject",
     "link-contracts": "run-script-os",
     "link-contracts:linux:darwin": "cd src && ln -s ../../build/contracts contracts",
-    "link-contracts:win32": "cd src && mklink \\D contracts ..\\..\\build\\contracts"
+    "link-contracts:win32": "cd src && mklink \\D contracts ..\\..\\build\\contracts",
+    "link-coverage": "run-script-os",
+    "link-coverage:linux:darwin": "ln -s ../build/contracts contracts",
+    "link-coverage:win32": "mklink \\D contracts ..\\build\\contracts",
+    "link-coverage-test": "run-script-os",
+    "link-coverage-test:linux:darwin": "ln -s ../test test",
+    "link-coverage-test:win32": "mklink \\D test ..\\test",
+    "coverage": "./node_modules/.bin/solidity-coverage"
   },
+  "homepage": "https://github.com/Juan-cc/final-project-Juan-cc",
   "devDependencies": {
-    "run-script-os": "^1.0.3"
+    "run-script-os": "^1.0.3",
+    "solidity-coverage": "0.5.11",
+    "truffle": "^5.0.0",
+    "coveralls": "^3.0.2"
   },
   "browserslist": [
     ">0.2%",

@@ -3,7 +3,6 @@ pragma solidity ^0.5.0;
 import "./KMToken.sol";
 import "./Owned.sol";
 import "./BC.sol";
-import "./TokenFactory.sol";
 import "./Storage.sol";
 
 
@@ -12,15 +11,17 @@ contract KMP is Owned, Storage {
     // Events
     event KMPCompanyCreated(address company, string name, address indexed owner);
     event KMPTokenCreated(address indexed _company, address indexed _token, string _name, string _symbol, uint256 _initialAmount);
-    event KMMsgSender(address indexed msgSender);
-    event KMUserTokenBalance(address indexed user, uint256 balance);
-    event KMReturnedToken(KMToken returnToken);
-    event KMReturnedBC(BC returnBC);
-    event KMTokenAssigned(address _from, address _to, uint256 _amount);
 
     constructor() Owned() public {
-        bcFactory = new BCFactory(); // Owner will be KMP contract.
-        tkFactory = new TokenFactory(); // Owner will be KMP contract.
+    }
+
+    function setup(address bcFactoryAddress, address tokenFactoryAddress) 
+        ownerOnly(msg.sender) 
+        external 
+    {
+        bcFactory = bcFactoryAddress; // Owner will be KMP contract.
+        tkFactory = tokenFactoryAddress; // Owner will be KMP contract.
+
     }
     
     // Circuit breaker modifier
@@ -38,7 +39,7 @@ contract KMP is Owned, Storage {
         stopInEmergency()
         returns(BC)
     {
-        (bool companyCreated, bytes memory returnData) = address(bcFactory).delegatecall(
+        (bool companyCreated, bytes memory returnData) = bcFactory.delegatecall(
             abi.encodeWithSignature("createBCCompany(string,string,string,string,address)",
             _companyName, _phone, _url, _did, _uPortAddress));
         if (companyCreated){
@@ -56,7 +57,7 @@ contract KMP is Owned, Storage {
         returns(KMToken)
     {
            
-        (bool tokenCreated, bytes memory returnData) = address(tkFactory).delegatecall(
+        (bool tokenCreated, bytes memory returnData) = tkFactory.delegatecall(
             abi.encodeWithSignature("createTokenForBCCompany(address,string,string,uint256)",
             _bcCompany, _name, _symbol, _initialAmount));
         if (tokenCreated){
@@ -70,6 +71,7 @@ contract KMP is Owned, Storage {
  
     function getUserTokenBalance(address _company, address _token, address _user)
         external
+        view
         onlyCompanyOwner(findBCowner(_company))
         returns (uint256 aBalance)
     {
@@ -77,7 +79,6 @@ contract KMP is Owned, Storage {
         bytes memory payload = abi.encodeWithSignature("balanceOf(address)", _user);
         (bool result, bytes memory returnData) = _token.staticcall(payload);
         if (result) {
-            emit KMMsgSender(msg.sender);
             aBalance = abi.decode(returnData, (uint256));
         }
         return aBalance;

@@ -1,0 +1,18 @@
+{
+  "name": "kmp-contracts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "openzeppelin-solidity": "2.1.2"
+  },
+  "scripts": {
+    "coverage": "./node_modules/.bin/solidity-coverage"
+  },
+  "homepage": "https://github.com/Juan-cc/final-project-Juan-cc",
+  "devDependencies": {
+    "solidity-coverage": "0.5.11",
+    "truffle": "^5.0.0",
+    "coveralls": "^3.0.2",
+    "truffle-hdwallet-provider": "web3-one"
+  }
+}

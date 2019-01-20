@@ -1,0 +1,14 @@
+language: node_js
+  - "8"
+
+before_script:
+  - cd kmp
+  - npm install -g ganache-cli
+  - npm install -g truffle
+  - npm install truffle-hdwallet-provider
+
+
+script:
+  - ganache-cli &
+  - sleep 5
+  - truffle test
