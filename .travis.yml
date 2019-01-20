@@ -3,6 +3,7 @@ language: node_js
 
 before_script:
   - cd kmp
+  - npm i -g npm
   - npm install -g
   - npm install -g ganache-cli
   - npm install -g truffle
