@@ -30,7 +30,8 @@
     "run-script-os": "^1.0.3",
     "solidity-coverage": "0.5.11",
     "truffle": "^5.0.0",
-    "coveralls": "^3.0.2"
+    "coveralls": "^3.0.2",
+    "openzeppelin-solidity": "2.1.2"
   },
   "browserslist": [
     ">0.2%",
