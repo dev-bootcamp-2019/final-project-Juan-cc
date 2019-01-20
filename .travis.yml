@@ -5,7 +5,7 @@ before_script:
   - cd kmp
   - npm install -g ganache-cli
   - npm install -g truffle
-  - npm install truffle-hdwallet-provider
+  - npm install -g truffle-hdwallet-provider@web3-one
 
 
 script:
