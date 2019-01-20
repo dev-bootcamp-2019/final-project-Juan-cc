@@ -9,12 +9,9 @@ before_script:
 
 
 script:
-<<<<<<< HEAD
 - which npm
 - which node
 - echo $NODE_PATH
-=======
->>>>>>> master
 - ganache-cli -p 8545 > /dev/null &
 - sleep 5
 - truffle migrate 
