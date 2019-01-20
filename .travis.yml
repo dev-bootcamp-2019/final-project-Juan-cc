@@ -9,6 +9,10 @@ before_script:
 
 
 script:
-  - ganache-cli &
-  - sleep 5
-  - truffle test
+- which npm
+- which node
+- echo $NODE_PATH
+- ganache-cli -p 8545 > /dev/null &
+- sleep 5
+- truffle migrate 
+- truffle test
