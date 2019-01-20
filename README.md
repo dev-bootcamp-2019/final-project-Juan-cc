@@ -37,12 +37,6 @@ Libraries used:
 --------------
 - "openzeppelin-solidity": "2.1.2"
 
-In case needed:
-Installing react-bootstrap style
-$ npm install --save react react-dom 
-$ npm install --save react-bootstrap
-
-
 Network: rinkeby (id: 4)
 -----------------------
 *  BCFactory: 0x1F96bFE87A1C93C689e0420eF7913AD323Fb9808
@@ -50,3 +44,7 @@ Network: rinkeby (id: 4)
 *  KMToken: 0x3Ea42bFa95233B0cDA4461EEBaA1646519f53632
 *  Migrations: 0x4885370739c00892A4d33FCEF73F8c2544015E3E
 *  Owned: 0x2ccF24710f6fAEE6b219Fe17d7745921A76EdD0e
+
+Useful links
+------------
+- https://github.com/sc-forks/solidity-parser/pull/18 (solidity-coverage)
