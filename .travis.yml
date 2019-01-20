@@ -3,15 +3,12 @@ language: node_js
 
 before_script:
   - cd kmp
-  - npm i -g npm
-  - npm install -g
   - npm install -g ganache-cli
   - npm install -g truffle
-  - npm install -g truffle-hdwallet-provider@web3-one
+  - npm install truffle-hdwallet-provider
 
 
 script:
-- ganache-cli &
-- sleep 5
-- truffle migrate 
-- truffle test
+  - ganache-cli &
+  - sleep 5
+  - truffle test
