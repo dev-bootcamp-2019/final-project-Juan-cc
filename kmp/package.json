@@ -13,6 +13,6 @@
     "solidity-coverage": "0.5.11",
     "truffle": "^5.0.0",
     "coveralls": "^3.0.2",
-    "truffle-hdwallet-provider": "web3-one"
+    "truffle-hdwallet-provider": "1.0.2"
   }
 }
