@@ -1,6 +1,9 @@
 module.exports = {
-    port: 8545,
     norpc: true,
-    compileCommand: 'truffle compile -all',
-    testCommand: 'truffle test --network coverage',
-};
+    testCommand: 'node --max-old-space-size=4096 ../node_modules/.bin/truffle test --network coverage',
+    compileCommand: 'node --max-old-space-size=4096 ../node_modules/.bin/truffle compile --network coverage',
+    skipFiles: [
+        'lifecycle/Migrations.sol',
+        'mocks'
+    ]
+}
