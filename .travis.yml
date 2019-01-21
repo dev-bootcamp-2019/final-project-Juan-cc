@@ -5,6 +5,7 @@ before_script:
   - cd kmp/client
   - npm install
   - cd ..
+  - npm install
   - npm install -g ganache-cli
   - npm install -g truffle
 
