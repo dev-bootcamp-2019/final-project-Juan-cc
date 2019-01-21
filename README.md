@@ -27,13 +27,14 @@ Compile app Locally:
 ---------------
 - download project source code.
 - go to /final-project-Juan-cc/kmp/client and run: npm install
+- go to /final-project-Juan-cc/kmp and run: npm install
 - configure ganache on port 8545
 - migrate contracts
 - start your browser and authenticate metamask to your local ganache
 - go to /final-project-Juan-cc/kmp/client and run: npm run start
 - you are all set!
 
-Libraries used:
+Used library:
 --------------
 - "openzeppelin-solidity": "2.1.2"
 
