@@ -88,3 +88,27 @@ Network: rinkeby (id: 4)
   Owned: 0x62EF94501c16888C28447c42C0ff0d8d66eBD494
   TokenFactory: 0xc61C1c1eF3546650Cdf7e46774D90bda1869D806
 
+
+The following networks are configured to match any network id ('*'):
+
+    coverage
+    development
+
+Closely inspect the deployed networks below, and use `truffle networks --clean` to remove any networks that don't match your configuration. You should not use the wildcard configuration ('*') for staging and production networks for which you intend to deploy your application.
+
+Network: UNKNOWN (id: 5777)
+  BCFactory: 0x443a627F40E117d8c6181283E791CAe282928587
+  KMP: 0x45657330cAF45EeD340b40E4D76aDb4bB3CEE88A
+  KMToken: 0x0053c484A5f6A10f3Ab769ac9AC1fD57B636De9F
+  Migrations: 0xF0829663f4606955A15D9b63d253263AAA3D48b2
+  Owned: 0x5F3Ac36A2aA110AbBa38A30EB02D6F8Bb9a344c4
+  TokenFactory: 0xA7E907adFd782398ACa0cc3818f506CB7EeDEdAe
+
+Network: rinkeby (id: 4)
+  BCFactory: 0xF1C8D0C0740F9684D561c28f7Df0a5Da5db30a27
+  KMP: 0x9cBa9C23ab1586B077DE6DC3f28c149F8F60164A
+  KMToken: 0x6A3B47B4096D80321916cdB45C585fe7cc499CB1
+  Migrations: 0x33Cc969033277e210F01454Fbe1905a7fc654981
+  Owned: 0x62EF94501c16888C28447c42C0ff0d8d66eBD494
+  TokenFactory: 0xc61C1c1eF3546650Cdf7e46774D90bda1869D806
+
