@@ -2,9 +2,6 @@
   "name": "kmp-contracts",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "openzeppelin-solidity": "2.1.2"
-  },
   "scripts": {
     "coverage": "./node_modules/.bin/solidity-coverage"
   },
