@@ -16,7 +16,12 @@ script:
   - sleep 5
   - truffle test
 
-before_deploy:
- run:
-    - cd ..
+before_deploy: 
+  - "cd .."
 
+deploy:
+  provider: heroku
+  api_key:
+    secure: "d180cd52-ee50-42cd-9b8b-9cd049ab21b5"
+  app: kmpblockchain
+ 
