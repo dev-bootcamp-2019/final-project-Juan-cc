@@ -29,6 +29,7 @@ contract KMP is Owned, Storage {
         require(!stopped); 
         _; 
     }
+    
     modifier onlyCompanyOwner(address companyOwner){
         require(msg.sender == companyOwner, "Only company owner can execute this function");
         _;

@@ -27,15 +27,13 @@
     "link-coverage:win32": "mklink \\D contracts ..\\build\\contracts",
     "link-coverage-test": "run-script-os",
     "link-coverage-test:linux:darwin": "ln -s ../test test",
-    "link-coverage-test:win32": "mklink \\D test ..\\test",
-    "coverage": "./node_modules/.bin/solidity-coverage"
+    "link-coverage-test:win32": "mklink \\D test ..\\test"
   },
   "homepage": "https://github.com/Juan-cc/final-project-Juan-cc",
   "devDependencies": {
     "run-script-os": "^1.0.3",
     "solidity-coverage": "0.5.11",
     "truffle": "^5.0.0",
-    "coveralls": "^3.0.2",
     "bootstrap": "4.2.1",
     "react-bootstrap": "0.32.4",
     "openzeppelin-solidity": "2.1.2"
