@@ -1794,10 +1794,57 @@
   },
   "networks": {
     "4": {
-      "events": {},
+      "events": {
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event",
+          "signature": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+        },
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event",
+          "signature": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
+        }
+      },
       "links": {},
-      "address": "0x6A3B47B4096D80321916cdB45C585fe7cc499CB1",
-      "transactionHash": "0x144c90855d3b9f243927c8024a366cd7d4b5df27b06f6212ef50a20d1f0c59d6"
+      "address": "0xD279D186F4653006B134A2688C0380f75C520d80",
+      "transactionHash": "0xd450bdfcdc535da650155920a87a1c84a7222a639336f2204e2cf50dd8f0fe33"
     },
     "5777": {
       "events": {
@@ -1854,7 +1901,7 @@
     }
   },
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-21T18:41:19.455Z",
+  "updatedAt": "2019-01-22T02:44:44.790Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {
