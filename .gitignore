@@ -6,3 +6,5 @@ workspace\.code-workspace
 BusCompany/package-lock\.json
 
 kmp/client/package-lock\.json
+
+kmp/package-lock\.json
