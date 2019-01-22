@@ -327,13 +327,12 @@ class App extends Component {
         <h2 className="font-weight-bold py-2">STORAGE</h2>
           <h5 className="font-weight-normal">Companies &raquo; Tokens</h5>
             <div className="py-2">
-              <ul>
+              <ul className="list-group">
                 {this.state.companiesList.map((aCompany, i) => (
-                  <li onClick={ () => this.handleUseCompany(aCompany, i)} key={aCompany}>{aCompany}
-                    <ul>
+                  <li className="list-group-item list-group-item-primary" onClick={ () => this.handleUseCompany(aCompany, i)} key={aCompany}><h5>{aCompany}</h5>
+                    <ul  className="list-group">
                       {this.state.tokensList[i].map(aToken => (
-                        <li onClick={ () => this.handleUseToken(aToken)} key={aToken}>{aToken}
-                        
+                        <li  className="list-group-item list-group-item-info font-italic" onClick={ () => this.handleUseToken(aToken)} key={aToken}>{aToken}
                         </li>
                       ))}
                     </ul>
