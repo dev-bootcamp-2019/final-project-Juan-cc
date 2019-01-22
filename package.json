@@ -1,17 +1,28 @@
 {
-  "name": "main-directory",
+  "name": "heroku-main-dir",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-
-   },
-  "scripts": {
-    "link-contracts": "run-script-os",
-    "link-contracts:linux:darwin": "cd src && ln -s ../../build/contracts contracts",
-    "link-contracts:win32": "cd src && mklink \\D contracts ..\\..\\build\\contracts"
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1",
+    "bootstrap": "4.2.1",
+    "web3": "^1.0.0-beta.35",
+    "run-script-os": "^1.0.3",
+    "solidity-coverage": "0.5.11",
+    "truffle": "^5.0.0",
+    "coveralls": "^3.0.2",
+    "react-bootstrap": "0.32.4",
+    "openzeppelin-solidity": "2.1.2"
   },
+  "scripts": {
+    "link-contracts-heroku": "run-script-os",
+    "link-contracts-heroku:linux:darwin": "cd kmp/src && ln -s ../../build/contracts contracts",
+    "link-contracts-heroku:win32": "cd kmp\\src && mklink \\D contracts ..\\..\\build\\contracts"
+  },
+  "homepage": "https://github.com/Juan-cc/final-project-Juan-cc",
   "devDependencies": {
-    "run-script-os": "^1.0.3"
+    "run-script-os": "^1.0.3",
+    "react-scripts": "2.1.1"
   }
- 
 }
