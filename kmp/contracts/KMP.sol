@@ -141,7 +141,11 @@ contract KMP is Owned, Storage {
         external
         returns(bool)
     {
-        stopped = true;
+        if (stopped == false) {
+            stopped = true;
+        } else {
+            stopped = false;
+        }
         return stopped;
     }
 }

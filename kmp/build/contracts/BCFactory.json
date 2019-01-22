@@ -146,7 +146,7 @@
         "id": 810,
         "nodeType": "ImportDirective",
         "scope": 921,
-        "sourceUnit": 1496,
+        "sourceUnit": 1506,
         "src": "25:21:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -157,7 +157,7 @@
         "id": 811,
         "nodeType": "ImportDirective",
         "scope": 921,
-        "sourceUnit": 1398,
+        "sourceUnit": 1408,
         "src": "47:23:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -168,7 +168,7 @@
         "id": 812,
         "nodeType": "ImportDirective",
         "scope": 921,
-        "sourceUnit": 1706,
+        "sourceUnit": 1716,
         "src": "71:28:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -179,7 +179,7 @@
         "id": 813,
         "nodeType": "ImportDirective",
         "scope": 921,
-        "sourceUnit": 1529,
+        "sourceUnit": 1539,
         "src": "100:23:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -193,10 +193,10 @@
               "id": 814,
               "name": "Owned",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1495,
+              "referencedDeclaration": 1505,
               "src": "148:5:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Owned_$1495",
+                "typeIdentifier": "t_contract$_Owned_$1505",
                 "typeString": "contract Owned"
               }
             },
@@ -211,10 +211,10 @@
               "id": 816,
               "name": "Storage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1528,
+              "referencedDeclaration": 1538,
               "src": "155:7:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Storage_$1528",
+                "typeIdentifier": "t_contract$_Storage_$1538",
                 "typeString": "contract Storage"
               }
             },
@@ -225,8 +225,8 @@
         ],
         "contractDependencies": [
           807,
-          1495,
-          1528
+          1505,
+          1538
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -234,8 +234,8 @@
         "id": 920,
         "linearizedBaseContracts": [
           920,
-          1528,
-          1495
+          1538,
+          1505
         ],
         "name": "BCFactory",
         "nodeType": "ContractDefinition",
@@ -333,7 +333,7 @@
                           "name": "MAX_OWNER_COMPANIES",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1500,
+                          "referencedDeclaration": 1510,
                           "src": "439:19:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint8",
@@ -395,10 +395,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1723,
-                        1724
+                        1733,
+                        1734
                       ],
-                      "referencedDeclaration": 1724,
+                      "referencedDeclaration": 1734,
                       "src": "431:7:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -469,7 +469,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1720,
+                          "referencedDeclaration": 1730,
                           "src": "571:3:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -642,7 +642,7 @@
                           "name": "companies",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1514,
+                          "referencedDeclaration": 1524,
                           "src": "641:9:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
@@ -658,7 +658,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1720,
+                            "referencedDeclaration": 1730,
                             "src": "651:3:5",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -1027,7 +1027,7 @@
                           "name": "MAX_OWNER_COMPANIES",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1500,
+                          "referencedDeclaration": 1510,
                           "src": "860:19:5",
                           "typeDescriptions": {
                             "typeIdentifier": null,
@@ -1054,7 +1054,7 @@
                       "name": "companies",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1514,
+                      "referencedDeclaration": 1524,
                       "src": "905:9:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
@@ -1070,7 +1070,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1720,
+                        "referencedDeclaration": 1730,
                         "src": "915:3:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1171,7 +1171,7 @@
                             "name": "EMPTY_ADDRESS",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1508,
+                            "referencedDeclaration": 1518,
                             "src": "1023:13:5",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -1249,7 +1249,7 @@
                       "name": "MAX_OWNER_COMPANIES",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1500,
+                      "referencedDeclaration": 1510,
                       "src": "958:19:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -1361,7 +1361,7 @@
                     "name": "MAX_OWNER_COMPANIES",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 1500,
+                    "referencedDeclaration": 1510,
                     "src": "1132:19:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
@@ -1557,7 +1557,7 @@
         "id": 810,
         "nodeType": "ImportDirective",
         "scope": 921,
-        "sourceUnit": 1496,
+        "sourceUnit": 1506,
         "src": "25:21:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1568,7 +1568,7 @@
         "id": 811,
         "nodeType": "ImportDirective",
         "scope": 921,
-        "sourceUnit": 1398,
+        "sourceUnit": 1408,
         "src": "47:23:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1579,7 +1579,7 @@
         "id": 812,
         "nodeType": "ImportDirective",
         "scope": 921,
-        "sourceUnit": 1706,
+        "sourceUnit": 1716,
         "src": "71:28:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1590,7 +1590,7 @@
         "id": 813,
         "nodeType": "ImportDirective",
         "scope": 921,
-        "sourceUnit": 1529,
+        "sourceUnit": 1539,
         "src": "100:23:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1604,10 +1604,10 @@
               "id": 814,
               "name": "Owned",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1495,
+              "referencedDeclaration": 1505,
               "src": "148:5:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Owned_$1495",
+                "typeIdentifier": "t_contract$_Owned_$1505",
                 "typeString": "contract Owned"
               }
             },
@@ -1622,10 +1622,10 @@
               "id": 816,
               "name": "Storage",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1528,
+              "referencedDeclaration": 1538,
               "src": "155:7:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Storage_$1528",
+                "typeIdentifier": "t_contract$_Storage_$1538",
                 "typeString": "contract Storage"
               }
             },
@@ -1636,8 +1636,8 @@
         ],
         "contractDependencies": [
           807,
-          1495,
-          1528
+          1505,
+          1538
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -1645,8 +1645,8 @@
         "id": 920,
         "linearizedBaseContracts": [
           920,
-          1528,
-          1495
+          1538,
+          1505
         ],
         "name": "BCFactory",
         "nodeType": "ContractDefinition",
@@ -1744,7 +1744,7 @@
                           "name": "MAX_OWNER_COMPANIES",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1500,
+                          "referencedDeclaration": 1510,
                           "src": "439:19:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint8",
@@ -1806,10 +1806,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1723,
-                        1724
+                        1733,
+                        1734
                       ],
-                      "referencedDeclaration": 1724,
+                      "referencedDeclaration": 1734,
                       "src": "431:7:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1880,7 +1880,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1720,
+                          "referencedDeclaration": 1730,
                           "src": "571:3:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2053,7 +2053,7 @@
                           "name": "companies",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1514,
+                          "referencedDeclaration": 1524,
                           "src": "641:9:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
@@ -2069,7 +2069,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1720,
+                            "referencedDeclaration": 1730,
                             "src": "651:3:5",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -2438,7 +2438,7 @@
                           "name": "MAX_OWNER_COMPANIES",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1500,
+                          "referencedDeclaration": 1510,
                           "src": "860:19:5",
                           "typeDescriptions": {
                             "typeIdentifier": null,
@@ -2465,7 +2465,7 @@
                       "name": "companies",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1514,
+                      "referencedDeclaration": 1524,
                       "src": "905:9:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_address_$3_storage_$",
@@ -2481,7 +2481,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1720,
+                        "referencedDeclaration": 1730,
                         "src": "915:3:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -2582,7 +2582,7 @@
                             "name": "EMPTY_ADDRESS",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1508,
+                            "referencedDeclaration": 1518,
                             "src": "1023:13:5",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -2660,7 +2660,7 @@
                       "name": "MAX_OWNER_COMPANIES",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1500,
+                      "referencedDeclaration": 1510,
                       "src": "958:19:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -2772,7 +2772,7 @@
                     "name": "MAX_OWNER_COMPANIES",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 1500,
+                    "referencedDeclaration": 1510,
                     "src": "1132:19:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
@@ -2955,12 +2955,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x443a627F40E117d8c6181283E791CAe282928587",
-      "transactionHash": "0x06e10704976da63bce2b4d39ee34c0116cffee86e814a386ee7cd712798c3e4f"
+      "address": "0xa459b443C8067EcC3362BDe1Da486F128C767366",
+      "transactionHash": "0x932216975baab693d332816b3e84c66cc233ca8dbb7c698c79885ea6e408bfd1"
     }
   },
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-20T18:39:59.503Z",
+  "updatedAt": "2019-01-21T18:41:19.428Z",
   "devdoc": {
     "methods": {}
   },

@@ -1029,12 +1029,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x5F3Ac36A2aA110AbBa38A30EB02D6F8Bb9a344c4",
-      "transactionHash": "0x7cdc38a10f3bbead10b2a4b63827aa634ec21b7b8c84c1ce472b406975cb4f4a"
+      "address": "0x69406518A98E43aE221409C32615910aCB88D6D9",
+      "transactionHash": "0x65d7d1d6509cf6e109205d8abe5eac8e5c8a4b641380989f2a858c6462f42193"
     }
   },
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-20T18:39:59.501Z",
+  "updatedAt": "2019-01-21T18:41:19.425Z",
   "devdoc": {
     "methods": {}
   },

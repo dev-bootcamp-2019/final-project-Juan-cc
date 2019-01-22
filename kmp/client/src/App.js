@@ -278,7 +278,7 @@ class App extends Component {
 
   handlePreviousAccount = (event) => {
     event.preventDefault();
-    if (this.state.accountNumber > 1) {
+    if (this.state.accountNumber > 0) {
       const newAccountNum = this.state.accountNumber - 1;
       const newDestAddress = this.state.accountsCustomList[newAccountNum];
       this.setState({
@@ -300,20 +300,33 @@ class App extends Component {
     }
   }
 
+  handleDisableEnablePlatform = async (event) => {
+    event.preventDefault();
+    await this.handleAccountChange();
+    const { accounts, kmpContract } = this.state;
+    const callMethod = kmpContract.methods.activateEmergency();
+    await callMethod.send({ from: accounts[0]})
+    .on('error', () => { console.log("Error Disabling/Enabling platform");
+    }).then((receipt) => {
+      console.log(receipt);
+    });
+  }
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
       <div className="App"> 
+        <div className="py-3">
+        <p className="font-weight-bold">Current User: {this.state.activeAccount}</p>
+        <button className="btn btn-outline-danger" onClick={this.handleDisableEnablePlatform} >Circuit Breaker</button>
 
-        <h4>Current User: {this.state.activeAccount}</h4>
+        </div>
 
         <div style={{backgroundColor: '#b3d9ff'}}>
-        <h1>STORAGE</h1>
-
-          <h3>Companies -> Tokens</h3>
-            <div>
+        <h2 className="font-weight-bold py-2">STORAGE</h2>
+          <h5 className="font-weight-normal">Companies &raquo; Tokens</h5>
+            <div className="py-2">
               <ul>
                 {this.state.companiesList.map((aCompany, i) => (
                   <li onClick={ () => this.handleUseCompany(aCompany, i)} key={aCompany}>{aCompany}
@@ -329,93 +342,243 @@ class App extends Component {
               </ul>
             </div>
         </div>
-
         <div style={{backgroundColor: '#ccffcc'}}>
-        <h1>UPDATE</h1>
-          <h3>Create Company</h3>
+        <h2 className="font-weight-bold py-2">UPDATES</h2>
+        <div  className="py-2">
+          <h5 className="font-weight-normal">Create Company</h5>
           <form onSubmit={this.handleCreateCompany}>
-            <div>
-              <div>Company name: <input type="text" id='companyName' defaultValue={ this.state.companyName } onChange={this.inputChangeHandler} /></div>
-              <div>Phone: <input type="text" id='phone' defaultValue={this.state.phone} onChange={this.inputChangeHandler} /></div>
-              <div>URL: <input type="text" id='url' defaultValue={this.state.url} onChange={this.inputChangeHandler} /></div>
-              <div>DID: <input type="text" id='did' defaultValue={this.state.did} onChange={this.inputChangeHandler} /></div>
-              <div>Eth add: <input type="text" id='ethadd' defaultValue={this.state.ethadd} onChange={this.inputChangeHandler}  /></div>
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3"><label htmlFor="companyName" className="col-form-label">Company name</label></div>
+              <div className="col-4"><input type="text" className="form-control form-control-sm" id="companyName" defaultValue={ this.state.companyName } onChange={this.inputChangeHandler}/></div>
+              <div className="col"></div>
             </div>
-            <input type="submit" value="Create company" />
-          </form>
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3"><label htmlFor="phone" className="col-form-label">Phone</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="phone" defaultValue={ this.state.phone } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+            </div>
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3"><label htmlFor="url" className="col-form-label">URL</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="url" defaultValue={ this.state.url } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+            </div>
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3"><label htmlFor="did" className="col-form-label">DID</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="did" defaultValue={ this.state.did } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+            </div> 
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3"><label htmlFor="ethadd" className="col-form-label">ETH Add</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="ethadd" defaultValue={ this.state.ethadd } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+            </div>
 
-          <h3>Create Company Token</h3>
-          <form onSubmit={this.handleCreateToken}>
-            <div>
-            <div>Company address:
-              <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
-            <div>Token name:
-              <input type="text" id='tokenName' defaultValue={this.state.tokenName} onChange={this.inputChangeHandler} /></div>
-              <div>Symbol:
-              <input type="text" id='symbol' defaultValue={this.state.symbol} onChange={this.inputChangeHandler} /></div>
-              <div>Total supply:
-              <input type="text" id='totalSupply' defaultValue={this.state.totalSupply} onChange={this.inputChangeHandler} /></div>
-            </div>
-            <input type="submit" value="Create Token" />
-          </form>
-
-          <h3>Transfer Token</h3>
-          <form onSubmit={this.handleTransferToken}>
-            <div>
-            <div>Token address:
-              <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
-              <div>To:
-              <input type="text" id='destUser' defaultValue={this.state.destUser} onChange={this.inputChangeHandler} /><button onClick={this.handlePreviousAccount}>&laquo;Prev</button> [{this.state.accountNumber}] <button onClick={this.handleNextAccount}>Next&raquo;</button></div>
-              <div>Amount:
-              <input type="text" id='amountToTransfer' defaultValue={this.state.amountToTransfer} onChange={this.inputChangeHandler} /></div>
-            </div>
-            <div><input type="submit" value="Transfer Token" /></div>
-            Result: {this.state.transferResult}
+            <input className="btn btn-outline-secondary btn-sm" type="submit" value="Create company" />
           </form>
         </div>
 
+        <div className="py-4">
+          <h5 className="font-weight-normal">Create Company Token</h5>
+          <form onSubmit={this.handleCreateToken}>
+          <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3">
+              <label htmlFor="companyAddress" className="col-form-label">Company address</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="companyAddress" defaultValue={ this.state.companyAddress } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+
+            </div>
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3">
+              <label htmlFor="tokenName" className="col-form-label">Token name</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="tokenName" defaultValue={ this.state.tokenName } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+
+            </div>
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3">
+              <label htmlFor="symbol" className="col-form-label">Symbol</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="symbol" defaultValue={ this.state.symbol } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+            </div>
+            <div className="form-row">
+            <div className="col"></div>
+            <div className="col-3">
+              <label htmlFor="totalSupply" className="col-form-label">Total supply</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="totalSupply" defaultValue={ this.state.totalSupply } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+
+            </div>
+            <input  className="btn btn-outline-secondary btn-sm" type="submit" value="Create Token" />
+          </form>
+        </div>
+
+        <div className="py-4">
+          <h5 className="font-weight-normal">Transfer Token</h5>
+          <form onSubmit={this.handleTransferToken}>
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3">
+
+              <label htmlFor="tokenAddress" className="col-form-label">Token address</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="tokenAddress" defaultValue={ this.state.tokenAddress } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+
+            </div>
+            <div className="form-row">
+            <div className="col"></div>
+            <div className="col-3">
+              <label htmlFor="destUser" className="col-form-label">To</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="destUser" defaultValue={ this.state.destUser } onChange={this.inputChangeHandler}/>
+                
+              </div>
+              <div className="col"><button className="btn btn-outline-secondary btn-sm" onClick={this.handlePreviousAccount}>&laquo;Prev</button> [{this.state.accountNumber}] <button className="btn btn-outline-secondary btn-sm" onClick={this.handleNextAccount}>Next&raquo;</button></div>
+
+            </div>
+            <div className="form-row">
+            <div className="col"></div>
+            <div className="col-3">
+              <label htmlFor="amountToTransfer" className="col-form-label">Amount</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="amountToTransfer" defaultValue={ this.state.amountToTransfer } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+
+            </div>
+            <div>
+              <input  className="btn btn-outline-secondary btn-sm" type="submit" value="Transfer Token" />
+            </div>
+            Result: {this.state.transferResult}
+
+          </form>
+        </div>
+
+        </div> {/** Color Div */}
+
         <div style={{backgroundColor: '#ffd1b3'}}>
-        <h1>QUERIES</h1>
-          <h3>Get User Token Balance</h3>
+        <h2 className="font-weight-bold py-2">QUERIES</h2>
+        <div className="py-2">
+          <h5 className="font-weight-normal">Get User Token Balance</h5>
           <form onSubmit={this.handleUserTokenBalance}>
-            <div>
-            <div>Company address:
-              <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
-            <div>Token address:
-              <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
-              <div>User Address:
-              <input type="text" id='userAddress' defaultValue={this.state.userAddress} onChange={this.inputChangeHandler} /> <button onClick={this.handleCurrentAddress}>My address</button></div>
+            <div className="form-row">
+            <div className="col"></div>
+            <div className="col-3">
+              <label htmlFor="companyAddress" className="col-form-label">Company address</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="companyAddress" defaultValue={ this.state.companyAddress } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+
             </div>
-            <div><input type="submit" value="Get Balance" /></div>
+            <div className="form-row">
+            <div className="col"></div>
+            <div className="col-3">
+              <label htmlFor="tokenAddress" className="col-form-label">Token address</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="tokenAddress" defaultValue={ this.state.tokenAddress } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+
+            </div>
+            <div className="form-row">
+            <div className="col"></div>
+            <div className="col-3">
+              <label htmlFor="userAddress" className="col-form-label">User address</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="userAddress" defaultValue={ this.state.userAddress } onChange={this.inputChangeHandler}/>
+                
+              </div>
+              <div className="col"><button  className="btn btn-outline-secondary btn-sm" onClick={this.handleCurrentAddress}>My address</button></div>
+
+            </div>
+            <div>
+              <input  className="btn btn-outline-secondary btn-sm" type="submit" value="Get Balance"/>
+            </div>
             Result:{this.state.userTokenBalance}
-          </form>
 
-          <h3>Find Company Owner</h3>
+          </form>
+        </div>
+
+
+        <div className="py-4">
+          <h5 className="font-weight-normal">Find Company Owner</h5>
           <form onSubmit={this.handleFindBCOwner}>
-            <div>
-            <div>Company address:
-              <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
-            </div>
-            <div><input type="submit" value="Get Owner" /></div>
-            Result: {this.state.companyOwner}
-          </form>
+            <div className="form-row">
+            <div className="col"></div>
+            <div className="col-3">
+              <label htmlFor="companyAddress" className="col-form-label">Company address</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="companyAddress" defaultValue={ this.state.companyAddress } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
 
-          <h3>Find Company Token</h3>
-          <form onSubmit={this.handleFindCompanyToken}>
-            <div>
-            <div>Company address:
-              <input type="text" id='companyAddress' defaultValue={this.state.companyAddress} onChange={this.inputChangeHandler} /></div>
-            <div>Token address:
-              <input type="text" id='tokenAddress' defaultValue={this.state.tokenAddress} onChange={this.inputChangeHandler} /></div>
-            
             </div>
-            <div><input type="submit" value="Get Company Token" /></div>
+            <div>
+              <input  className="btn btn-outline-secondary btn-sm" type="submit" value="Get Owner" />
+              </div>
+              Result: {this.state.companyOwner}
+          </form>
+        </div>
+
+        <div className="py-4">
+          <h5 className="font-weight-normal">Find Company Token</h5>
+          <form onSubmit={this.handleFindCompanyToken}>
+            <div className="form-row">
+            <div className="col"></div>
+            <div className="col-3">
+              <label htmlFor="companyAddress" className="col-form-label">Company address</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="companyAddress" defaultValue={ this.state.companyAddress } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+
+            </div>
+            <div className="form-row">
+              <div className="col"></div>
+              <div className="col-3">
+              <label htmlFor="tokenAddress" className="col-form-label">Token address</label></div>
+              <div className="col-4">
+                <input type="text" className="form-control form-control-sm" id="tokenAddress" defaultValue={ this.state.tokenAddress } onChange={this.inputChangeHandler}/>
+              </div>
+              <div className="col"></div>
+            </div>
+
+            <div>
+              <input  className="btn btn-outline-secondary btn-sm" type="submit" value="Get Company Token" />
+            </div>
             Result: {this.state.tokenFound}
           </form>
         </div>
+        </div> {/** Colour div */}
         
         <div>
-          <h3>IPFS Image example</h3>
+          <h5 className="font-weight-normal">IPFS Image example</h5>
           <img alt='Loading...'   src='https://ipfs.infura.io:5001/api/v0/cat?arg=QmQbSJhdokBuazR7LXFpGcVQVEMmUGdxeCq2GNbLjN88yV'/>        
           {/* <img alt='Loading...' src='https://gateway.ipfs.io/ipfs/QmQbSJhdokBuazR7LXFpGcVQVEMmUGdxeCq2GNbLjN88yV/' />
             <img alt='Loading...'   src='https://gateway.ipfs.io/ipfs/QmTDfwTbTkq8k36wPcpAaJWKgUkdmfUFWotWEmKJscHFxE'/>
