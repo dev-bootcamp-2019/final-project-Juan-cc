@@ -3,10 +3,20 @@ pragma solidity ^0.5.0;
 import "./KMToken.sol";
 import "./Owned.sol";
 import "./BC.sol";
-import "./Storage.sol";
+import "./CompanyFactory.sol";
 
 
-contract KMP is Owned, Storage {
+contract KMP is Owned {
+    using CompanyFactory for CompanyFactory.Data;
+
+    CompanyFactory.Data private companyFactory;
+  
+    uint8 constant public MAX_OWNER_COMPANIES = 3; // 1 owner could register up to 3 companies.
+    uint8 constant public MAX_COMPANY_TOKENS = 5; // 1 company could register up to 5 tokens.
+    address constant public EMPTY_ADDRESS = address(0); 
+
+    bool internal stopped = false;  // Circuit breaker
+
 
     // Events
     event KMPCompanyCreated(address company, string name, address indexed owner);
@@ -15,14 +25,6 @@ contract KMP is Owned, Storage {
     constructor() Owned() public {
     }
 
-    function setup(address bcFactoryAddress, address tokenFactoryAddress) 
-        ownerOnly(msg.sender) 
-        external 
-    {
-        bcFactory = bcFactoryAddress; // Owner will be KMP contract.
-        tkFactory = tokenFactoryAddress; // Owner will be KMP contract.
-
-    }
     
     // Circuit breaker modifier
     modifier stopInEmergency() { 
@@ -34,23 +36,19 @@ contract KMP is Owned, Storage {
         require(msg.sender == companyOwner, "Only company owner can execute this function");
         _;
     }
-     
+    
+    
     function createBCCompany(string calldata _companyName, string calldata _phone, string calldata _url, string calldata _did, address _uPortAddress) 
         external 
         stopInEmergency()
         returns(BC)
     {
-        (bool companyCreated, bytes memory returnData) = bcFactory.delegatecall(
-            abi.encodeWithSignature("createBCCompany(string,string,string,string,address)",
-            _companyName, _phone, _url, _did, _uPortAddress));
-        if (companyCreated){
-            (BC newCompany) = abi.decode(returnData, (BC));
-            emit KMPCompanyCreated(address(newCompany), newCompany.name(), newCompany.owner());
-            return newCompany;
-        }
-        revert("Your company was not created. Probably you reached MAX_LIMIT?. Reverting state changes."); 
+        BC newCompany = companyFactory.createBCCompany(_companyName, _phone, _url, _did, _uPortAddress);
+        emit KMPCompanyCreated(address(newCompany), newCompany.name(), newCompany.owner());
+        return newCompany;
     } 
-    
+
+
     function createTokenForBCCompany(address _bcCompany, string calldata _name, string calldata _symbol, uint256 _initialAmount) 
         external 
         stopInEmergency()
@@ -58,16 +56,9 @@ contract KMP is Owned, Storage {
         returns(KMToken)
     {
            
-        (bool tokenCreated, bytes memory returnData) = tkFactory.delegatecall(
-            abi.encodeWithSignature("createTokenForBCCompany(address,string,string,uint256)",
-            _bcCompany, _name, _symbol, _initialAmount));
-        if (tokenCreated){
-            (KMToken newToken) = abi.decode(returnData, (KMToken));
-            emit KMPTokenCreated(_bcCompany, address(newToken), _name, _symbol, _initialAmount);
-            return newToken;
-        }
-        revert("Unfortunately your token was not created correctly. Please contact KMP Support. Reverting state changes."); 
-        
+        KMToken newToken = companyFactory.createTokenForBCCompany(_bcCompany, _name, _symbol, _initialAmount);
+        emit KMPTokenCreated(_bcCompany, address(newToken), _name, _symbol, _initialAmount);
+        return newToken;        
     }
  
     function getUserTokenBalance(address _company, address _token, address _user)
@@ -100,13 +91,13 @@ contract KMP is Owned, Storage {
         view
         returns (address)
     {
-        address[MAX_OWNER_COMPANIES] memory ownerCompanies = companies[msg.sender];
+        address[MAX_OWNER_COMPANIES] memory ownerCompanies = companyFactory.companies[msg.sender];
         for (uint8 i = 0; i < MAX_OWNER_COMPANIES; i++) {
             if (ownerCompanies[i] == aCompany){
                 return BC(ownerCompanies[i]).owner();
             }
         }
-        revert("Company address not found.");
+        return EMPTY_ADDRESS;
     }
     
 
@@ -116,7 +107,7 @@ contract KMP is Owned, Storage {
         returns (bool)
     {
         require(msg.sender == findBCowner(aCompany), "Only company owner can search for tokens.");
-        address[MAX_COMPANY_TOKENS] memory companyTokens = tokens[aCompany];
+        address[MAX_COMPANY_TOKENS] memory companyTokens = companyFactory.tokens[aCompany];
         for (uint8 i = 0; i < MAX_COMPANY_TOKENS; i++) {
             if (companyTokens[i] == aToken){
                 return true; // Token found.
