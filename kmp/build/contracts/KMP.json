@@ -10168,6 +10168,15 @@
     "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
   },
   "networks": {
+    "4": {
+      "events": {},
+      "links": {
+        "CompanyFactory": "0x91E8400Fd5A19c5254Ab81B296700927F0b1973f",
+        "TokenFactory": "0x3e4950d737B73A07437F52D0CF890a9FA6775614"
+      },
+      "address": "0x951850fA6fAddf077A6Bc953b09f344A24c33aCC",
+      "transactionHash": "0x6e4608c5b05ee09c49430619949cd15c8df26cf09299b5df1d66dcee9a7406e9"
+    },
     "4447": {
       "events": {},
       "links": {
@@ -10181,15 +10190,15 @@
       "events": {},
       "links": {
         "BCFactory": "0x2C69CD4369fd852493f97dd6199ba924707264c1",
-        "TokenFactory": "0x22D91Ac0AC3df751c4C387C8207b51Ef66eBe768",
-        "CompanyFactory": "0x89F85830C76ed8B77128c38C54e3D1494e78e6bb"
+        "TokenFactory": "0x24599E97D89a5e15E11828473f87007a7b957BB1",
+        "CompanyFactory": "0x287e1FBF844a1F437A6B8e6cd0d215764f028163"
       },
-      "address": "0x2a9DFe38C49E073128598c3Ce23639329D594d85",
-      "transactionHash": "0x7ed2adca53eb17103ff908c74330aee0be114078c86563149dd5c56b408216a2"
+      "address": "0xD7F2924C75Faa20E83B5cf7682a33E2EDaFAa083",
+      "transactionHash": "0xa8b1ca492100ea0f0e3c76dc48e43e70a7183266a1f823aa83629182519474d0"
     }
   },
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-23T23:03:54.873Z",
+  "updatedAt": "2019-01-23T23:31:28.967Z",
   "devdoc": {
     "methods": {}
   },
