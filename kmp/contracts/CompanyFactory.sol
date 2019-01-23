@@ -52,27 +52,6 @@ library CompanyFactory {
         return nextCompanyAvailablePosition(self);
     }
 
-    function findBCownerUtil(Data storage self, address aCompany)
-        external
-        view
-        returns (address)
-    {
-        return findBCowner(self, aCompany);
-    }
-
-    function findBCowner(Data storage self, address aCompany)
-        internal
-        view
-        returns (address)
-    {
-        address[MAX_OWNER_COMPANIES] memory ownerCompanies = self.companies[msg.sender];
-        for (uint8 i = 0; i < MAX_OWNER_COMPANIES; i++) {
-            if (ownerCompanies[i] == aCompany){
-                return BC(ownerCompanies[i]).owner();
-            }
-        }
-        return EMPTY_ADDRESS;
-    }
    
 
     

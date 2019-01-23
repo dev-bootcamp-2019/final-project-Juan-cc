@@ -30,24 +30,24 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x60806040526000600360146101000a81548160ff02191690831515021790555034801561002b57600080fd5b5060e08061003a6000396000f3fe6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806338abeb4314604e5780634642e0ba14607c575b600080fd5b348015605957600080fd5b50606060aa565b604051808260ff1660ff16815260200191505060405180910390f35b348015608757600080fd5b50608e60af565b604051808260ff1660ff16815260200191505060405180910390f35b600581565b60038156fea165627a7a72305820364905d5e4d165a47c75199251d1148a0add65d7338b2888348e453e0e4d5aa90029",
-  "deployedBytecode": "0x6080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806338abeb4314604e5780634642e0ba14607c575b600080fd5b348015605957600080fd5b50606060aa565b604051808260ff1660ff16815260200191505060405180910390f35b348015608757600080fd5b50608e60af565b604051808260ff1660ff16815260200191505060405180910390f35b600581565b60038156fea165627a7a72305820364905d5e4d165a47c75199251d1148a0add65d7338b2888348e453e0e4d5aa90029",
-  "sourceMap": "25:609:10:-;;;606:5;582:29;;;;;;;;;;;;;;;;;;;;25:609;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:609:10;;;;;;;",
-  "deployedSourceMap": "25:609:10:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;167:44;;8:9:-1;5:2;;;30:1;27;20:12;5:2;167:44:10;;;;;;;;;;;;;;;;;;;;;;;;;;;71:45;;8:9:-1;5:2;;;30:1;27;20:12;5:2;71:45:10;;;;;;;;;;;;;;;;;;;;;;;;;;;167:44;210:1;167:44;:::o;71:45::-;115:1;71:45;:::o",
+  "bytecode": "0x60806040526003805460a060020a60ff021916905534801561002057600080fd5b5060bd8061002f6000396000f3fe60806040526004361060485763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166338abeb438114604d5780634642e0ba146075575b600080fd5b348015605857600080fd5b50605f6087565b6040805160ff9092168252519081900360200190f35b348015608057600080fd5b50605f608c565b600581565b60038156fea165627a7a72305820ae2f8985f2fe033abb94988451500da3808177d05c43abedd354f9e06b9c473f0029",
+  "deployedBytecode": "0x60806040526004361060485763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166338abeb438114604d5780634642e0ba146075575b600080fd5b348015605857600080fd5b50605f6087565b6040805160ff9092168252519081900360200190f35b348015608057600080fd5b50605f608c565b600581565b60038156fea165627a7a72305820ae2f8985f2fe033abb94988451500da3808177d05c43abedd354f9e06b9c473f0029",
+  "sourceMap": "25:609:10:-;;;582:29;;;-1:-1:-1;;;;;;582:29:10;;;25:609;5:2:-1;;;;30:1;27;20:12;5:2;25:609:10;;;;;;;",
+  "deployedSourceMap": "25:609:10:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;167:44;;8:9:-1;5:2;;;30:1;27;20:12;5:2;167:44:10;;;;;;;;;;;;;;;;;;;;;;;71:45;;8:9:-1;5:2;;;30:1;27;20:12;5:2;71:45:10;;;;167:44;210:1;167:44;:::o;71:45::-;115:1;71:45;:::o",
   "source": "pragma solidity ^0.5.0;\n\ncontract Storage {\n     // Shared storage\n    uint8 constant public MAX_OWNER_COMPANIES = 3; // 1 owner could register up to 5 companies.\n    uint8 constant public MAX_COMPANY_TOKENS = 5; // 1 company could register up to 10 tokens.\n    address constant internal EMPTY_ADDRESS = address(0); \n    mapping (address => address[MAX_OWNER_COMPANIES]) internal companies; // (owner => companies[5]) \n    mapping (address => address[MAX_COMPANY_TOKENS]) internal tokens; // (company => token[]))\n    address internal bcFactory;\n    address internal tkFactory;\n    bool internal stopped = false;  // Circuit breaker\n}\n",
   "sourcePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
   "ast": {
     "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
     "exportedSymbols": {
       "Storage": [
-        1589
+        1524
       ]
     },
-    "id": 1590,
+    "id": 1525,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1558,
+        "id": 1493,
         "literals": [
           "solidity",
           "^",
@@ -63,19 +63,19 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1589,
+        "id": 1524,
         "linearizedBaseContracts": [
-          1589
+          1524
         ],
         "name": "Storage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 1561,
+            "id": 1496,
             "name": "MAX_OWNER_COMPANIES",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "71:45:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -84,7 +84,7 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 1559,
+              "id": 1494,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
               "src": "71:5:10",
@@ -96,7 +96,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "33",
-              "id": 1560,
+              "id": 1495,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -115,10 +115,10 @@
           },
           {
             "constant": true,
-            "id": 1564,
+            "id": 1499,
             "name": "MAX_COMPANY_TOKENS",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "167:44:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -127,7 +127,7 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 1562,
+              "id": 1497,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
               "src": "167:5:10",
@@ -139,7 +139,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "35",
-              "id": 1563,
+              "id": 1498,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -158,10 +158,10 @@
           },
           {
             "constant": true,
-            "id": 1569,
+            "id": 1504,
             "name": "EMPTY_ADDRESS",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "262:52:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -170,7 +170,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1565,
+              "id": 1500,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "262:7:10",
@@ -186,7 +186,7 @@
                 {
                   "argumentTypes": null,
                   "hexValue": "30",
-                  "id": 1567,
+                  "id": 1502,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -209,7 +209,7 @@
                     "typeString": "int_const 0"
                   }
                 ],
-                "id": 1566,
+                "id": 1501,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
@@ -222,7 +222,7 @@
                 },
                 "typeName": "address"
               },
-              "id": 1568,
+              "id": 1503,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -240,10 +240,10 @@
           },
           {
             "constant": false,
-            "id": 1575,
+            "id": 1510,
             "name": "companies",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "321:68:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -252,9 +252,9 @@
               "typeString": "mapping(address => address[3])"
             },
             "typeName": {
-              "id": 1574,
+              "id": 1509,
               "keyType": {
-                "id": 1570,
+                "id": 1505,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "330:7:10",
@@ -271,7 +271,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 1571,
+                  "id": 1506,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "341:7:10",
@@ -281,14 +281,14 @@
                     "typeString": "address"
                   }
                 },
-                "id": 1573,
+                "id": 1508,
                 "length": {
                   "argumentTypes": null,
-                  "id": 1572,
+                  "id": 1507,
                   "name": "MAX_OWNER_COMPANIES",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1561,
+                  "referencedDeclaration": 1496,
                   "src": "349:19:10",
                   "typeDescriptions": {
                     "typeIdentifier": null,
@@ -308,10 +308,10 @@
           },
           {
             "constant": false,
-            "id": 1581,
+            "id": 1516,
             "name": "tokens",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "423:64:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -320,9 +320,9 @@
               "typeString": "mapping(address => address[5])"
             },
             "typeName": {
-              "id": 1580,
+              "id": 1515,
               "keyType": {
-                "id": 1576,
+                "id": 1511,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "432:7:10",
@@ -339,7 +339,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 1577,
+                  "id": 1512,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "443:7:10",
@@ -349,14 +349,14 @@
                     "typeString": "address"
                   }
                 },
-                "id": 1579,
+                "id": 1514,
                 "length": {
                   "argumentTypes": null,
-                  "id": 1578,
+                  "id": 1513,
                   "name": "MAX_COMPANY_TOKENS",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1564,
+                  "referencedDeclaration": 1499,
                   "src": "451:18:10",
                   "typeDescriptions": {
                     "typeIdentifier": null,
@@ -376,10 +376,10 @@
           },
           {
             "constant": false,
-            "id": 1583,
+            "id": 1518,
             "name": "bcFactory",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "518:26:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -388,7 +388,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1582,
+              "id": 1517,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "518:7:10",
@@ -403,10 +403,10 @@
           },
           {
             "constant": false,
-            "id": 1585,
+            "id": 1520,
             "name": "tkFactory",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "550:26:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -415,7 +415,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1584,
+              "id": 1519,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "550:7:10",
@@ -430,10 +430,10 @@
           },
           {
             "constant": false,
-            "id": 1588,
+            "id": 1523,
             "name": "stopped",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "582:29:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -442,7 +442,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 1586,
+              "id": 1521,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "582:4:10",
@@ -454,7 +454,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "66616c7365",
-              "id": 1587,
+              "id": 1522,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -472,7 +472,7 @@
             "visibility": "internal"
           }
         ],
-        "scope": 1590,
+        "scope": 1525,
         "src": "25:609:10"
       }
     ],
@@ -482,14 +482,14 @@
     "absolutePath": "/home/juan/consensys/otherrepos/final-project-Juan-cc/kmp/contracts/Storage.sol",
     "exportedSymbols": {
       "Storage": [
-        1589
+        1524
       ]
     },
-    "id": 1590,
+    "id": 1525,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1558,
+        "id": 1493,
         "literals": [
           "solidity",
           "^",
@@ -505,19 +505,19 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1589,
+        "id": 1524,
         "linearizedBaseContracts": [
-          1589
+          1524
         ],
         "name": "Storage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 1561,
+            "id": 1496,
             "name": "MAX_OWNER_COMPANIES",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "71:45:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -526,7 +526,7 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 1559,
+              "id": 1494,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
               "src": "71:5:10",
@@ -538,7 +538,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "33",
-              "id": 1560,
+              "id": 1495,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -557,10 +557,10 @@
           },
           {
             "constant": true,
-            "id": 1564,
+            "id": 1499,
             "name": "MAX_COMPANY_TOKENS",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "167:44:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -569,7 +569,7 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 1562,
+              "id": 1497,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
               "src": "167:5:10",
@@ -581,7 +581,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "35",
-              "id": 1563,
+              "id": 1498,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -600,10 +600,10 @@
           },
           {
             "constant": true,
-            "id": 1569,
+            "id": 1504,
             "name": "EMPTY_ADDRESS",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "262:52:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -612,7 +612,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1565,
+              "id": 1500,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "262:7:10",
@@ -628,7 +628,7 @@
                 {
                   "argumentTypes": null,
                   "hexValue": "30",
-                  "id": 1567,
+                  "id": 1502,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -651,7 +651,7 @@
                     "typeString": "int_const 0"
                   }
                 ],
-                "id": 1566,
+                "id": 1501,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
@@ -664,7 +664,7 @@
                 },
                 "typeName": "address"
               },
-              "id": 1568,
+              "id": 1503,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -682,10 +682,10 @@
           },
           {
             "constant": false,
-            "id": 1575,
+            "id": 1510,
             "name": "companies",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "321:68:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -694,9 +694,9 @@
               "typeString": "mapping(address => address[3])"
             },
             "typeName": {
-              "id": 1574,
+              "id": 1509,
               "keyType": {
-                "id": 1570,
+                "id": 1505,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "330:7:10",
@@ -713,7 +713,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 1571,
+                  "id": 1506,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "341:7:10",
@@ -723,14 +723,14 @@
                     "typeString": "address"
                   }
                 },
-                "id": 1573,
+                "id": 1508,
                 "length": {
                   "argumentTypes": null,
-                  "id": 1572,
+                  "id": 1507,
                   "name": "MAX_OWNER_COMPANIES",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1561,
+                  "referencedDeclaration": 1496,
                   "src": "349:19:10",
                   "typeDescriptions": {
                     "typeIdentifier": null,
@@ -750,10 +750,10 @@
           },
           {
             "constant": false,
-            "id": 1581,
+            "id": 1516,
             "name": "tokens",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "423:64:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -762,9 +762,9 @@
               "typeString": "mapping(address => address[5])"
             },
             "typeName": {
-              "id": 1580,
+              "id": 1515,
               "keyType": {
-                "id": 1576,
+                "id": 1511,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "432:7:10",
@@ -781,7 +781,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 1577,
+                  "id": 1512,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "443:7:10",
@@ -791,14 +791,14 @@
                     "typeString": "address"
                   }
                 },
-                "id": 1579,
+                "id": 1514,
                 "length": {
                   "argumentTypes": null,
-                  "id": 1578,
+                  "id": 1513,
                   "name": "MAX_COMPANY_TOKENS",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1564,
+                  "referencedDeclaration": 1499,
                   "src": "451:18:10",
                   "typeDescriptions": {
                     "typeIdentifier": null,
@@ -818,10 +818,10 @@
           },
           {
             "constant": false,
-            "id": 1583,
+            "id": 1518,
             "name": "bcFactory",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "518:26:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -830,7 +830,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1582,
+              "id": 1517,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "518:7:10",
@@ -845,10 +845,10 @@
           },
           {
             "constant": false,
-            "id": 1585,
+            "id": 1520,
             "name": "tkFactory",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "550:26:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -857,7 +857,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1584,
+              "id": 1519,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "550:7:10",
@@ -872,10 +872,10 @@
           },
           {
             "constant": false,
-            "id": 1588,
+            "id": 1523,
             "name": "stopped",
             "nodeType": "VariableDeclaration",
-            "scope": 1589,
+            "scope": 1524,
             "src": "582:29:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -884,7 +884,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 1586,
+              "id": 1521,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "582:4:10",
@@ -896,7 +896,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "66616c7365",
-              "id": 1587,
+              "id": 1522,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -914,7 +914,7 @@
             "visibility": "internal"
           }
         ],
-        "scope": 1590,
+        "scope": 1525,
         "src": "25:609:10"
       }
     ],
@@ -926,7 +926,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-23T18:46:42.617Z",
+  "updatedAt": "2019-01-23T23:03:48.969Z",
   "devdoc": {
     "methods": {}
   },

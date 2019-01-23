@@ -21,7 +21,7 @@ library TokenFactory {
         external
         returns (KMToken)
     {
-        require(msg.sender == CompanyFactory.findBCownerUtil(self, _bcCompany)); // 2nd time checking correct ownership.
+        require(msg.sender == findBCowner(self, _bcCompany)); // 2nd time checking correct ownership.
         KMToken newToken = new KMToken(_bcCompany, msg.sender, _name, _symbol, _initialAmount);
         uint8 nextPosition = nextTokenAvailablePosition(self, address(_bcCompany));
         self.tokens[_bcCompany][nextPosition] = address(newToken);
@@ -35,7 +35,7 @@ library TokenFactory {
         view
         returns (uint8)
     {
-        require(msg.sender == CompanyFactory.findBCownerUtil(self, aCompany), "Only company owner can search for tokens.");
+        require(msg.sender == findBCowner(self, aCompany), "Only company owner can search for tokens.");
         address[MAX_COMPANY_TOKENS] memory companyTokens = self.tokens[aCompany];
         for (uint8 i = 0; i < MAX_COMPANY_TOKENS; i++) {
             if (companyTokens[i] == EMPTY_ADDRESS){
@@ -45,5 +45,27 @@ library TokenFactory {
        return MAX_COMPANY_TOKENS; // No empty spot available. 
     }
 
+    function findBCownerUtil(CompanyFactory.Data storage self, address aCompany)
+        external
+        view
+        returns (address)
+    {
+        return findBCowner(self, aCompany);
+    }
+
+    function findBCowner(CompanyFactory.Data storage self, address aCompany)
+        internal
+        view
+        returns (address)
+    {
+        address[MAX_OWNER_COMPANIES] memory ownerCompanies = self.companies[msg.sender];
+        for (uint8 i = 0; i < MAX_OWNER_COMPANIES; i++) {
+            if (ownerCompanies[i] == aCompany){
+                return BC(ownerCompanies[i]).owner();
+            }
+        }
+        return EMPTY_ADDRESS;
+    }
+   
     
 }

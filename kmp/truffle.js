@@ -5,6 +5,12 @@ var mnemonic = "script viable circle vessel argue doll page clay practice toddle
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
+  solc: {
+    optimizer: {
+      "enabled": true,
+      "runs": 200
+    }
+  },
 
   networks: {
     development: {
@@ -21,7 +27,7 @@ module.exports = {
     coverage: {
       host: "127.0.0.1",
       network_id: "*",
-      port: 8545,         // <-- If you change this, also set the port option in .solcover.js.
+      port: 8555,         // <-- If you change this, also set the port option in .solcover.js.
       gas: 6721975, // <-- Use this high gas value
       gasPrice: 0x01      // <-- Use this low gas price
     },
