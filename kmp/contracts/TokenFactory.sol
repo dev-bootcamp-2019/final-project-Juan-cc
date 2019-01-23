@@ -1,55 +1,42 @@
 pragma solidity ^0.5.0;
 
-import "./Owned.sol";
 import "./BC.sol";
 import "./KMToken.sol";
-import "./Storage.sol";
+import "./CompanyFactory.sol";
 
-
-contract TokenFactory is Owned, Storage {
-   
+library TokenFactory {
     
-    function createTokenForBCCompany(address _bcCompany, string calldata _name, string calldata _symbol, uint256 _initialAmount) 
+    // Constants
+    uint8 constant public MAX_OWNER_COMPANIES = 3; // 1 owner could register up to 3 companies.
+    uint8 constant public MAX_COMPANY_TOKENS = 5; // 1 company could register up to 10 tokens.
+    address constant internal EMPTY_ADDRESS = address(0); 
+   
+    /*struct Data {
+        mapping (address => address[MAX_OWNER_COMPANIES]) companies; // (owner => companies[3]) 
+        mapping (address => address[MAX_COMPANY_TOKENS]) tokens; // (company => token[]))
+    }*/
+
+    
+    function createTokenForBCCompany(CompanyFactory.Data storage self, address _bcCompany, string calldata _name, string calldata _symbol, uint256 _initialAmount) 
         external
         returns (KMToken)
     {
-        require(msg.sender == findBCowner(_bcCompany)); // 2nd time checking correct ownership.
+        require(msg.sender == findBCowner(self, _bcCompany)); // 2nd time checking correct ownership.
         KMToken newToken = new KMToken(_bcCompany, msg.sender, _name, _symbol, _initialAmount);
-        uint8 nextPosition = nextTokenAvailablePosition(address(_bcCompany));
-        tokens[_bcCompany][nextPosition] = address(newToken);
+        uint8 nextPosition = nextTokenAvailablePosition(self, address(_bcCompany));
+        self.tokens[_bcCompany][nextPosition] = address(newToken);
         return newToken;
     }
     
 
-    function findBCownerUtil(address aCompany)
-        external
-        view
-        returns (address)
-    {
-        return findBCowner(aCompany);
-    }
-
-    function findBCowner(address aCompany)
-        internal
-        view
-        returns (address)
-    {
-        address[MAX_OWNER_COMPANIES] memory ownerCompanies = companies[msg.sender];
-        for (uint8 i = 0; i < MAX_OWNER_COMPANIES; i++) {
-            if (ownerCompanies[i] == aCompany){
-                return BC(ownerCompanies[i]).owner();
-            }
-        }
-        revert("Company address not found.");
-    }
     
-    function nextTokenAvailablePosition(address aCompany)
+    function nextTokenAvailablePosition(CompanyFactory.Data storage self, address aCompany)
         internal
         view
         returns (uint8)
     {
-        require(msg.sender == findBCowner(aCompany), "Only company owner can search for tokens.");
-        address[MAX_COMPANY_TOKENS] memory companyTokens = tokens[aCompany];
+        require(msg.sender == findBCowner(self, aCompany), "Only company owner can search for tokens.");
+        address[MAX_COMPANY_TOKENS] memory companyTokens = self.tokens[aCompany];
         for (uint8 i = 0; i < MAX_COMPANY_TOKENS; i++) {
             if (companyTokens[i] == EMPTY_ADDRESS){
                 return i; // first position available.
@@ -58,5 +45,27 @@ contract TokenFactory is Owned, Storage {
        return MAX_COMPANY_TOKENS; // No empty spot available. 
     }
 
+    function findBCownerUtil(CompanyFactory.Data storage self, address aCompany)
+        external
+        view
+        returns (address)
+    {
+        return findBCowner(self, aCompany);
+    }
+
+    function findBCowner(CompanyFactory.Data storage self, address aCompany)
+        internal
+        view
+        returns (address)
+    {
+        address[MAX_OWNER_COMPANIES] memory ownerCompanies = self.companies[msg.sender];
+        for (uint8 i = 0; i < MAX_OWNER_COMPANIES; i++) {
+            if (ownerCompanies[i] == aCompany){
+                return BC(ownerCompanies[i]).owner();
+            }
+        }
+        return EMPTY_ADDRESS;
+    }
+   
     
 }
