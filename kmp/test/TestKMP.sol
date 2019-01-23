@@ -5,7 +5,6 @@ import "truffle/DeployedAddresses.sol";
 import "../contracts/KMP.sol";
 import "../contracts/BC.sol";
 import "../contracts/KMToken.sol";
-import "./ThrowProxy.sol";
 
 
 contract TestKMP {
@@ -30,10 +29,12 @@ contract TestKMP {
         string memory companyName = "Some  Name";
         BC newBc = kmp.createBCCompany(companyName, "123456789", "www.google.com", "did:eth:0x2f3fcf4c3", SOME_ADDRESS);
         Assert.equal(newBc.name(), companyName, "Company name is incorrect.");
+  
+
     }
     
     
-    function testCreateToken() public{
+    function testCreateToken() public {
         KMToken aToken = kmp.createTokenForBCCompany(address(bc), "AnotherToken", "ATK", TOTAL_SUPPLY);
         Assert.notEqual(address(aToken), address(token), "New token should have been created.");
         Assert.equal(aToken.totalSupply(), TOTAL_SUPPLY, "Total supply is incorrect");
@@ -63,19 +64,12 @@ contract TestKMP {
         Assert.equal(owner, bc.owner(), "BC owner found not correct.");
     }
 
-    function testFindBCOwnerNotPresent() public {
-        bytes memory payload = abi.encodeWithSignature("findBCownerUtil(address)", SOME_ADDRESS);
-        (bool result,) = address(kmp).call(payload);
-        Assert.isFalse(result, "Exception was expected finding BC owner.");
+    function testFindBCOwnerNotFound() public {
+        address owner = kmp.findBCownerUtil(address(SOME_ADDRESS));
+        Assert.equal(owner, address(0), "We found an owner and we shouldn't.");
     }
 
-    function testFindBCOwnerNotFound() public {
-        bytes memory payload = abi.encodeWithSignature("findBCownerUtil(address)", SOME_ADDRESS);
-        (bool result, ) = address(kmp).call(payload);
-        Assert.isFalse(result, "Onwer found while we shouldn't find this fake owner.");
-    } 
-
-
+    
 }
 
 
