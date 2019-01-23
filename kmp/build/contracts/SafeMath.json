@@ -308,10 +308,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "605:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -534,10 +534,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "921:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -836,10 +836,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "1282:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -1219,10 +1219,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "1535:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -1445,10 +1445,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "1805:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -1939,10 +1939,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "605:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -2165,10 +2165,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "921:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -2467,10 +2467,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "1282:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -2850,10 +2850,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "1535:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -3076,10 +3076,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1917,
-                        1918
+                        1741,
+                        1742
                       ],
-                      "referencedDeclaration": 1917,
+                      "referencedDeclaration": 1741,
                       "src": "1805:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -3275,7 +3275,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-23T09:19:50.503Z",
+  "updatedAt": "2019-01-23T18:46:42.593Z",
   "devdoc": {
     "details": "Unsigned math operations with safety checks that revert on error",
     "methods": {},

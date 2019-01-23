@@ -4,10 +4,11 @@ import "./KMToken.sol";
 import "./Owned.sol";
 import "./BC.sol";
 import "./CompanyFactory.sol";
-
+import "./TokenFactory.sol";
 
 contract KMP is Owned {
     using CompanyFactory for CompanyFactory.Data;
+    using TokenFactory for CompanyFactory.Data;
 
     CompanyFactory.Data private companyFactory;
   

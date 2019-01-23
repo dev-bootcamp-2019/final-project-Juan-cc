@@ -265,7 +265,7 @@
         "id": 689,
         "nodeType": "ImportDirective",
         "scope": 808,
-        "sourceUnit": 1668,
+        "sourceUnit": 1557,
         "src": "25:21:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -279,10 +279,10 @@
               "id": 690,
               "name": "Owned",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1667,
+              "referencedDeclaration": 1556,
               "src": "63:5:4",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Owned_$1667",
+                "typeIdentifier": "t_contract$_Owned_$1556",
                 "typeString": "contract Owned"
               }
             },
@@ -292,7 +292,7 @@
           }
         ],
         "contractDependencies": [
-          1667
+          1556
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -300,7 +300,7 @@
         "id": 807,
         "linearizedBaseContracts": [
           807,
-          1667
+          1556
         ],
         "name": "BC",
         "nodeType": "ContractDefinition",
@@ -891,7 +891,7 @@
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1630,
+                      "referencedDeclaration": 1519,
                       "src": "786:5:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1183,7 +1183,7 @@
                         "name": "owner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1630,
+                        "referencedDeclaration": 1519,
                         "src": "951:5:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1435,7 +1435,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1914,
+                          "referencedDeclaration": 1738,
                           "src": "1168:3:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1468,7 +1468,7 @@
                       "name": "selfdestruct",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1922,
+                      "referencedDeclaration": 1746,
                       "src": "1155:12:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_payable_$returns$__$",
@@ -1506,7 +1506,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1937,
+                            "referencedDeclaration": 1761,
                             "src": "1215:4:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_BC_$807",
@@ -1653,7 +1653,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1914,
+                      "referencedDeclaration": 1738,
                       "src": "1041:3:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -1682,7 +1682,7 @@
                   "name": "ownerOnly",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1652,
+                  "referencedDeclaration": 1541,
                   "src": "1031:9:4",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$_t_address_$",
@@ -1747,7 +1747,7 @@
         "id": 689,
         "nodeType": "ImportDirective",
         "scope": 808,
-        "sourceUnit": 1668,
+        "sourceUnit": 1557,
         "src": "25:21:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1761,10 +1761,10 @@
               "id": 690,
               "name": "Owned",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1667,
+              "referencedDeclaration": 1556,
               "src": "63:5:4",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Owned_$1667",
+                "typeIdentifier": "t_contract$_Owned_$1556",
                 "typeString": "contract Owned"
               }
             },
@@ -1774,7 +1774,7 @@
           }
         ],
         "contractDependencies": [
-          1667
+          1556
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -1782,7 +1782,7 @@
         "id": 807,
         "linearizedBaseContracts": [
           807,
-          1667
+          1556
         ],
         "name": "BC",
         "nodeType": "ContractDefinition",
@@ -2373,7 +2373,7 @@
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1630,
+                      "referencedDeclaration": 1519,
                       "src": "786:5:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -2665,7 +2665,7 @@
                         "name": "owner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1630,
+                        "referencedDeclaration": 1519,
                         "src": "951:5:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -2917,7 +2917,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1914,
+                          "referencedDeclaration": 1738,
                           "src": "1168:3:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2950,7 +2950,7 @@
                       "name": "selfdestruct",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1922,
+                      "referencedDeclaration": 1746,
                       "src": "1155:12:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_payable_$returns$__$",
@@ -2988,7 +2988,7 @@
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1937,
+                            "referencedDeclaration": 1761,
                             "src": "1215:4:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_BC_$807",
@@ -3135,7 +3135,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1914,
+                      "referencedDeclaration": 1738,
                       "src": "1041:3:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -3164,7 +3164,7 @@
                   "name": "ownerOnly",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1652,
+                  "referencedDeclaration": 1541,
                   "src": "1031:9:4",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$_t_address_$",
@@ -3208,7 +3208,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.0",
-  "updatedAt": "2019-01-23T09:19:50.519Z",
+  "updatedAt": "2019-01-23T18:46:42.608Z",
   "devdoc": {
     "methods": {}
   },
