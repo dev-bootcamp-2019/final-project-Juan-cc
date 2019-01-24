@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "8"
 
-before_script:
+install:
   - cd kmp/client
   - npm install
   - cd ..
@@ -10,18 +10,24 @@ before_script:
   - npm install -g ganache-cli
   - npm install -g truffle
 
-
 script:
   - ganache-cli &
   - sleep 5
   - truffle test
 
 before_deploy: 
-  - "cd .."
+  - cd ..
 
 deploy:
   provider: heroku
   api_key:
     secure: "d180cd52-ee50-42cd-9b8b-9cd049ab21b5"
   app: kmpblockchain
- 
+
+
+before_runcoverage:
+  - testrpc > /dev/null &
+  - sleep 5
+
+runcoverage:
+  - npm run coverage && cat coverage/lcov.info | coveralls
